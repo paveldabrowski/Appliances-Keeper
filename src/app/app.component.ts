@@ -10,10 +10,17 @@ import { Client } from "./models";
 })
 export class AppComponent implements OnInit {
   clients: Observable<Client[]> | null = null;
+  sidebar: boolean = true;
+
 
   constructor(private clientsService: ClientsService) {  }
 
   ngOnInit(): void {
     this.clients = this.clientsService.getAllClients();
+  }
+
+  toggleSideBar() {
+    // this.margin = sidebar.style.width;
+    this.sidebar = !this.sidebar;
   }
 }

@@ -1,0 +1,75 @@
+
+.my-container {
+  height: 100%;
+}
+
+/*-------------------------------*/
+/*            Drawer             */
+/*-------------------------------*/
+.my-sidenav {
+  /*background-color: #393E46;*/
+}
+
+.logo {
+  height: 30rem;
+}
+
+.logo-div {
+  background-color: #393E46;
+}
+
+.mat-drawer-side {
+   border-right: 0;
+}
+
+.link-div {
+  border-right: solid 1px rgba(0,0,0,.12);
+  height: calc(100% - 30rem);
+}
+
+/*-------------------------------*/
+/*            Navbar             */
+/*-------------------------------*/
+.my-navbar {
+  top: 0;
+  width: 100%;
+  padding: 0.6rem 1rem;
+
+}
+
+.my-navbar i {
+  font-size: 3rem;
+  color: white;
+  text-shadow: 0 0 10px #fff;
+}
+
+.my-navbar button {
+  padding: 1rem 1.5rem;
+  transition: background-color 0.5s;
+}
+
+.my-navbar button:hover {
+  background-color: #393E46;
+}
+
+.my-navbar button:focus {
+  box-shadow: 0 0 0 0.25rem white;
+}
+
+/*-------------------------------*/
+/*            Content            */
+/*-------------------------------*/
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: baseline;
+  justify-content: flex-start;
+}
+
+.content .clients-table {
+  padding-left: 1rem;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
