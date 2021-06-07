@@ -9,10 +9,12 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { RouterModule } from "@angular/router";
 import { ClientsComponent } from './content/clients/clients.component';
 import { ContentModule } from "./content/content.module";
+import { DrawerComponent } from './drawer/drawer.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DrawerComponent
   ],
   imports: [
     BrowserModule,
