@@ -1,15 +1,15 @@
 <div class="d-flex" id="wrapper">
-  <!-- Sidebar-->
+
   <div [class.sb-sidenav-toggled]="toggled" class=" bg-white" id="sidebar-wrapper">
     <app-drawer></app-drawer>
   </div>
-  <!-- Page content wrapper-->
+
   <div class="content d-flex flex-column w-100">
 
     <nav class="my-navbar text-light bg-dark ">
       <div class="d-flex align-items-center">
         <button class="hamburger navbar-toggler" (click)="toggleSidebar()"><i class="fas fa-bars"></i></button>
-        <p #navbarTitle></p>
+        <p class="ms-3" #navbarTitle></p>
       </div>
     </nav>
 

@@ -30,3 +30,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-family: 'Rajdhani-Bold';
   src: url("src/assets/fonts/Rajdhani-Bold.ttf") format("truetype");
 }
+
+:root {
+--drawer-size: 25rem;
+--drawer-size-margin: calc(-1 * var(--drawer-size));
+}

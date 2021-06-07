@@ -13,7 +13,7 @@
 }
 
 .logo {
-  height: 30rem;
+  height: var(--drawer-size);
 }
 
 .logo-div {
@@ -26,5 +26,5 @@
 
 .link-div {
   border-right: solid 1px rgba(0,0,0,.12);
-  height: calc(100% - 30rem);
+  height: calc(100% - var(--drawer-size));
 }
