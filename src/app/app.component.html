@@ -1,15 +1,14 @@
-<mat-drawer-container class="my-container" autosize>
-
-
-  <mat-drawer #drawer opened class="my-sidenav h-100" mode="side">
+<div class="d-flex" id="wrapper">
+  <!-- Sidebar-->
+  <div [class.sb-sidenav-toggled]="toggled" class=" bg-white" id="sidebar-wrapper">
     <app-drawer></app-drawer>
-  </mat-drawer>
+  </div>
+  <!-- Page content wrapper-->
+  <div class="content d-flex flex-column w-100">
 
-
-  <div class="content">
     <nav class="my-navbar text-light bg-dark ">
       <div class="d-flex align-items-center">
-        <button class="hamburger navbar-toggler" (click)="drawer.toggle()"><i class="fas fa-bars"></i></button>
+        <button class="hamburger navbar-toggler" (click)="toggleSidebar()"><i class="fas fa-bars"></i></button>
         <p #navbarTitle></p>
       </div>
     </nav>
@@ -18,8 +17,7 @@
 
 
   </div>
-
-</mat-drawer-container>
+</div>
 
 
 
