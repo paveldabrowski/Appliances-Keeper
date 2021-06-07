@@ -7,9 +7,23 @@
 
 .my-sidenav a {
   text-decoration: none;
+  color: black;
   padding: 1.5rem;
   font-size: 2rem;
   font-family: 'Rajdhani-Bold', sans-serif;
+  transition: background-color 1s;
+}
+
+.my-sidenav a:hover {
+  background-color: rgba(30, 144, 255, 0.4);
+}
+
+.my-sidenav i {
+  color: red;
+  margin-right: 1rem;
+  font-size: 3rem;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .logo {
@@ -27,4 +41,8 @@
 .link-div {
   border-right: solid 1px rgba(0,0,0,.12);
   height: calc(100% - var(--drawer-size));
+}
+
+#workers-group {
+  font-size: 2.5rem;
 }
