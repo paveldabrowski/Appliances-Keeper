@@ -63,6 +63,10 @@
 /*-------------------------------*/
 /*         Main Content          */
 /*-------------------------------*/
+#wrapper {
+  overflow-x: hidden;
+}
+
 .content {
   display: flex;
   flex-direction: column;
@@ -71,11 +75,9 @@
   justify-content: flex-start;
 }
 
-
-#wrapper {
-  overflow-x: hidden;
-
+.main-body {
+  width: 100%;
+  height: 100%;
 }
-
 
 
