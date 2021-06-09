@@ -1,4 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ContentDescriptor } from "../model";
+import { TitleService } from "../../title.service";
 
 @Component({
   selector: 'content-component',
@@ -7,14 +9,14 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class ContentComponent implements OnInit {
 
-  @Output('navbar-title') navbarTitle: EventEmitter<string> = new EventEmitter<string>();
-
-  constructor() { }
+  constructor(private cd: ChangeDetectorRef, private titleService: TitleService) { }
 
   ngOnInit(): void {
+
   }
 
-  changeNavbarTitle($event: string) {
-    this.navbarTitle.emit($event)
+  changeNavbarTitle(event: any) {
+    let title = (event as ContentDescriptor).getTitle()
+    this.titleService.next(title);
   }
 }

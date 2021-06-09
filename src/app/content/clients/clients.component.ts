@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable } from "rxjs";
 import { Client } from "../../models";
 import { ClientsService } from "../../clients.service";
@@ -13,12 +13,13 @@ export class ClientsComponent implements ContentDescriptor, OnInit {
 
   clients: Observable<Client[]> | null = null;
 
-  @Output('navbar-title') navbarTitle: EventEmitter<string> = new EventEmitter<string>();
-
   constructor(private clientsService: ClientsService) {  }
 
   ngOnInit(): void {
     this.clients = this.clientsService.getAllClients();
-    this.navbarTitle.emit("Clients")
+  }
+
+  getTitle(): string {
+    return "Clients";
   }
 }

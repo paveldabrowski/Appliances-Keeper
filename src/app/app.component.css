@@ -15,7 +15,11 @@
   min-height: 100vh;
   margin-left: var(--drawer-size-margin);
   transition: margin 0.25s ease-out;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
+
 .sb-sidenav-toggled {
   margin-left: 0!important;
 }
@@ -73,6 +77,8 @@
 
 #wrapper {
   overflow-x: hidden;
+  height: 100%;
+  align-items: stretch;
 }
 
 

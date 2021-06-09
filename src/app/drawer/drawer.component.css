@@ -3,6 +3,9 @@
 /*-------------------------------*/
 .my-sidenav {
   height: 100%;
+  width: var(--drawer-size);
+  display: flex;
+  flex-direction: column;
 }
 
 .my-sidenav a {
@@ -34,15 +37,27 @@
   background-color: #393E46;
 }
 
-.mat-drawer-side {
-  border-right: 0;
-}
+/*.mat-drawer-side {*/
+/*  border-right: 0;*/
+/*}*/
 
 .link-div {
   border-right: solid 1px rgba(0,0,0,.12);
-  height: calc(100% - var(--drawer-size));
+  /*height: calc(100% - var(--drawer-size));*/
 }
 
 #workers-group {
   font-size: 2.5rem;
+}
+
+.empty-div {
+  border-right: solid 1px rgba(0,0,0,.12);
+  background-color: lightgray;
+  height: 100%;
+  width: 100%;
+}
+
+#technician {
+
+  max-height: 25%;
 }

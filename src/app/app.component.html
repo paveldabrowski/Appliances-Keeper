@@ -4,17 +4,19 @@
     <app-drawer></app-drawer>
   </div>
 
-  <div class="content d-flex flex-column w-100">
+  <div class="content d-flex flex-column h-100 w-100">
 
     <nav class="my-navbar text-light bg-dark ">
       <div class="d-flex align-items-center">
         <button class="hamburger navbar-toggler" (click)="toggleSidebar()"><i class="fas fa-bars"></i></button>
-        <p class="ms-3" #navbarTitle></p>
+        <p class="ms-3">{{ observable | async }}</p>
       </div>
     </nav>
 
-    <content-component (navbar-title)="navbarTitle.innerText = $event" class="content-table"></content-component>
-
+<!--    <content-component (navbar-title)="navbarTitle.innerText = $event" class="content-table"></content-component>-->
+    <div class="main-body">
+      <router-outlet></router-outlet>
+    </div>
 
   </div>
 </div>
