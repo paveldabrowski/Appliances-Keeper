@@ -1,5 +1,6 @@
 <div id="addClientDiv" class="collapse addClientDiv ps-3">
-  <form class="form-control" #addClientForm="ngForm" name="addClientForm">
+  <form class="form-control align-items-center" #addClientForm="ngForm" name="addClientForm">
+
     <label class="form-label"> Name <input name="firstName" [ngModel]="client?.name" class="form-control"></label>
     <label class="form-label"> Lastname <input name="lastname" [ngModel]="client?.name" class="form-control"></label>
     <label class="form-label"> NIP <input name="NIP" [ngModel]="client?.name" class="form-control"></label>
@@ -17,10 +18,8 @@
                                                   class="form-control"></label>
 
 
-    <label>
-      <button type="submit" class="btn btn-dark btn-outline-success text-light">Add client</button>
-      <button type="button" class="btn btn-danger text-light">Clear form</button>
-    </label>
+    <button type="button" class="form-label btn btn-danger text-light">Clear form</button>
+    <button type="submit" class="form-label btn btn-dark btn-outline-success text-light">Add client</button>
 
   </form>
 </div>
