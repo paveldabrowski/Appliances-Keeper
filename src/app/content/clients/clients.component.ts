@@ -21,6 +21,7 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit, OnDes
 
   private clientsForm!: NgForm;
   private subscription!: Subscription;
+  private selectedClient: Client | null = null;
 
   constructor(private clientsService: ClientsService, private messageService: MessageService) {
   }
@@ -47,9 +48,21 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit, OnDes
   addNewClient(client: Client): void {
     this.clientsService.addClient(client).pipe(
       catchError(async (err) => {
-        // console.log(err);
         this.messageService.notifyError(err.error);
       }),
-      tap(() => this.refreshToken$.next(undefined))).subscribe();
+      tap(() => this.refreshToken$.next(undefined))
+    ).subscribe();
+  }
+
+  selectClient(client: Client): void {
+    this.selectedClient = client;
+  }
+
+  deleteSelectedClient(): void {
+    if (this.selectedClient !== null) {
+      this.clientsService.deleteClient(this.selectedClient).pipe(
+        tap(() => this.refreshToken$.next(undefined))
+      ).subscribe();
+    }
   }
 }

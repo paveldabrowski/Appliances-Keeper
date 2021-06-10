@@ -80,15 +80,13 @@
 
         <br>
 
-        <label class="form-label w-100"> Description <textarea type="text" class="form-control"
-                                                               name="description"
-                                                               [(ngModel)]="client.description"></textarea></label>
+        <label class="form-label w-100"> Description <textarea type="text" class="form-control" name="description" [(ngModel)]="client.description"></textarea></label>
 
         <div class="mt-3 d-flex justify-content-center">
           <button [disabled]="!addClientForm.valid" type="submit"
                   class="form-label me-4 submit-button-disabled btn btn-dark btn-outline-success text-light">Add client
           </button>
-          <button type="button" class="form-label btn btn-danger text-light">Clear form</button>
+          <button type="reset" class="form-label btn btn-danger text-light">Clear form</button>
         </div>
 
 

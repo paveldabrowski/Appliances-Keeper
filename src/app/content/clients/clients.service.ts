@@ -19,4 +19,8 @@ export class ClientsService {
   addClient(client: Client): Observable<Client> {
     return this.httpClient.post<Client>(`${BACKEND_URL}/clients`, client);
   }
+
+  deleteClient(selectedClient: Client) {
+    return this.httpClient.delete(`${BACKEND_URL}/clients/${selectedClient.id}`);
+  }
 }
