@@ -1,0 +1,7 @@
+.addClientDiv label, button {
+  margin-right: 1rem;
+}
+
+.addClientDiv input, button {
+  font-size: 1.4rem;
+}

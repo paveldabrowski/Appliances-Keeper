@@ -10,11 +10,17 @@
     <label class="form-label"> Apartment <input name="apartment" [ngModel]="client?.name" class="form-control"></label>
     <label class="form-label"> Zip code <input name="zipCode" [ngModel]="client?.name" class="form-control"></label>
     <label class="form-label"> City <input name="city" [ngModel]="client?.name" class="form-control"></label>
-    <label class="form-label"> Phone number <input name="phoneNumber" [ngModel]="client?.name" class="form-control"></label>
+    <label class="form-label"> Phone number <input name="phoneNumber" [ngModel]="client?.name"
+                                                   class="form-control"></label>
     <label class="form-label"> Email <input name="email" [ngModel]="client?.name" class="form-control"></label>
-    <label class="form-label"> Description <input name="description" [ngModel]="client?.name" class="form-control"></label>
+    <label class="form-label"> Description <input name="description" [ngModel]="client?.name"
+                                                  class="form-control"></label>
 
-    <button type="submit" class="btn btn-dark text-light">Add client</button>
+
+    <label>
+      <button type="submit" class="btn btn-dark btn-outline-success text-light">Add client</button>
+      <button type="button" class="btn btn-danger text-light">Clear form</button>
+    </label>
 
   </form>
 </div>

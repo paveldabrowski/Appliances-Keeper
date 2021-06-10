@@ -15,8 +15,8 @@ export class ContentComponent implements OnInit {
 
   }
 
-  changeNavbarTitle(event: any) {
-    let title = (event as ContentDescriptor).getTitle()
+  changeNavbarTitle(event: ContentDescriptor) {
+    let title = event.getTitle();
     this.titleService.next(title);
   }
 }
