@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Client } from "../../../models";
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Client, ClientType } from "../../../models";
 import { NgForm } from "@angular/forms";
 
 @Component({
@@ -9,11 +9,18 @@ import { NgForm } from "@angular/forms";
 })
 export class ClientFormComponent implements OnInit {
   @ViewChild('addClientForm') addClientForm!: NgForm;
+  @Output('newClient') clientAdded: EventEmitter<Client> = new EventEmitter<Client>();
   client: Client = new Client();
+  ClientType = ClientType;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  addNewClient() {
+    console.log(this.client);
+    this.clientAdded.emit(this.client);
+    this.addClientForm.resetForm();
+  }
 }

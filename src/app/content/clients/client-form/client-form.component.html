@@ -1,25 +1,42 @@
-<div id="addClientDiv" class="collapse addClientDiv ps-3">
-  <form class="form-control align-items-center" #addClientForm="ngForm" name="addClientForm">
-
-    <label class="form-label"> Name <input name="firstName" [ngModel]="client?.name" class="form-control"></label>
-    <label class="form-label"> Lastname <input name="lastname" [ngModel]="client?.name" class="form-control"></label>
-    <label class="form-label"> NIP <input name="NIP" [ngModel]="client?.name" class="form-control"></label>
-    <label class="form-label"> REGON <input name="REGON" [ngModel]="client?.name" class="form-control"></label>
-    <label class="form-label"> Type <input name="type" [ngModel]="client?.name" class="form-control"></label>
-    <label class="form-label"> Street <input name="street" [ngModel]="client?.name" class="form-control"></label>
-    <label class="form-label"> Building <input name="building" [ngModel]="client?.name" class="form-control"></label>
-    <label class="form-label"> Apartment <input name="apartment" [ngModel]="client?.name" class="form-control"></label>
-    <label class="form-label"> Zip code <input name="zipCode" [ngModel]="client?.name" class="form-control"></label>
-    <label class="form-label"> City <input name="city" [ngModel]="client?.name" class="form-control"></label>
-    <label class="form-label"> Phone number <input name="phoneNumber" [ngModel]="client?.name"
+<div id="addClientDiv" class="collapse addClientDiv p-3 pt-0">
+  <div class="card">
+    <div class="card-header">
+      Add Client form
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="addNewClient()" class="form-control align-items-center" #addClientForm="ngForm" name="addClientForm">
+        <label class="form-label"> Name <input name="name" [(ngModel)]="client.name" class="form-control"></label>
+        <label class="form-label"> Lastname <input name="lastName" [(ngModel)]="client.lastName"
                                                    class="form-control"></label>
-    <label class="form-label"> Email <input name="email" [ngModel]="client?.name" class="form-control"></label>
-    <label class="form-label"> Description <input name="description" [ngModel]="client?.name"
-                                                  class="form-control"></label>
+        <label class="form-label"> NIP <input name="NIP" [(ngModel)]="client.nip" class="form-control"></label>
+        <label class="form-label"> REGON <input name="REGON" [(ngModel)]="client.regon" class="form-control"></label>
 
+        <label class="form-label"> Street <input name="street" [(ngModel)]="client.street" class="form-control"></label>
+        <label class="form-label"> Building <input name="building" [(ngModel)]="client.building"
+                                                   class="form-control"></label>
+        <label class="form-label"> Apartment <input name="apartment" [(ngModel)]="client.apartment"
+                                                    class="form-control"></label>
+        <label class="form-label"> Zip code <input name="zipCode" [(ngModel)]="client.zipCode" class="form-control"></label>
+        <label class="form-label"> City <input name="city" [(ngModel)]="client.city" class="form-control"></label>
+        <label class="form-label"> Phone number <input name="phoneNumber" [(ngModel)]="client.phoneNumber"
+                                                       class="form-control"></label>
+        <label class="form-label"> Email <input name="email" [(ngModel)]="client.email" class="form-control"></label>
+        <label class="form-label"> Type
+          <select name="type" [(ngModel)]="client.type" class="form-select form-control">
+            <option [value]="ClientType.individual">individual</option>
+            <option [value]="ClientType.business">business</option>
+          </select>
+        </label>
+        <br>
+        <label class="form-label w-100"> Description <textarea type="text" class="form-control w-100" name="description" [(ngModel)]="client.description"></textarea></label>
 
-    <button type="button" class="form-label btn btn-danger text-light">Clear form</button>
-    <button type="submit" class="form-label btn btn-dark btn-outline-success text-light">Add client</button>
+        <div class="mt-3">
+          <button type="submit" class="form-label btn btn-dark btn-outline-success text-light">Add client</button>
+          <button type="button" class="form-label btn btn-danger text-light">Clear form</button>
+        </div>
 
-  </form>
+      </form>
+    </div>
+
+  </div>
 </div>

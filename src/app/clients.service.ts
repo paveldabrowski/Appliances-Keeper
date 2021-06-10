@@ -15,4 +15,8 @@ export class ClientsService {
   getAllClients(): Observable<Client[]> {
     return this.httpClient.get<Client[]>(`${BACKEND_URL}/clients`);
   }
+
+  addClient(client: Client): Observable<Client> {
+    return this.httpClient.post<Client>(`${BACKEND_URL}/clients`, client);
+  }
 }

@@ -38,4 +38,10 @@ export class ClientsComponent implements ContentDescriptor, OnInit, AfterViewIni
       this.clientsForm.resetForm();
     }
   }
+
+  addNewClient(client: Client) {
+    console.log(client)
+    this.clientsService.addClient(client).subscribe(result => console.log(result),
+      error => console.error(error));
+  }
 }
