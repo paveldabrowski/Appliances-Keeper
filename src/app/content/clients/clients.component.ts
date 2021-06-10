@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from "rxjs";
 import { Client } from "../../models";
 import { ClientsService } from "../../clients.service";
 import { ContentDescriptor } from "../model";
+import { ClientFormComponent } from "./client-form/client-form.component";
 import { NgForm } from "@angular/forms";
 
 @Component({
@@ -10,10 +11,11 @@ import { NgForm } from "@angular/forms";
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.css']
 })
-export class ClientsComponent implements ContentDescriptor, OnInit {
-  client: Client | undefined;
+export class ClientsComponent implements ContentDescriptor, OnInit, AfterViewInit {
+  @ViewChild('addClientDiv') addClientDiv!: ClientFormComponent;
 
   clients: Observable<Client[]> | null = null;
+  private clientsForm!: NgForm;
 
   constructor(private clientsService: ClientsService) {
   }
@@ -22,12 +24,18 @@ export class ClientsComponent implements ContentDescriptor, OnInit {
     this.clients = this.clientsService.getAllClients();
   }
 
+  ngAfterViewInit(): void {
+    this.clientsForm = this.addClientDiv.addClientForm;
+  }
+
   getTitle(): string {
     return "Clients";
   }
 
-  addClient(addClientDiv: NgForm) {
-    this.client = new Client();
-    addClientDiv.resetForm();
+  addClient() {
+    if (this.clientsForm.dirty) {
+      console.log("cleared")
+      this.clientsForm.resetForm();
+    }
   }
 }

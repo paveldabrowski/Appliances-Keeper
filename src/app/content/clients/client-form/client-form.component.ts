@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Client } from "../../../models";
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'app-client-form',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./client-form.component.css']
 })
 export class ClientFormComponent implements OnInit {
+  @ViewChild('addClientForm') addClientForm!: NgForm;
+  client: Client = new Client();
 
   constructor() { }
 
