@@ -19,7 +19,6 @@ export class ClientFormComponent implements OnInit {
   }
 
   addNewClient() {
-    console.log(this.client);
     this.clientAdded.emit(this.client);
     this.addClientForm.resetForm();
   }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ClientsComponent } from "./clients/clients.component";
 import { ContentComponent } from './content/content.component';
 import { RouterModule, Routes } from "@angular/router";
-import { ClientsService } from "../clients.service";
+import { ClientsService } from "./clients/clients.service";
 import { HomePageComponent } from '../home-page/home-page.component';
 import { FormsModule } from "@angular/forms";
 import { ClientFormComponent } from './clients/client-form/client-form.component';
