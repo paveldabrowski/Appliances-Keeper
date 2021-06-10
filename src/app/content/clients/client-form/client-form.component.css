@@ -1,11 +1,18 @@
-.addClientDiv label, button {
-  margin-right: 1rem;
+.addClientDiv p {
+  margin-bottom: 0;
+  color: red;
+  font-weight: lighter;
+  font-size: 1.2rem;
 }
 
 .addClientDiv label {
-  width: 17rem;
+  width: 20rem;
 }
 
 .addClientDiv input, button, select, textarea {
   font-size: 1.4rem;
+}
+
+.submit-button-disabled[disabled] {
+  background-color: gray;
 }

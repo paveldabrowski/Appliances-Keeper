@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { Client } from "../../models";
 import { ClientsService } from "../../clients.service";
 import { ContentDescriptor } from "../model";
@@ -43,5 +43,6 @@ export class ClientsComponent implements ContentDescriptor, OnInit, AfterViewIni
     console.log(client)
     this.clientsService.addClient(client).subscribe(result => console.log(result),
       error => console.error(error));
+
   }
 }

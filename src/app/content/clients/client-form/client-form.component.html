@@ -4,36 +4,93 @@
       Add Client form
     </div>
     <div class="card-body">
-      <form (ngSubmit)="addNewClient()" class="form-control align-items-center" #addClientForm="ngForm" name="addClientForm">
-        <label class="form-label"> Name <input name="name" [(ngModel)]="client.name" class="form-control"></label>
-        <label class="form-label"> Lastname <input name="lastName" [(ngModel)]="client.lastName"
-                                                   class="form-control"></label>
-        <label class="form-label"> NIP <input name="NIP" [(ngModel)]="client.nip" class="form-control"></label>
-        <label class="form-label"> REGON <input name="REGON" [(ngModel)]="client.regon" class="form-control"></label>
+      <form (ngSubmit)="addNewClient()" class="row justify-content-center g-4" #addClientForm="ngForm"
+            name="addClientForm">
 
-        <label class="form-label"> Street <input name="street" [(ngModel)]="client.street" class="form-control"></label>
+
+        <label class="form-label"> Name <input required name="name" [(ngModel)]="client.name"
+                                               class="form-control" #nameInput="ngModel">
+          <ng-container *ngIf="nameInput.touched && nameInput.invalid">
+            <p>Name is required.</p>
+          </ng-container>
+
+        </label>
+
+        <label class="form-label"> Last name <input required name="lastName" [(ngModel)]="client.lastName"
+                                                    class="form-control" #lastNameInput="ngModel">
+          <ng-container *ngIf="lastNameInput.touched && lastNameInput.invalid">
+            <p>Last name is required.</p>
+          </ng-container>
+
+        </label>
+
+        <label class="form-label"> NIP <input name="NIP" [minlength]="10" [maxlength]="10" [(ngModel)]="client.nip"
+                                              class="form-control" #nipInput="ngModel">
+          <ng-container *ngIf="nipInput.touched && nipInput.invalid">
+            <p>NIP should have 10 digits.</p>
+          </ng-container>
+
+        </label>
+
+        <label class="form-label"> REGON <input name="REGON" [minlength]="9" [maxlength]="9"
+                                                [(ngModel)]="client.regon" class="form-control" #regonInput="ngModel">
+
+          <ng-container *ngIf="regonInput.touched && regonInput.invalid">
+            <p>REGON should have 9 digits.</p>
+          </ng-container>
+
+        </label>
+
+        <label class="form-label"> Street <input name="street" [(ngModel)]="client.street"
+                                                 class="form-control"></label>
+
         <label class="form-label"> Building <input name="building" [(ngModel)]="client.building"
                                                    class="form-control"></label>
         <label class="form-label"> Apartment <input name="apartment" [(ngModel)]="client.apartment"
                                                     class="form-control"></label>
-        <label class="form-label"> Zip code <input name="zipCode" [(ngModel)]="client.zipCode" class="form-control"></label>
+
+        <label class="form-label"> Zip code <input name="zipCode" [(ngModel)]="client.zipCode"
+                                                   class="form-control"></label>
+
         <label class="form-label"> City <input name="city" [(ngModel)]="client.city" class="form-control"></label>
-        <label class="form-label"> Phone number <input name="phoneNumber" [(ngModel)]="client.phoneNumber"
-                                                       class="form-control"></label>
-        <label class="form-label"> Email <input name="email" [(ngModel)]="client.email" class="form-control"></label>
+
+        <label class="form-label"> Phone number <input required name="phoneNumber" [(ngModel)]="client.phoneNumber"
+                                                       class="form-control" #phoneNumberInput="ngModel">
+          <ng-container *ngIf="phoneNumberInput.touched && phoneNumberInput.invalid">
+            <p>Phone number is required.</p>
+          </ng-container>
+
+        </label>
+
+        <label class="form-label"> Email <input type="email" name="email" ngModel email="true"
+                                                [(ngModel)]="client.email" class="form-control" #emailInput="ngModel">
+
+          <ng-container *ngIf="emailInput.touched && emailInput.invalid">
+            <p>E-mail is wrong.</p>
+          </ng-container>
+
+        </label>
+
         <label class="form-label"> Type
           <select name="type" [(ngModel)]="client.type" class="form-select form-control">
             <option [value]="ClientType.individual">individual</option>
             <option [value]="ClientType.business">business</option>
           </select>
         </label>
-        <br>
-        <label class="form-label w-100"> Description <textarea type="text" class="form-control w-100" name="description" [(ngModel)]="client.description"></textarea></label>
 
-        <div class="mt-3">
-          <button type="submit" class="form-label btn btn-dark btn-outline-success text-light">Add client</button>
+        <br>
+
+        <label class="form-label w-100"> Description <textarea type="text" class="form-control"
+                                                               name="description"
+                                                               [(ngModel)]="client.description"></textarea></label>
+
+        <div class="mt-3 d-flex justify-content-center">
+          <button [disabled]="!addClientForm.valid" type="submit"
+                  class="form-label me-4 submit-button-disabled btn btn-dark btn-outline-success text-light">Add client
+          </button>
           <button type="button" class="form-label btn btn-danger text-light">Clear form</button>
         </div>
+
 
       </form>
     </div>
