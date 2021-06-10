@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { Client } from "../../models";
 import { ClientsService } from "../../clients.service";
 import { ContentDescriptor } from "../model";
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'content-clients',
@@ -10,10 +11,12 @@ import { ContentDescriptor } from "../model";
   styleUrls: ['./clients.component.css']
 })
 export class ClientsComponent implements ContentDescriptor, OnInit {
+  client: Client | undefined;
 
   clients: Observable<Client[]> | null = null;
 
-  constructor(private clientsService: ClientsService) {  }
+  constructor(private clientsService: ClientsService) {
+  }
 
   ngOnInit(): void {
     this.clients = this.clientsService.getAllClients();
@@ -21,5 +24,10 @@ export class ClientsComponent implements ContentDescriptor, OnInit {
 
   getTitle(): string {
     return "Clients";
+  }
+
+  addClient(addClientDiv: NgForm) {
+    this.client = new Client();
+    addClientDiv.resetForm();
   }
 }

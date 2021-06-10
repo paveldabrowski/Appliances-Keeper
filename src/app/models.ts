@@ -19,3 +19,7 @@ export enum ClientType {
   individual,
   business
 }
+
+export class Client implements Client {
+
+}

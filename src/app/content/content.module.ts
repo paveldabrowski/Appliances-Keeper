@@ -5,6 +5,8 @@ import { ContentComponent } from './content/content.component';
 import { RouterModule, Routes } from "@angular/router";
 import { ClientsService } from "../clients.service";
 import { HomePageComponent } from '../home-page/home-page.component';
+import { FormsModule } from "@angular/forms";
+import { ClientFormComponent } from './clients/client-form/client-form.component';
 
 const routes: Routes = [
   {
@@ -24,15 +26,16 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [ClientsComponent, ContentComponent],
+  declarations: [ClientsComponent, ContentComponent, ClientFormComponent],
   exports: [
     ContentComponent,
     ClientsComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes)
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        FormsModule
+    ],
   providers: [
     ClientsService
   ]

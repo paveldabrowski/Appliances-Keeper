@@ -1,4 +1,19 @@
-
 .client-table {
   padding-left: 1rem;
+}
+
+.button-layout button {
+  margin-right: 1rem;
+  font-size: 1.4rem;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s;
+  font-family: Rajdhani, sans-serif;
+}
+
+.button-layout button:hover {
+  background-color: dodgerblue;
+}
+
+.addClientDiv .form-control {
+
 }

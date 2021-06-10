@@ -1,0 +1,20 @@
+<div id="addClientDiv" class="collapse addClientDiv ps-3">
+  <form class="form-control" #addClientDiv="ngForm" name="addClientForm">
+    <label class="form-label"> Name <input name="firstName" [ngModel]="client?.name" class="form-control"></label>
+    <label class="form-label"> Lastname <input name="lastname" [ngModel]="client?.name" class="form-control"></label>
+    <label class="form-label"> NIP <input name="NIP" [ngModel]="client?.name" class="form-control"></label>
+    <label class="form-label"> REGON <input name="REGON" [ngModel]="client?.name" class="form-control"></label>
+    <label class="form-label"> Type <input name="type" [ngModel]="client?.name" class="form-control"></label>
+    <label class="form-label"> Street <input name="street" [ngModel]="client?.name" class="form-control"></label>
+    <label class="form-label"> Building <input name="building" [ngModel]="client?.name" class="form-control"></label>
+    <label class="form-label"> Apartment <input name="apartment" [ngModel]="client?.name" class="form-control"></label>
+    <label class="form-label"> Zip code <input name="zipCode" [ngModel]="client?.name" class="form-control"></label>
+    <label class="form-label"> City <input name="city" [ngModel]="client?.name" class="form-control"></label>
+    <label class="form-label"> Phone number <input name="phoneNumber" [ngModel]="client?.name" class="form-control"></label>
+    <label class="form-label"> Email <input name="email" [ngModel]="client?.name" class="form-control"></label>
+    <label class="form-label"> Description <input name="description" [ngModel]="client?.name" class="form-control"></label>
+
+    <button type="submit" class="btn btn-dark text-light">Add client</button>
+
+  </form>
+</div>
