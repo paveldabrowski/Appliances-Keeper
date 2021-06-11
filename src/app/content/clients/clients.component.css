@@ -1,7 +1,3 @@
-.client-table {
-  padding-left: 1rem;
-}
-
 .button-layout button {
   margin-right: 1rem;
   font-size: 1.4rem;
@@ -14,6 +10,3 @@
   background-color: dodgerblue;
 }
 
-.selected-row {
-  background-color: rgba(30, 144, 255, 0.24);
-}

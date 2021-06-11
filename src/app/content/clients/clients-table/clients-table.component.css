@@ -1,0 +1,20 @@
+.client-table {
+  padding-left: 1rem;
+}
+
+.selected-row {
+  background-color: rgba(30, 144, 255, 0.24);
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}

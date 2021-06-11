@@ -7,6 +7,15 @@ import { ClientsService } from "./clients/clients.service";
 import { HomePageComponent } from '../home-page/home-page.component';
 import { FormsModule } from "@angular/forms";
 import { ClientFormComponent } from './clients/client-form/client-form.component';
+import { MatTableModule } from "@angular/material/table";
+import { MatSortModule } from "@angular/material/sort";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatSliderModule } from "@angular/material/slider";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { ClientsTableComponent } from './clients/clients-table/clients-table.component';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
+import { MatInputModule } from "@angular/material/input";
 
 const routes: Routes = [
   {
@@ -26,16 +35,22 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [ClientsComponent, ContentComponent, ClientFormComponent],
+  declarations: [ClientsComponent, ContentComponent, ClientFormComponent, ClientsTableComponent],
   exports: [
     ContentComponent,
     ClientsComponent
   ],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        FormsModule
-    ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    FormsModule,
+    MatTableModule,
+    MatSortModule,
+    MatSliderModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule
+  ],
   providers: [
     ClientsService
   ]

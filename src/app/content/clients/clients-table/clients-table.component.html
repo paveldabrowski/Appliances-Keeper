@@ -1,0 +1,92 @@
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <mat-table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Id </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Last name </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{row.lastName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nip">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> NIP </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{row.nip}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="regon">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> REGON </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{row.regon}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{row.type}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="street">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Street </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{row.street}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="building">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Building </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{row.building}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="apartment">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Apartment </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{row.apartment}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="zipCode">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Zip code </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{row.zipCode}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> City </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{row.city}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="phoneNumber">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Phone number </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{row.phoneNumber}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+    </ng-container>
+
+
+    <mat-header-row mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row mat-row *matRowDef="let row; columns: columns;"></mat-row>
+
+    <!-- Row shown when mat-header-cellere is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+

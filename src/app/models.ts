@@ -1,5 +1,4 @@
 export class Client {
-
   id?: number;
   name: string | null = null;
   lastName: string | null = null;
@@ -20,4 +19,3 @@ export enum ClientType {
   individual,
   business
 }
-
