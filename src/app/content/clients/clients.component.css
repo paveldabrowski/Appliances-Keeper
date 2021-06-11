@@ -13,3 +13,7 @@
 .button-layout button:hover {
   background-color: dodgerblue;
 }
+
+.selected-row {
+  background-color: rgba(30, 144, 255, 0.24);
+}

@@ -15,4 +15,13 @@ export class MessageService {
   notifyError(message: string): void {
     this.notificationService.error(message, "Error")
   }
+
+  notifyInfo(massage: string): void {
+    this.notificationService.info(massage, "Info")
+  }
+
+  notifyWarning(massage: string): void {
+    this.notificationService.warning(massage, "Warning")
+  }
+
 }
