@@ -3,16 +3,17 @@ import { HttpClient } from "@angular/common/http";
 import { Client } from "../../models";
 import { BACKEND_URL } from "../../../environments/environment";
 import { Observable } from "rxjs";
+import { ServiceKeeper } from "../model";
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClientsService {
+export class ClientsService implements ServiceKeeper<Client> {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllClients(): Observable<Client[]> {
+  findAll(): Observable<Client[]> {
     return this.httpClient.get<Client[]>(`${BACKEND_URL}/clients`);
   }
 

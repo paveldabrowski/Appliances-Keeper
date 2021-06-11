@@ -4,7 +4,7 @@
 </mat-form-field>
 
 <div class="mat-elevation-z8">
-  <mat-table mat-table [dataSource]="dataSource" matSort>
+  <mat-table mat-table matSort>
 
     <!-- ID Column -->
     <ng-container matColumnDef="id">
@@ -87,6 +87,11 @@
     </tr>
   </mat-table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  <mat-paginator #paginator
+                 [length]="dataSource?.data?.length"
+                 [pageIndex]="0"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
 </div>
 

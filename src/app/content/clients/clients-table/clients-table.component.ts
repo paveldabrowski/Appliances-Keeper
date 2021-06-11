@@ -1,11 +1,11 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ClientsService } from "../clients.service";
 import { TABLE_COLUMNS } from "./models";
 import { Client } from "../../../models";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { Subscription } from "rxjs";
-import { MatTableDataSource } from "@angular/material/table";
+import { GridDataProvider } from "./GridDataProvider";
+import { MatTable } from "@angular/material/table";
 
 
 @Component({
@@ -13,26 +13,24 @@ import { MatTableDataSource } from "@angular/material/table";
   templateUrl: './clients-table.component.html',
   styleUrls: ['./clients-table.component.css']
 })
-export class ClientsTableComponent implements AfterViewInit, OnDestroy, OnInit {
+export class ClientsTableComponent implements AfterViewInit, OnInit {
 
-  // dataSource: ClientsDataSource;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatTable) table!: MatTable<Client>;
   columns: string[] = TABLE_COLUMNS;
-  dataSource!: MatTableDataSource<Client>;
-  clients: Client[] = [];
-  private subscription!: Subscription;
-  // dataSource2: Observable<Client[]>;
+  dataSource!: GridDataProvider<Client>;
 
-
-  constructor(private clientService: ClientsService) {
-
+  constructor(private clientService: ClientsService, private cd: ChangeDetectorRef) {
   }
 
   ngAfterViewInit() {
-    console.log("View")
-    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.table.dataSource = this.dataSource;
+    this.dataSource.connect();
+    this.cd.detectChanges();
+
   }
 
   applyFilter(event: Event) {
@@ -44,14 +42,8 @@ export class ClientsTableComponent implements AfterViewInit, OnDestroy, OnInit {
     }
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
   ngOnInit(): void {
-    console.log("Init");
-    this.subscription = this.clientService.getAllClients().subscribe( value => this.clients = value);
-    console.log(this.clients);
-    this.dataSource = new MatTableDataSource(this.clients);
+    this.dataSource = new GridDataProvider<Client>(this.clientService);
+
   }
 }
