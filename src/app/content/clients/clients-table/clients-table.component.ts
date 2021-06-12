@@ -24,6 +24,7 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   private refreshToken$ = new BehaviorSubject(undefined);
   clients: Observable<Client[]> = this.refreshToken$.pipe(switchMap(() => this.clientsService.findAll()));
 
+
   constructor(private clientsService: ClientsService) {}
 
   ngAfterViewInit() {
