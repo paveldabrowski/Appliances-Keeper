@@ -1,21 +1,12 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from "rxjs";
-import { Client, ClientType } from "../../models";
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Client } from "../../models";
 import { ClientsService } from "./clients.service";
 import { ContentDescriptor } from "../model";
 import { ClientFormComponent } from "./client-form/client-form.component";
 import { NgForm } from "@angular/forms";
-import { catchError, switchMap, tap } from "rxjs/operators";
+import { catchError } from "rxjs/operators";
 import { MessageService } from "../../message.service";
 import { ClientsTableComponent } from "./clients-table/clients-table.component";
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
 
 
 @Component({
