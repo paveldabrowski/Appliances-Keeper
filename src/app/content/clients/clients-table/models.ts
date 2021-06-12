@@ -11,6 +11,5 @@ export const TABLE_COLUMNS: string[] = [
   'zipCode',
   'city',
   'phoneNumber',
-  'email',
-  'description'
+  'email'
 ];

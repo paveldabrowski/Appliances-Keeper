@@ -7,7 +7,10 @@ import { MatSort } from "@angular/material/sort";
 import { MatTable, MatTableDataSource } from "@angular/material/table";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
 import { switchMap } from "rxjs/operators";
+import { SelectionModel } from "@angular/cdk/collections";
 
+const initialSelection: Client[] = [];
+const allowMultiSelect = false;
 
 @Component({
   selector: 'app-clients-table',
@@ -25,6 +28,7 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   clients: Observable<Client[]> = this.refreshToken$.pipe(switchMap(() => this.clientsService.findAll()));
   searchKey: string | undefined;
   selectedClient: Client | null = null;
+  selection = new SelectionModel<Client>(allowMultiSelect, initialSelection);
 
 
   constructor(private clientsService: ClientsService) {}

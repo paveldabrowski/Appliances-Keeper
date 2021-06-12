@@ -1,6 +1,6 @@
-.client-table {
-
-}
+/*------------------------*/
+/*       General          */
+/*------------------------*/
 
 .client-table mat-form-field {
   width: unset;
@@ -10,15 +10,19 @@
   background-color: rgba(30, 144, 255, 0.24);
 }
 
-/*table {*/
-/*  width: 100%;*/
-/*}*/
-
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
+.client-table mat-header-cell {
+  font-weight: bold;
+  color: black;
+  font-size: 1.3rem;
 }
 
+.client-table mat-cell {
+  font-size: 1.2rem;
+}
+
+/*----------------------*/
+/*  Specific columns    */
+/*----------------------*/
 .mat-column-id {
   max-width: 7rem;
   width: 4rem;
@@ -27,6 +31,8 @@
 
 .mat-column-name {
   max-width: 15rem;
+  width: 15rem;
+  min-width: 15rem;
   margin-right: 1rem;
 }
 
@@ -34,9 +40,7 @@
   word-break: break-word;
 }
 
-.client-table mat-header-cell {
-  font-weight: bold;
-  color: black;
-  font-size: 1.5rem;
+.mat-column-building, .mat-column-apartment {
+  max-width: 4rem;
+  margin-right: 1rem;
 }
-
