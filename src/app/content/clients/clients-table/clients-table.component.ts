@@ -1,12 +1,12 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ClientsService } from "../clients.service";
 import { TABLE_COLUMNS } from "./models";
 import { Client } from "../../../models";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { GridDataProvider } from "./GridDataProvider";
 import { MatTable, MatTableDataSource } from "@angular/material/table";
-import { Observable, Subscription } from "rxjs";
+import { BehaviorSubject, Observable, ReplaySubject, Subscription } from "rxjs";
+import { switchMap } from "rxjs/operators";
 
 
 @Component({
@@ -14,27 +14,23 @@ import { Observable, Subscription } from "rxjs";
   templateUrl: './clients-table.component.html',
   styleUrls: ['./clients-table.component.css']
 })
-export class ClientsTableComponent implements AfterViewInit, OnInit {
-
+export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
+  private subject: ReplaySubject<Client[]> = new ReplaySubject<Client[]>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Client>;
   columns: string[] = TABLE_COLUMNS;
-  // dataSource!: GridDataProvider<Client>;
   dataSource = new MatTableDataSource<Client>();
   private subscription!: Subscription;
 
-  constructor(private clientService: ClientsService, private cd: ChangeDetectorRef) {
+  private refreshToken$ = new BehaviorSubject(undefined);
+  clients: Observable<Client[]> = this.refreshToken$.pipe(switchMap(() => this.clientsService.findAll()));
+
+  constructor(private clientsService: ClientsService, private cd: ChangeDetectorRef) {
   }
 
   ngAfterViewInit() {
-    this.subscription = this.clientService.findAll().subscribe(clients => {
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.data = clients;
-    });
-    this.table.dataSource = this.dataSource;
-
+    this.buildTable();
   }
 
   applyFilter(event: Event) {
@@ -46,8 +42,24 @@ export class ClientsTableComponent implements AfterViewInit, OnInit {
     }
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
 
+  buildTable(): void {
+    this.clientsService.findAll().subscribe(this.subject);
 
+    this.subscription = this.clients.subscribe(clients => {
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.data = clients;
+    });
+    this.table.dataSource = this.dataSource;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription = this.subject.subscribe();
+  }
+
+  refreshTable() {
+    this.refreshToken$.next(undefined)
   }
 }

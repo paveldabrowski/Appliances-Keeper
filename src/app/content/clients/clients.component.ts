@@ -7,6 +7,7 @@ import { ClientFormComponent } from "./client-form/client-form.component";
 import { NgForm } from "@angular/forms";
 import { catchError, switchMap, tap } from "rxjs/operators";
 import { MessageService } from "../../message.service";
+import { ClientsTableComponent } from "./clients-table/clients-table.component";
 
 export interface PeriodicElement {
   name: string;
@@ -24,6 +25,7 @@ export interface PeriodicElement {
 })
 export class ClientsComponent implements ContentDescriptor, AfterViewInit {
   @ViewChild('addClientDiv') addClientDiv!: ClientFormComponent;
+  @ViewChild(ClientsTableComponent) tableComponent!: ClientsTableComponent;
   private clientsForm!: NgForm;
 
   selectedClient: Client | null = null;
@@ -50,7 +52,11 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit {
       catchError(async (err) => {
         this.messageService.notifyError(err.error);
       })
-    ).subscribe(() => this.messageService.notifySuccess("Client added."));
+    ).subscribe(() => {
+      // this.tableComponent.buildTable();
+      this.tableComponent.refreshTable();
+      this.messageService.notifySuccess("Client added.");
+    });
   }
 
   selectClient(client: Client, row: HTMLTableRowElement): void {
