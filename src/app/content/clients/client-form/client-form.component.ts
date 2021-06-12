@@ -19,7 +19,9 @@ export class ClientFormComponent implements OnInit {
   }
 
   addNewClient() {
-    this.clientAdded.emit(this.client);
+
+    this.clientAdded.emit(this.client.formatToTitleCase());
     this.addClientForm.resetForm();
   }
+
 }

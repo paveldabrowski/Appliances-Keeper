@@ -24,6 +24,7 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   private refreshToken$ = new BehaviorSubject(undefined);
   clients: Observable<Client[]> = this.refreshToken$.pipe(switchMap(() => this.clientsService.findAll()));
   searchKey: string | undefined;
+  selectedClient: Client | null = null;
 
 
   constructor(private clientsService: ClientsService) {}
@@ -47,6 +48,14 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  selectClient(client: Client, row: HTMLTableRowElement): void {
+    if (this.selectedClient === client) {
+      row.classList.remove("selected-row")
+      this.selectedClient = null;
+    } else
+      this.selectedClient = client;
   }
 
   ngOnInit(): void { }

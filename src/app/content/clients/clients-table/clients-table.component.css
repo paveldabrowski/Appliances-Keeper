@@ -10,16 +10,33 @@
   background-color: rgba(30, 144, 255, 0.24);
 }
 
-table {
-  width: 100%;
-}
+/*table {*/
+/*  width: 100%;*/
+/*}*/
 
 .mat-form-field {
   font-size: 14px;
   width: 100%;
 }
 
-/*td, th {*/
-/*  width: 25%;*/
-/*}*/
+.mat-column-id {
+  max-width: 7rem;
+  width: 4rem;
+  margin-right: 1rem;
+}
+
+.mat-column-name {
+  max-width: 15rem;
+  margin-right: 1rem;
+}
+
+.mat-column-email {
+  word-break: break-word;
+}
+
+.client-table mat-header-cell {
+  font-weight: bold;
+  color: black;
+  font-size: 1.5rem;
+}
 

@@ -18,7 +18,6 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit {
   @ViewChild('addClientDiv') addClientDiv!: ClientFormComponent;
   @ViewChild(ClientsTableComponent) tableComponent!: ClientsTableComponent;
   private clientsForm!: NgForm;
-
   selectedClient: Client | null = null;
 
   constructor(private clientsService: ClientsService, private messageService: MessageService) {
@@ -26,6 +25,7 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.clientsForm = this.addClientDiv.addClientForm;
+    this.selectedClient = this.tableComponent.selectedClient;
   }
 
   getTitle(): string {
@@ -44,18 +44,9 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit {
         this.messageService.notifyError(err.error);
       })
     ).subscribe(() => {
-      // this.tableComponent.buildTable();
       this.tableComponent.refreshTable();
       this.messageService.notifySuccess("Client added.");
     });
-  }
-
-  selectClient(client: Client, row: HTMLTableRowElement): void {
-    if (this.selectedClient === client) {
-      row.classList.remove("selected-row")
-      this.selectedClient = null;
-    } else
-      this.selectedClient = client;
   }
 
   deleteSelectedClient(): void {

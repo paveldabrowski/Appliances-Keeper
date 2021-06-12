@@ -3,10 +3,14 @@
   <button class="btn btn-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#addClientDiv"
           aria-expanded="false" aria-controls="addClientDiv" (click)="clearClientForm()">
     <i class="icon fas fa-user-plus"></i>
-    Add client
+    Add
   </button>
 
-  <button class="btn btn-dark text-light" type="button" (click)="deleteSelectedClient()"><i class="icon fas fa-user-minus"></i> Delete client</button>
+  <button class="btn btn-dark text-light" type="button"><i class="icon fas fa-user-edit"></i> Show / Edit</button>
+
+  <button class="btn btn-dark text-light" type="button" (click)="deleteSelectedClient()"><i class="icon fas fa-user-minus"></i> Delete </button>
+
+
 
 
 </div>
@@ -16,24 +20,3 @@
 <app-clients-table></app-clients-table>
 
 
-
-<!--<div class="client-table content-table flex-grow-1" >-->
-<!--  <table *ngIf="clients" class="table table-striped table-hover">-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--      <th scope="col">#</th>-->
-<!--      <th scope="col">First</th>-->
-<!--      <th scope="col">Last</th>-->
-<!--      <th scope="col">Handle</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <tr #row [ngClass]="selectedClient === client ? 'selected-row': ''" (click)="selectClient(client, row)" *ngFor="let client of clients | async; let index=index">-->
-<!--      <th scope="row">{{ index + 1 }}</th>-->
-<!--      <td>{{ client.name }}</td>-->
-<!--      <td>{{ client.lastName }} </td>-->
-<!--      <td>{{ client.city }}</td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--  </table>-->
-<!--</div>-->
