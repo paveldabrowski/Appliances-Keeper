@@ -4,10 +4,9 @@ import { TABLE_COLUMNS } from "./models";
 import { Client } from "../../../models";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { MatTable, MatTableDataSource } from "@angular/material/table";
+import { MatRow, MatTable, MatTableDataSource } from "@angular/material/table";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
 import { switchMap } from "rxjs/operators";
-import { SelectionModel } from "@angular/cdk/collections";
 
 @Component({
   selector: 'app-clients-table',
@@ -25,8 +24,7 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   clients: Observable<Client[]> = this.refreshToken$.pipe(switchMap(() => this.clientsService.findAll()));
   searchKey: string | undefined;
   selectedClient: Client | null = null;
-  selection = new SelectionModel<Client>(true, []);
-
+  clickedRows = new Set<Client>();
 
   constructor(private clientsService: ClientsService) {}
 
@@ -51,9 +49,8 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
     }
   }
 
-  selectClient(client: Client, row: HTMLTableRowElement): void {
+  selectClient(client: Client): void {
     if (this.selectedClient === client) {
-      row.classList.remove("selected-row")
       this.selectedClient = null;
     } else
       this.selectedClient = client;
@@ -76,29 +73,5 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
 
   refreshTable() {
     this.refreshToken$.next(undefined)
-  }
-
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      return;
-    }
-
-    this.selection.select(...this.dataSource.data);
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: Client): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${ 1}`;
   }
 }
