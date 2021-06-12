@@ -6,7 +6,7 @@
 }
 
 .selected-row {
-  background-color: rgba(30, 144, 255, 0.24);
+  background-color: rgba(30, 144, 255, 0.24)!important;
 }
 
 .client-table mat-header-cell {
@@ -31,7 +31,7 @@
 
 .mat-cell, mat-header-cell {
   min-width: 60px;
-  margin-right: 1rem;
+  padding-right: 1rem;
 }
 
 .mat-cell, mat-row {
@@ -48,7 +48,7 @@ mat-table {
 /*----------------------*/
 .mat-column-id {
   max-width: fit-content;
-  margin-right: 1rem;
+  /*margin-right: 1rem;*/
   padding-left: 1.5rem;
 }
 
@@ -56,7 +56,7 @@ mat-table {
   max-width: 15rem;
   width: 15rem;
   min-width: 15rem;
-  margin-right: 1rem;
+  /*margin-right: 1rem;*/
 }
 
 .mat-column-email {
@@ -65,6 +65,23 @@ mat-table {
 
 .mat-column-building, .mat-column-apartment {
   max-width: 4rem;
-  margin-right: 1rem;
+  /*margin-right: 1rem;*/
 }
 
+
+/*----------------------*/
+/*   Table Selection    */
+/*----------------------*/
+.mat-row {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover  {
+  border-color: currentColor;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}

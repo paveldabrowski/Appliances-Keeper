@@ -18,14 +18,12 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit {
   @ViewChild('addClientDiv') addClientDiv!: ClientFormComponent;
   @ViewChild(ClientsTableComponent) tableComponent!: ClientsTableComponent;
   private clientsForm!: NgForm;
-  selectedClient: Client | null = null;
 
   constructor(private clientsService: ClientsService, private messageService: MessageService) {
   }
 
   ngAfterViewInit(): void {
     this.clientsForm = this.addClientDiv.addClientForm;
-    this.selectedClient = this.tableComponent.selectedClient;
   }
 
   getTitle(): string {
@@ -50,8 +48,12 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit {
   }
 
   deleteSelectedClient(): void {
-    if (this.selectedClient !== null) {
-      this.clientsService.deleteClient(this.selectedClient).subscribe(() => this.messageService.notifySuccess("Client deleted!"),
+    const client = this.tableComponent.selectedClient;
+    if (client !== null) {
+      this.clientsService.deleteClient(client).subscribe(() => {
+        this.messageService.notifySuccess("Client deleted!");
+        this.tableComponent.refreshTable();
+        },
         () => this.messageService.notifyError("Error while trying to delete client.")
       );
     } else {
