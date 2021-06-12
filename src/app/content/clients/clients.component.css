@@ -10,3 +10,12 @@
   background-color: dodgerblue;
 }
 
+.button-layout button:hover .icon {
+  color: black;
+}
+
+.button-layout i {
+  font-size: 1.5rem;
+  color: white;
+  margin-right: 0.5rem;
+}

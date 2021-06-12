@@ -9,7 +9,7 @@
 
 
         <label class="form-label"> Name <input required name="name" [(ngModel)]="client.name"
-                                               class="form-control" #nameInput="ngModel">
+                                               class="form-control text-capitalize" #nameInput="ngModel">
           <ng-container *ngIf="nameInput.touched && nameInput.invalid">
             <p>Name is required.</p>
           </ng-container>
@@ -17,7 +17,7 @@
         </label>
 
         <label class="form-label"> Last name <input required name="lastName" [(ngModel)]="client.lastName"
-                                                    class="form-control" #lastNameInput="ngModel">
+                                                    class="form-control text-capitalize" #lastNameInput="ngModel">
           <ng-container *ngIf="lastNameInput.touched && lastNameInput.invalid">
             <p>Last name is required.</p>
           </ng-container>
@@ -42,7 +42,7 @@
         </label>
 
         <label class="form-label"> Street <input name="street" [(ngModel)]="client.street"
-                                                 class="form-control"></label>
+                                                 class="form-control text-capitalize"></label>
 
         <label class="form-label"> Building <input name="building" [(ngModel)]="client.building"
                                                    class="form-control"></label>
@@ -52,7 +52,7 @@
         <label class="form-label"> Zip code <input name="zipCode" [(ngModel)]="client.zipCode"
                                                    class="form-control"></label>
 
-        <label class="form-label"> City <input name="city" [(ngModel)]="client.city" class="form-control"></label>
+        <label class="form-label"> City <input name="city" [(ngModel)]="client.city" class="form-control text-capitalize"></label>
 
         <label class="form-label"> Phone number <input required name="phoneNumber" [(ngModel)]="client.phoneNumber"
                                                        class="form-control" #phoneNumberInput="ngModel">

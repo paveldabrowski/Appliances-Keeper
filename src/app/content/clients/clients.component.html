@@ -1,10 +1,13 @@
 <div class="button-layout p-3">
 
   <button class="btn btn-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#addClientDiv"
-          aria-expanded="false" aria-controls="addClientDiv" (click)="clearClientForm()">Add client
+          aria-expanded="false" aria-controls="addClientDiv" (click)="clearClientForm()">
+    <i class="icon fas fa-user-plus"></i>
+    Add client
   </button>
 
-  <button class="btn btn-dark text-light" type="button" (click)="deleteSelectedClient()">Delete client</button>
+  <button class="btn btn-dark text-light" type="button" (click)="deleteSelectedClient()"><i class="icon fas fa-user-minus"></i> Delete client</button>
+
 
 </div>
 
