@@ -1,5 +1,9 @@
 .client-table {
-  padding-left: 1rem;
+
+}
+
+.client-table mat-form-field {
+  width: unset;
 }
 
 .selected-row {

@@ -23,6 +23,7 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   private subscription!: Subscription;
   private refreshToken$ = new BehaviorSubject(undefined);
   clients: Observable<Client[]> = this.refreshToken$.pipe(switchMap(() => this.clientsService.findAll()));
+  searchKey: string | undefined;
 
 
   constructor(private clientsService: ClientsService) {}
@@ -33,8 +34,16 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.setUpFilter(filterValue);
+  }
 
+  onSearchClear() {
+    this.searchKey = ""
+    this.setUpFilter(this.searchKey);
+  }
+
+  private setUpFilter(text: string): void {
+    this.dataSource.filter = text.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -58,4 +67,8 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   refreshTable() {
     this.refreshToken$.next(undefined)
   }
+
+  // onSearchClear() {
+  //   this.searchKey = undefined;
+  // }
 }

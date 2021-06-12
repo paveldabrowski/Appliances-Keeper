@@ -1,9 +1,21 @@
-<mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-</mat-form-field>
+<div class="client-table mat-elevation-z8 mx-3">
+<!--  <div class="p-3">-->
+<!--    <mat-form-field>-->
+<!--      <mat-label>Search</mat-label>-->
+<!--      <input matInput (keyup)="applyFilter($event)" placeholder="Type search term" #input>-->
+<!--    </mat-form-field>-->
+<!--  </div>-->
 
-<div class="mat-elevation-z8">
+  <div class="search-div px-4 pt-4">
+    <mat-form-field class="search-form-field">
+      <mat-label>Search</mat-label>
+      <input matInput [(ngModel)]="searchKey" placeholder="Search for client" autocomplete="off" (keyup)="applyFilter($event)" #input>
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey"  (click)="onSearchClear()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
   <mat-table mat-table matSort>
 
     <!-- ID Column -->
@@ -91,7 +103,7 @@
                  [length]="dataSource?.data?.length"
                  [pageIndex]="0"
                  [pageSize]="10"
-                 [pageSizeOptions]="[5, 10, 20]">
+                 [pageSizeOptions]="[5, 10, 20, 100]">
   </mat-paginator>
 </div>
 
