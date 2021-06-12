@@ -52,8 +52,10 @@
   background-color: lightgray;
   height: 100%;
   width: 100%;
+  transition: all 3s;
 }
 
 #technician {
   max-height: 200px;
+  transition: all 3s;
 }

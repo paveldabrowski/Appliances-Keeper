@@ -9,9 +9,6 @@ import { BehaviorSubject, Observable, Subscription } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { SelectionModel } from "@angular/cdk/collections";
 
-const initialSelection: Client[] = [];
-const allowMultiSelect = false;
-
 @Component({
   selector: 'app-clients-table',
   templateUrl: './clients-table.component.html',
@@ -28,7 +25,7 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   clients: Observable<Client[]> = this.refreshToken$.pipe(switchMap(() => this.clientsService.findAll()));
   searchKey: string | undefined;
   selectedClient: Client | null = null;
-  selection = new SelectionModel<Client>(allowMultiSelect, initialSelection);
+  selection = new SelectionModel<Client>(true, []);
 
 
   constructor(private clientsService: ClientsService) {}
@@ -81,7 +78,27 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
     this.refreshToken$.next(undefined)
   }
 
-  // onSearchClear() {
-  //   this.searchKey = undefined;
-  // }
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource.data);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: Client): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${ 1}`;
+  }
 }
