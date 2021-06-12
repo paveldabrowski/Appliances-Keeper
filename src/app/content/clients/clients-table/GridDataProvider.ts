@@ -1,11 +1,10 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
-import { merge, Observable, ReplaySubject, Subscription, of as observableOf } from "rxjs";
+import { merge, Observable, of as observableOf, ReplaySubject, Subscription } from "rxjs";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { ServiceKeeper } from "../../model";
 import { map } from "rxjs/operators";
 import { Client } from "../../../models";
-import { ClientsService } from "../clients.service";
 
 
 export class GridDataProvider<T extends Client> extends DataSource<T> {
@@ -30,7 +29,7 @@ export class GridDataProvider<T extends Client> extends DataSource<T> {
       // stream for the data-table to consume.
       return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
         .pipe(map(() => {
-          return this.getPagedData(this.getSortedData([...this.data]));
+          return this.getPagedData(this.getSortedData([...this.data ]));
         }));
     } else {
       throw Error('Please set the paginator and sort on the data source before connecting.');
@@ -49,6 +48,9 @@ export class GridDataProvider<T extends Client> extends DataSource<T> {
       return data;
     }
   }
+
+
+
 
   /**
    * Sort the data (client-side). If you're using server-side sorting,

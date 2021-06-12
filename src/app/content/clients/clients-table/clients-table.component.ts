@@ -1,11 +1,12 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ClientsService } from "../clients.service";
 import { TABLE_COLUMNS } from "./models";
 import { Client } from "../../../models";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { GridDataProvider } from "./GridDataProvider";
-import { MatTable } from "@angular/material/table";
+import { MatTable, MatTableDataSource } from "@angular/material/table";
+import { BehaviorSubject, Observable, Subscription } from "rxjs";
+import { switchMap } from "rxjs/operators";
 
 
 @Component({
@@ -13,24 +14,20 @@ import { MatTable } from "@angular/material/table";
   templateUrl: './clients-table.component.html',
   styleUrls: ['./clients-table.component.css']
 })
-export class ClientsTableComponent implements AfterViewInit, OnInit {
-
+export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Client>;
   columns: string[] = TABLE_COLUMNS;
-  dataSource!: GridDataProvider<Client>;
+  dataSource = new MatTableDataSource<Client>();
+  private subscription!: Subscription;
+  private refreshToken$ = new BehaviorSubject(undefined);
+  clients: Observable<Client[]> = this.refreshToken$.pipe(switchMap(() => this.clientsService.findAll()));
 
-  constructor(private clientService: ClientsService, private cd: ChangeDetectorRef) {
-  }
+  constructor(private clientsService: ClientsService) {}
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
-    this.dataSource.connect();
-    this.cd.detectChanges();
-
+    this.buildTable();
   }
 
   applyFilter(event: Event) {
@@ -42,8 +39,22 @@ export class ClientsTableComponent implements AfterViewInit, OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.dataSource = new GridDataProvider<Client>(this.clientService);
+  ngOnInit(): void { }
 
+  buildTable(): void {
+    this.subscription = this.clients.subscribe(clients => {
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.data = clients;
+    });
+    this.table.dataSource = this.dataSource;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  refreshTable() {
+    this.refreshToken$.next(undefined)
   }
 }

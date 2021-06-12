@@ -1,20 +1,12 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from "rxjs";
-import { Client, ClientType } from "../../models";
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Client } from "../../models";
 import { ClientsService } from "./clients.service";
 import { ContentDescriptor } from "../model";
 import { ClientFormComponent } from "./client-form/client-form.component";
 import { NgForm } from "@angular/forms";
-import { catchError, switchMap, tap } from "rxjs/operators";
+import { catchError } from "rxjs/operators";
 import { MessageService } from "../../message.service";
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
+import { ClientsTableComponent } from "./clients-table/clients-table.component";
 
 
 @Component({
@@ -24,6 +16,7 @@ export interface PeriodicElement {
 })
 export class ClientsComponent implements ContentDescriptor, AfterViewInit {
   @ViewChild('addClientDiv') addClientDiv!: ClientFormComponent;
+  @ViewChild(ClientsTableComponent) tableComponent!: ClientsTableComponent;
   private clientsForm!: NgForm;
 
   selectedClient: Client | null = null;
@@ -50,7 +43,11 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit {
       catchError(async (err) => {
         this.messageService.notifyError(err.error);
       })
-    ).subscribe(() => this.messageService.notifySuccess("Client added."));
+    ).subscribe(() => {
+      // this.tableComponent.buildTable();
+      this.tableComponent.refreshTable();
+      this.messageService.notifySuccess("Client added.");
+    });
   }
 
   selectClient(client: Client, row: HTMLTableRowElement): void {
