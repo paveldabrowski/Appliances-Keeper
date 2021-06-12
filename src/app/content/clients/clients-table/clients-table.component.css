@@ -13,6 +13,8 @@
   font-weight: bold;
   color: black;
   font-size: 1.3rem;
+  word-break: unset;
+  white-space: nowrap;
 }
 
 .client-table mat-cell {
@@ -27,13 +29,27 @@
   background-color: #ECECEC;
 }
 
+.mat-cell, mat-header-cell {
+  min-width: 60px;
+  margin-right: 1rem;
+}
+
+.mat-cell, mat-row {
+  min-height: 3rem;
+}
+
+mat-table {
+  overflow-x: auto;
+  display: grid!important;
+}
+
 /*----------------------*/
 /*  Specific columns    */
 /*----------------------*/
 .mat-column-id {
-  max-width: 7rem;
-  width: 4rem;
+  max-width: fit-content;
   margin-right: 1rem;
+  padding-left: 1.5rem;
 }
 
 .mat-column-name {
@@ -51,3 +67,4 @@
   max-width: 4rem;
   margin-right: 1rem;
 }
+
