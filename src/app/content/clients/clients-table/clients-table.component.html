@@ -34,7 +34,7 @@
 
       <ng-container matColumnDef="lastName">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Last name</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{row.lastName}} </mat-cell>
+        <mat-cell mat-cell *matCellDef="let row"> {{ row.lastName }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="nip">
@@ -97,12 +97,14 @@
         <td class="" colspan="4">No data matching the filter "{{input.value}}"</td>
       </tr>
     </mat-table>
+
     <mat-paginator #paginator
                    [length]="dataSource?.data?.length"
                    [pageIndex]="0"
                    [pageSize]="10"
                    [pageSizeOptions]="[5, 10, 20, 100]">
     </mat-paginator>
+
   </div>
 
 

@@ -1,18 +1,41 @@
+import { Parser } from "@angular/compiler";
+
 export class Client {
-  id?: number;
-  name: string | null = null;
-  lastName: string | null = null;
-  nip?: string;
-  regon?: string;
-  type: ClientType = ClientType.individual;
-  street?: string;
-  building?: string;
-  apartment?: string;
-  zipCode?: string;
-  city?: string;
-  phoneNumber: string | null = null;
-  email?: string;
-  description?: string;
+
+  id?: number | null;
+  name: string | null | undefined = null;
+  lastName: string | null | undefined = null;
+  nip?: string | null;
+  regon?: string | null;
+  type: ClientType = ClientType.INDIVIDUAL;
+  street?: string | null;
+  building?: string | null;
+  apartment?: string | null;
+  zipCode?: string | null;
+  city?: string | null;
+  phoneNumber: string | null | undefined = null;
+  email?: string | null;
+  description?: string | null;
+
+
+  constructor(partial?: Required<Client>) {
+    if (partial) {
+      this.id = partial.id;
+      this.name = partial.name;
+      this.lastName = partial.lastName;
+      this.nip = partial.nip;
+      this.regon = partial.regon;
+      this.type = ClientType[partial.type];
+      this.street = partial.street;
+      this.building = partial.building;
+      this.apartment = partial.apartment;
+      this.zipCode = partial.zipCode;
+      this.city = partial.city;
+      this.phoneNumber = partial.phoneNumber;
+      this.email = partial.email;
+      this.description = partial.description;
+    }
+  }
 
   formatToTitleCase(): Client {
     const keys = Object.keys(this);
@@ -53,6 +76,6 @@ export class Client {
 }
 
 export enum ClientType {
-  individual,
-  business
+  INDIVIDUAL= "INDIVIDUAL",
+  BUSINESS = "BUSINESS"
 }

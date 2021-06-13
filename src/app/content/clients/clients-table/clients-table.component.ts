@@ -49,7 +49,8 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
     }
   }
 
-  selectClient(client: Client): void {
+  selectClient(row :any): void {
+    const client = new Client(row);
     if (this.selectedClient === client) {
       this.selectedClient = null;
     } else
@@ -61,12 +62,12 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
 
   buildTable(): void {
     this.subscription = this.clients.subscribe(clients => {
+      this.sort.sort({id: "name", start:"asc", disableClear: false});
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
       this.dataSource.data = clients;
     });
     this.table.dataSource = this.dataSource;
-    this.sortDefault();
   }
 
   ngOnDestroy(): void {
@@ -75,12 +76,5 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
 
   refreshTable() {
     this.refreshToken$.next(undefined);
-    this.sortDefault();
-  }
-
-  sortDefault(){
-    const matSortable: MatSortable = {id: "name", start:"asc", disableClear: false}
-    this.sort.sort(matSortable);
-    this.dataSource.sort = this.sort;
   }
 }

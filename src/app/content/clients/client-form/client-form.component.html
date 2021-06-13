@@ -72,10 +72,13 @@
         </label>
 
         <label class="form-label"> Type
-          <select name="type" [(ngModel)]="client.type" class="form-select form-control">
-            <option [value]="ClientType.individual">INDIVIDUAL</option>
-            <option [value]="ClientType.business">BUSINESS</option>
+          <select required name="type" [(ngModel)]="client.type" class="form-select form-control" #typeInput="ngModel">
+            <option [value]="ClientType.INDIVIDUAL">INDIVIDUAL</option>
+            <option [value]="ClientType.BUSINESS">BUSINESS</option>
           </select>
+          <ng-container *ngIf="typeInput.touched && typeInput.invalid">
+            <p>Client type is required.</p>
+          </ng-container>
         </label>
 
         <br>
