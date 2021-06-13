@@ -49,8 +49,8 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
     }
   }
 
-  selectClient(row :any): void {
-    const client = new Client(row);
+  selectClient(client : Client): void {
+    // const client = new Client(row);
     if (this.selectedClient === client) {
       this.selectedClient = null;
     } else
