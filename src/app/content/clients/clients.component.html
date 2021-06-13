@@ -6,7 +6,9 @@
     Add
   </button>
 
-  <button class="btn btn-dark text-light" type="button"><i class="icon fas fa-user-edit"></i> Show / Edit</button>
+  <button class="btn btn-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#editClientComponent"
+          aria-expanded="false" aria-controls="editClientComponent">
+    <i class="icon fas fa-user-edit"></i> Show / Edit</button>
 
   <button class="btn btn-dark text-light" type="button" (click)="deleteSelectedClient()"><i class="icon fas fa-user-minus"></i> Delete </button>
 
@@ -15,6 +17,10 @@
 
 <app-client-form (newClient)="addNewClient($event)" #addClientDiv></app-client-form>
 
-<app-clients-table></app-clients-table>
+<app-edit-client #editClientComponent></app-edit-client>
+
+
+
+<app-clients-table (selectionEvent)="populateEditForm($event)"></app-clients-table>
 
 

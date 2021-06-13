@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ClientsService } from "../clients.service";
 import { TABLE_COLUMNS } from "./models";
 import { Client } from "../../../models";
@@ -24,7 +24,7 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   clients: Observable<Client[]> = this.refreshToken$.pipe(switchMap(() => this.clientsService.findAll()));
   searchKey: string | undefined;
   selectedClient: Client | null = null;
-  clickedRows = new Set<Client>();
+  @Output('selectionEvent')selectedEmitter: EventEmitter<Client | null> = new EventEmitter<Client | null>();
 
   constructor(private clientsService: ClientsService) {}
 
@@ -54,6 +54,7 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
       this.selectedClient = null;
     } else
       this.selectedClient = client;
+    this.selectedEmitter.emit(this.selectedClient);
   }
 
   ngOnInit(): void { }

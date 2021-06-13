@@ -7,6 +7,7 @@ import { NgForm } from "@angular/forms";
 import { catchError } from "rxjs/operators";
 import { MessageService } from "../../message.service";
 import { ClientsTableComponent } from "./clients-table/clients-table.component";
+import { EditClientComponent } from "./edit-client/edit-client.component";
 
 
 @Component({
@@ -17,6 +18,7 @@ import { ClientsTableComponent } from "./clients-table/clients-table.component";
 export class ClientsComponent implements ContentDescriptor, AfterViewInit {
   @ViewChild('addClientDiv') addClientDiv!: ClientFormComponent;
   @ViewChild(ClientsTableComponent) tableComponent!: ClientsTableComponent;
+  @ViewChild('editClientComponent') editClientComponent!: EditClientComponent;
   private clientsForm!: NgForm;
 
   constructor(private clientsService: ClientsService, private messageService: MessageService) {
@@ -42,8 +44,8 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit {
         this.messageService.notifyError(err.error);
       })
     ).subscribe(() => {
-      this.tableComponent.refreshTable();
       this.messageService.notifySuccess("Client added.");
+      this.tableComponent.refreshTable();
     });
   }
 
@@ -59,5 +61,12 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit {
     } else {
       this.messageService.notifyWarning("Client is not selected.")
     }
+  }
+
+  populateEditForm(client: Client | null) {
+    if (client !== null)
+      this.editClientComponent.client = client;
+    else
+      this.editClientComponent.client = new Client();
   }
 }

@@ -24,4 +24,8 @@ export class ClientsService implements ServiceKeeper<Client> {
   deleteClient(selectedClient: Client) {
     return this.httpClient.delete(`${BACKEND_URL}/clients/${selectedClient.id}`);
   }
+
+  updateClient(client: Client): Observable<Client> {
+    return this.httpClient.patch<Client>(`${BACKEND_URL}/clients/${client.id}`, client);
+  }
 }

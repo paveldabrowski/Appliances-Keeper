@@ -1,0 +1,18 @@
+.editClientComponent p {
+  margin-bottom: 0;
+  color: red;
+  font-weight: lighter;
+  font-size: 1.2rem;
+}
+
+.editClientComponent label {
+  width: 20rem;
+}
+
+.editClientComponent input, button, select, textarea {
+  font-size: 1.4rem;
+}
+
+.submit-button-disabled[disabled] {
+  background-color: gray;
+}

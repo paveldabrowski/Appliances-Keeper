@@ -19,6 +19,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { EditClientComponent } from './clients/edit-client/edit-client.component';
 
 const routes: Routes = [
   {
@@ -38,7 +39,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [ClientsComponent, ContentComponent, ClientFormComponent, ClientsTableComponent],
+  declarations: [ClientsComponent, ContentComponent, ClientFormComponent, ClientsTableComponent, EditClientComponent],
   exports: [
     ContentComponent,
     ClientsComponent
