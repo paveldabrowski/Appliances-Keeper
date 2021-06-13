@@ -56,13 +56,13 @@
 }
 
 #logout-button {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 400;
 }
 
 #logout-button i {
   margin-left: 1rem;
-  font-size: 3.5rem;
+  font-size: 3rem;
 }
 
 .my-navbar h1 {
@@ -71,7 +71,7 @@
 
 .my-navbar h1, button {
   font-family: 'Rajdhani-Bold', sans-serif;
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 

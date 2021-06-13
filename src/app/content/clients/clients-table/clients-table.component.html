@@ -7,7 +7,7 @@
 <!--    </mat-form-field>-->
 <!--  </div>-->
 
-  <div class="search-div mx-4 pt-4">
+  <div class="search-div d-flex align-items-center mx-4 pt-4">
     <mat-form-field class="search-form-field">
       <mat-label>Search</mat-label>
       <input matInput [(ngModel)]="searchKey" placeholder="Search for client" autocomplete="off" (keyup)="applyFilter($event)" #input>
@@ -15,6 +15,9 @@
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
+
+    <div class="slogan d-flex align-items-end ms-auto"><h1 class="text-center">Manage clients with ease</h1></div>
+
   </div>
 
 
