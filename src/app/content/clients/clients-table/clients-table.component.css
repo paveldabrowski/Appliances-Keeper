@@ -30,8 +30,8 @@
 }
 
 .mat-cell, mat-header-cell {
-  min-width: 60px;
-  padding-right: 1rem;
+  min-width: 70px;
+  margin-right: 1.5rem;
 }
 
 .mat-cell, mat-row {
@@ -64,8 +64,8 @@ mat-table {
 }
 
 .mat-column-building, .mat-column-apartment {
-  max-width: 4rem;
-  /*margin-right: 1rem;*/
+  max-width: 3rem;
+  min-width: 2rem;
 }
 
 

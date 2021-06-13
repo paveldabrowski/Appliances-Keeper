@@ -6,10 +6,18 @@
 
   <div class="content d-flex flex-column h-100 w-100">
 
-    <nav class="my-navbar text-light bg-dark ">
-      <div class="d-flex align-items-center">
-        <button class="hamburger navbar-toggler" (click)="toggleSidebar()"><i class="fas fa-bars"></i></button>
-        <p class="ms-3">{{ observable | async }}</p>
+    <nav class="my-navbar d-flex text-light bg-dark ">
+      <div class="d-flex align-items-stretch align-items-center w-100">
+        <button class="hamburger navbar-toggler" (click)="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+<!--          <i class="icofont-navigation-menu"></i>-->
+        </button>
+        <h1 class="align-self-center ms-3">{{ observable | async }}</h1>
+        <button id="logout-button" class="d-flex align-items-center ms-auto" mat-button>
+          Logout
+<!--          <i class="fas fa-sign-out-alt"></i>-->
+          <i class="icofont-logout"></i>
+        </button>
       </div>
     </nav>
 

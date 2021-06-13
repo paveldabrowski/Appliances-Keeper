@@ -14,6 +14,7 @@ import { HomePageComponent } from "./home-page/home-page.component";
 import { ToastrModule } from "ngx-toastr";
 import { MessageService } from "./message.service";
 import { ErrorHandlingInterceptor } from "./error-handling.interceptor";
+import { MatButtonModule } from "@angular/material/button";
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -26,14 +27,15 @@ const routes: Routes = [
     DrawerComponent,
     HomePageComponent
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatSidenavModule,
-    ToastrModule.forRoot(),
-    RouterModule.forRoot(routes)
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatSidenavModule,
+        ToastrModule.forRoot(),
+        RouterModule.forRoot(routes),
+        MatButtonModule
+    ],
   providers: [
     TitleService,
     MessageService,

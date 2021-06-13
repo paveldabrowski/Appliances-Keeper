@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap');
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
 @import url('assets/icofont/icofont.min.css');
-/*@import "~@angular/material/prebuilt-themes/indigo-pink.css";*/
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 
 * {
@@ -28,6 +29,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   display: flex;
   width: 100%;
   height: 100%;
+}
+
+.slogan h1 {
+  /*font-family: 'Shadows Into Light', cursive;*/
+  font-family: 'Montserrat', sans-serif;
+  font-size: 4rem;
+  align-self: stretch;
+  margin-bottom: 0;
+  color: #bbb3b3;
 }
 
 @font-face {

@@ -1,4 +1,4 @@
-<div class="button-layout mx-4 ">
+<div class="button-layout d-flex align-items-end mx-4 ">
 
   <button class="btn btn-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#addClientDiv"
           aria-expanded="false" aria-controls="addClientDiv" (click)="clearClientForm()">
@@ -10,8 +10,9 @@
           aria-expanded="false" aria-controls="editClientComponent">
     <i class="icon fas fa-user-edit"></i> Show / Edit</button>
 
-  <button class="btn btn-dark text-light" type="button" (click)="deleteSelectedClient()"><i class="icon fas fa-user-minus"></i> Delete </button>
+  <button class="btn btn-dark text-light" type="button" (click)="openConfirmDialog()"><i class="icon fas fa-user-minus"></i> Delete </button>
 
+  <div class="slogan d-flex align-items-end ms-auto"><h1 class="text-center">Manage clients with ease</h1></div>
 
 </div>
 

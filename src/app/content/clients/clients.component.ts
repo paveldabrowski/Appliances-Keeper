@@ -8,6 +8,8 @@ import { catchError } from "rxjs/operators";
 import { MessageService } from "../../message.service";
 import { ClientsTableComponent } from "./clients-table/clients-table.component";
 import { EditClientComponent } from "./edit-client/edit-client.component";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { ConfirmDeletionDialogComponent } from "./confirm-deletion-dialog/confirm-deletion-dialog.component";
 
 
 @Component({
@@ -21,8 +23,10 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit {
   @ViewChild('editClientComponent') editClientComponent!: EditClientComponent;
   private clientsForm!: NgForm;
 
-  constructor(private clientsService: ClientsService, private messageService: MessageService) {
-  }
+  constructor(private clientsService: ClientsService,
+              private messageService: MessageService,
+              private dialog: MatDialog
+  ) {  }
 
   ngAfterViewInit(): void {
     this.clientsForm = this.addClientDiv.addClientForm;
@@ -49,7 +53,7 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit {
     });
   }
 
-  deleteSelectedClient(): void {
+  private deleteSelectedClient(): void {
     const client = this.tableComponent.selectedClient;
     if (client !== null) {
       this.clientsService.deleteClient(client).subscribe(() => {
@@ -68,5 +72,14 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit {
       this.editClientComponent.client = client;
     else
       this.editClientComponent.client = new Client();
+  }
+
+  openConfirmDialog() {
+    const dialog: MatDialogRef<ConfirmDeletionDialogComponent, boolean> =
+      this.dialog.open(ConfirmDeletionDialogComponent, {role: "alertdialog", disableClose: true})
+    dialog.afterClosed().subscribe(value => {
+      if (value)
+        this.deleteSelectedClient();
+    })
   }
 }

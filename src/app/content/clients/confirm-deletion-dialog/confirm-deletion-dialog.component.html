@@ -1,0 +1,7 @@
+<div class="d-flex flex-column align-items-center"><h2 mat-dialog-title>{{ title }}</h2>
+  <mat-dialog-content>{{ description }}</mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="warn" [mat-dialog-close]="true">Delete</button>
+  </mat-dialog-actions>
+</div>

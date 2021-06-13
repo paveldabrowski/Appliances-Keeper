@@ -9,17 +9,17 @@ import { FormsModule } from "@angular/forms";
 import { ClientFormComponent } from './clients/client-form/client-form.component';
 import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from "@angular/material/sort";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatSliderModule } from "@angular/material/slider";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { ClientsTableComponent } from './clients/clients-table/clients-table.component';
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatSelectModule } from "@angular/material/select";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { EditClientComponent } from './clients/edit-client/edit-client.component';
+import { ConfirmDeletionDialogComponent } from './clients/confirm-deletion-dialog/confirm-deletion-dialog.component';
+import { MatDialogModule } from "@angular/material/dialog";
 
 const routes: Routes = [
   {
@@ -39,30 +39,35 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [ClientsComponent, ContentComponent, ClientFormComponent, ClientsTableComponent, EditClientComponent],
+  declarations: [
+    ClientsComponent,
+    ContentComponent,
+    ClientFormComponent,
+    ClientsTableComponent,
+    EditClientComponent,
+    ConfirmDeletionDialogComponent
+  ],
   exports: [
     ContentComponent,
     ClientsComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    FormsModule,
-    MatTableModule,
-    MatSortModule,
-    MatSliderModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTooltipModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        FormsModule,
+        MatTableModule,
+        MatSortModule,
+        MatSliderModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatPaginatorModule,
+        MatIconModule,
+        MatButtonModule,
+        MatTooltipModule,
+        MatDialogModule
+    ],
   providers: [
     ClientsService
   ]
-
-
-
 })
 export class ContentModule { }
