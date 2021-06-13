@@ -3,7 +3,7 @@ import { ClientsService } from "../clients.service";
 import { TABLE_COLUMNS } from "./models";
 import { Client } from "../../../models";
 import { MatPaginator } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
+import { MatSort, MatSortable } from "@angular/material/sort";
 import { MatRow, MatTable, MatTableDataSource } from "@angular/material/table";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
 import { switchMap } from "rxjs/operators";
@@ -66,6 +66,7 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
       this.dataSource.data = clients;
     });
     this.table.dataSource = this.dataSource;
+    this.sortDefault();
   }
 
   ngOnDestroy(): void {
@@ -73,6 +74,13 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   refreshTable() {
-    this.refreshToken$.next(undefined)
+    this.refreshToken$.next(undefined);
+    this.sortDefault();
+  }
+
+  sortDefault(){
+    const matSortable: MatSortable = {id: "name", start:"asc", disableClear: false}
+    this.sort.sort(matSortable);
+    this.dataSource.sort = this.sort;
   }
 }
