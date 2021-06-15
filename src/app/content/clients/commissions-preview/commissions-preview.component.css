@@ -1,0 +1,15 @@
+.commissions-preview .client-name {
+  background-color: lightgray;
+}
+
+.commissions-preview .client-name p {
+  font-size: 2rem;
+  font-family: var(--rajdhani-regular);
+  font-weight: bold;
+  margin: 0;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+}
+

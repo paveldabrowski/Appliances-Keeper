@@ -1,0 +1,73 @@
+<div id="commissions-preview" class="collapse mt-4 commissions-preview p-3 pt-0" #commissionDiv>
+
+  <div class="d-flex justify-content-around">
+
+    <div class="slogan d-flex justify-content-end align-items-center ms-auto mb-3"><h1 class="text-center">
+      Commissions</h1></div>
+  </div>
+
+  <div class="mat-elevation-z2">
+    <div class="client-name p-4"><p class=" display-6"><i class="far fa-user"></i> {{ client.name }} {{ client.lastName }}</p></div>
+    <mat-table *ngIf="commissions" [dataSource]="commissions" mat-table matSort>
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="appliance">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Appliance</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row"> {{ row.appliance.serialNumber }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="creationDate">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Creation Date</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row"> {{ row.creationDate }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="adviceGiven">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Advice given?</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row"> {{ row.appliance.serialNumber }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="technician">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Technician id</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row"> {{ row.technician.id }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="repairDate">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Repair date</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row"> {{ row.repairDate?.availableDate }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="clientVisited">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Client visited?</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row"> {{ row.clientVisited }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="commissionStatus">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Commission status</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row"> {{ row.commissionStatus }} </mat-cell>
+      </ng-container>
+
+      <mat-header-row mat-header-row *matHeaderRowDef="COLUMNS"></mat-header-row>
+      <mat-row (click)="selectClient(row)"
+               [ngClass]="selectedCommission === row ? 'selected-row' : ''" *matRowDef="let row; columns: COLUMNS;"></mat-row>
+
+      <!-- Row shown when mat-header-cellere is no matching data. -->
+<!--      <tr class="mat-row row justify-content-center text-center align-items-center" *matNoDataRow>-->
+<!--        <td class="" colspan="4">No data matching the filter "{{input.value}}"</td>-->
+<!--      </tr>-->
+    </mat-table>
+
+    <mat-paginator #paginator
+                   [length]="commissions?.length"
+                   [pageIndex]="0"
+                   [pageSize]="5"
+                   [pageSizeOptions]="[5, 10, 20, 100]">
+    </mat-paginator>
+
+  </div>
+
+</div>
