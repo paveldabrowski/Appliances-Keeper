@@ -1,0 +1,20 @@
+mat-table {
+  overflow-x: auto;
+  display: grid!important;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  color: black;
+  font-size: 1.3rem;
+  word-break: unset;
+  white-space: nowrap;
+}
+
+.mat-cell, .mat-row {
+  min-height: 3rem;
+}
+
+.mat-cell {
+  font-size: 1.2rem;
+}
