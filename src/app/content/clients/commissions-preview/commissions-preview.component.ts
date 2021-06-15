@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { COMMISSIONS_COLUMNS } from "./models";
 import { Commission } from "../../commissions/Commission";
-import { Observable, of } from "rxjs";
 import { MatTable } from "@angular/material/table";
 import { Client } from "../Client";
 
