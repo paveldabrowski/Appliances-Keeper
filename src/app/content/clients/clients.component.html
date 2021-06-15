@@ -12,7 +12,9 @@
 
   <button class="btn btn-dark text-light" type="button" (click)="openConfirmDialog()"><i class="icon fas fa-user-minus"></i> Delete </button>
 
-  <button class="btn btn-dark text-light" type="button" (click)="openConfirmDialog()"><i class="icon fas fa-microscope"></i> Show appliances </button>
+  <button class="btn btn-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#commissions-preview"
+          aria-expanded="false" aria-controls="commissions-preview" #commissionsButton>
+    <i class="icon fas fa-microscope"></i> Show commissions </button>
 
 <!--  <div class="slogan d-flex align-items-end ms-auto"><h1 class="text-center">Manage clients with ease</h1></div>-->
 
@@ -22,8 +24,9 @@
 
 <app-edit-client #editClientComponent></app-edit-client>
 
+<app-commissions-preview #previewComponent></app-commissions-preview>
 
 
-<app-clients-table (selectionEvent)="populateEditForm($event)"></app-clients-table>
+<app-clients-table (selectionEvent)="populateForms($event)"></app-clients-table>
 
 

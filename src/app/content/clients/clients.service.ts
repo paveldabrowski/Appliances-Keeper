@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { Client } from "../../models";
 import { BACKEND_URL } from "../../../environments/environment";
 import { Observable } from "rxjs";
 import { ServiceKeeper } from "../model";
+import { Client } from "./Client";
 
 
 @Injectable({
@@ -11,21 +11,22 @@ import { ServiceKeeper } from "../model";
 })
 export class ClientsService implements ServiceKeeper<Client> {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   findAll(): Observable<Client[]> {
-    return this.httpClient.get<Client[]>(`${BACKEND_URL}/clients`);
+    return this.httpClient.get<Client[]>(`${ BACKEND_URL }/clients`);
   }
 
   addClient(client: Client): Observable<Client> {
-    return this.httpClient.post<Client>(`${BACKEND_URL}/clients`, client);
+    return this.httpClient.post<Client>(`${ BACKEND_URL }/clients`, client);
   }
 
   deleteClient(selectedClient: Client) {
-    return this.httpClient.delete(`${BACKEND_URL}/clients/${selectedClient.id}`);
+    return this.httpClient.delete(`${ BACKEND_URL }/clients/${ selectedClient.id }`);
   }
 
   updateClient(client: Client): Observable<Client> {
-    return this.httpClient.patch<Client>(`${BACKEND_URL}/clients/${client.id}`, client);
+    return this.httpClient.patch<Client>(`${ BACKEND_URL }/clients/${ client.id }`, client);
   }
 }

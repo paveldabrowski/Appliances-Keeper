@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { Client, ClientType } from "../../../models";
 import { NgForm } from "@angular/forms";
+import { Client } from "../Client";
+import { ClientType } from '../models';
 
 @Component({
   selector: 'app-client-form',

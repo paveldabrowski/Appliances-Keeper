@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClientsComponent } from "./clients/clients.component";
-import { ContentComponent } from './content/content.component';
+import { ContentComponent } from './content.component';
 import { RouterModule, Routes } from "@angular/router";
 import { ClientsService } from "./clients/clients.service";
 import { HomePageComponent } from '../home-page/home-page.component';
@@ -20,6 +20,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { EditClientComponent } from './clients/edit-client/edit-client.component';
 import { ConfirmDeletionDialogComponent } from './clients/confirm-deletion-dialog/confirm-deletion-dialog.component';
 import { MatDialogModule } from "@angular/material/dialog";
+import { CommissionsPreviewComponent } from './clients/commissions-preview/commissions-preview.component';
 
 const routes: Routes = [
   {
@@ -45,7 +46,8 @@ const routes: Routes = [
     ClientFormComponent,
     ClientsTableComponent,
     EditClientComponent,
-    ConfirmDeletionDialogComponent
+    ConfirmDeletionDialogComponent,
+    CommissionsPreviewComponent
   ],
   exports: [
     ContentComponent,

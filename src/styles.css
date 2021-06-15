@@ -22,8 +22,14 @@ body {
   position: relative;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .content-table {
   display: flex;
@@ -45,9 +51,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   src: url("src/assets/fonts/Rajdhani-Bold.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: 'Rajdhani';
+  src: url("src/assets/fonts/Rajdhani-Regular.ttf") format("truetype");
+}
+
 :root {
---drawer-size: 25rem;
---drawer-size-margin: calc(-1 * var(--drawer-size));
+  --drawer-size: 25rem;
+  --drawer-size-margin: calc(-1 * var(--drawer-size));
+  --rajdhani-regular: 'Rajdhani', sans-serif;
+  --rajdhani-bold: 'Rajdhani-Bold', sans-serif;
 }
 
 /*---------------------------*/

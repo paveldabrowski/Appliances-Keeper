@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Client, ClientType } from "../../../models";
+
 import { ClientsService } from "../clients.service";
 import { MessageService } from "../../../message.service";
+import { Client } from "../Client";
+import { ClientType } from '../models';
 
 @Component({
   selector: 'app-edit-client',

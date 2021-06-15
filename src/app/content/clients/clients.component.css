@@ -4,7 +4,7 @@
   font-size: 1.4rem;
   padding: 0.5rem 1rem;
   transition: background-color 0.3s;
-  font-family: Rajdhani, sans-serif;
+  font-family: Rajdhani-Bold, sans-serif;
   max-height: 3.3rem;
   overflow: hidden;
 }
@@ -21,4 +21,10 @@
   font-size: 1.5rem;
   color: white;
   margin-right: 0.5rem;
+}
+
+@keyframes my-animation {
+  0% {}
+
+
 }

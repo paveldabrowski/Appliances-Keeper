@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ContentDescriptor } from "../model";
-import { TitleService } from "../../title.service";
+import { ContentDescriptor } from "./model";
+import { TitleService } from "../title.service";
 
 @Component({
   selector: 'content-component',

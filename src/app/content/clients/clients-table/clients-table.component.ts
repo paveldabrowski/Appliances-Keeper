@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ClientsService } from "../clients.service";
 import { TABLE_COLUMNS } from "./models";
-import { Client } from "../../../models";
 import { MatPaginator } from "@angular/material/paginator";
-import { MatSort, MatSortable } from "@angular/material/sort";
-import { MatRow, MatTable, MatTableDataSource } from "@angular/material/table";
+import { MatSort } from "@angular/material/sort";
+import { MatTable, MatTableDataSource } from "@angular/material/table";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
 import { switchMap } from "rxjs/operators";
+import { Client } from "../Client";
 
 @Component({
   selector: 'app-clients-table',
@@ -50,7 +50,6 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   selectClient(client : Client): void {
-    // const client = new Client(row);
     if (this.selectedClient === client) {
       this.selectedClient = null;
     } else
