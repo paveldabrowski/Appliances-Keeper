@@ -23,6 +23,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { CommissionsPreviewComponent } from './clients/commissions-preview/commissions-preview.component';
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { CommissionDetailsComponent } from './clients/commissions-preview/commission-deatails/commission-details.component';
+import { MatExpansionModule } from "@angular/material/expansion";
 
 const routes: Routes = [
   {
@@ -70,7 +71,8 @@ const routes: Routes = [
         MatButtonModule,
         MatTooltipModule,
         MatDialogModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatExpansionModule
     ],
   providers: [
     ClientsService

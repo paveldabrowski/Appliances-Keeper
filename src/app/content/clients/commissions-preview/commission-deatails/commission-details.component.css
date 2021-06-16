@@ -1,3 +1,7 @@
+.commission-details {
+  width: 40rem;
+}
+
 .commission-details .client-name {
   background-color: lightgray;
 }
@@ -7,4 +11,16 @@
   font-family: var(--rajdhani-regular);
   font-weight: bold;
   margin: 0;
+}
+
+.commission-details .mat-expansion-panel {
+  box-shadow: none;
+}
+
+.commission-details .mat-expansion-panel-header {
+  padding: 0 1.5rem 0 0;
+}
+
+.commission-details p{
+  font-size: 2rem;
 }

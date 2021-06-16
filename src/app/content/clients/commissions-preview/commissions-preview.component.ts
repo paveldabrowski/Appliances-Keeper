@@ -53,6 +53,7 @@ export class CommissionsPreviewComponent implements OnInit {
         this.dialog.open(CommissionDetailsComponent, {
           role: "dialog",
           disableClose: true,
+          autoFocus: false,
           data: {commission: this.selectedCommission, client: this.client}
         });
     } else
