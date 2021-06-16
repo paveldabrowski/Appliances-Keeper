@@ -19,3 +19,22 @@
   text-align: center;
 }
 
+.commissions-preview button {
+  margin-top: 1.5rem;
+  margin-right: 1rem;
+  font-size: 1.4rem;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s;
+  font-family: Rajdhani-Bold, sans-serif;
+  max-height: 3.3rem;
+  overflow: hidden;
+}
+
+.commissions-preview button:hover {
+  background-color: dodgerblue;
+}
+
+.commissions-preview button:hover .icon {
+  color: black;
+}
+

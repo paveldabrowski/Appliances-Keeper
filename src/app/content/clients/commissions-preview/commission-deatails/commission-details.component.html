@@ -1,0 +1,44 @@
+<div class="commission-details p-0 card container-fluid d-flex flex-column">
+  <div *ngIf="commission">
+    <div class="client-name card-header">
+      <p class=" display-6">
+        <i class="far fa-user"></i> {{ client.name }} {{ client.lastName }}
+      </p>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="updateCommission()">
+        <div class="input-group mb-3">
+          <span class="input-group-text">Commisson number</span>
+          <input type="text" class="form-control text-center" disabled [value]="commission.id">
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">Appliance serial number</span>
+          <input type="text" class="form-control text-center" disabled [value]="commission.appliance?.serialNumber">
+          <button><i class="fas fa-eye"></i></button>
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">Creation date</span>
+          <input type="text" class="form-control text-center" disabled [value]="commission.creationDate">
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">Problem description</span>
+          <textarea class="form-control text-center" disabled [value]="commission.problemDescription"></textarea>>
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">Technician</span>
+          <textarea class="form-control text-center" disabled [value]="commission.technician?.id"></textarea>
+          <button type="button" data-bs-toggle="popover" title="Technician" data-bs-content="xzccxz"><i class="fas fa-eye"></i></button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <p *ngIf="!commission">Commission not selected!</p>
+
+  <button mat-button mat-dialog-close>Cancel</button>
+</div>

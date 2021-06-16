@@ -18,3 +18,21 @@ mat-table {
 .mat-cell {
   font-size: 1.2rem;
 }
+
+.selected-row {
+  background-color: rgba(30, 144, 255, 0.24)!important;
+}
+
+
+/*----------------------*/
+/*   Table Selection    */
+/*----------------------*/
+.mat-row {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover  {
+  border-color: currentColor;
+}

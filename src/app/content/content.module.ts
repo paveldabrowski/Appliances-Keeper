@@ -22,6 +22,7 @@ import { ConfirmDeletionDialogComponent } from './clients/confirm-deletion-dialo
 import { MatDialogModule } from "@angular/material/dialog";
 import { CommissionsPreviewComponent } from './clients/commissions-preview/commissions-preview.component';
 import { MatCheckboxModule } from "@angular/material/checkbox";
+import { CommissionDetailsComponent } from './clients/commissions-preview/commission-deatails/commission-details.component';
 
 const routes: Routes = [
   {
@@ -48,7 +49,8 @@ const routes: Routes = [
     ClientsTableComponent,
     EditClientComponent,
     ConfirmDeletionDialogComponent,
-    CommissionsPreviewComponent
+    CommissionsPreviewComponent,
+    CommissionDetailsComponent
   ],
   exports: [
     ContentComponent,

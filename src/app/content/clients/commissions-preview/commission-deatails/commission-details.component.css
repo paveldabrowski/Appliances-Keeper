@@ -1,0 +1,10 @@
+.commission-details .client-name {
+  background-color: lightgray;
+}
+
+.commission-details .client-name p {
+  font-size: 2rem;
+  font-family: var(--rajdhani-regular);
+  font-weight: bold;
+  margin: 0;
+}

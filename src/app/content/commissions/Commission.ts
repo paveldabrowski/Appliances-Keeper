@@ -1,5 +1,6 @@
 import { Appliance } from "../appliances/models";
 import { Technician, TechnicianTerm } from "../technicians/models";
+import { Client } from "../clients/Client";
 
 export class Commission {
 
@@ -13,4 +14,5 @@ export class Commission {
   technicianReport?: string;
   clientVisited?: boolean;
   commissionStatus?: boolean;
+  client?: Client;
 }
