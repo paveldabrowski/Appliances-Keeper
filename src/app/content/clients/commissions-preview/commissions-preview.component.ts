@@ -34,7 +34,7 @@ export class CommissionsPreviewComponent implements OnInit {
     this.table.renderRows();
   }
 
-  selectClient(row: Commission) {
+  showCommissionDetails(row: Commission) {
 
   }
 }

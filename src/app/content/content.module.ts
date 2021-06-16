@@ -21,6 +21,7 @@ import { EditClientComponent } from './clients/edit-client/edit-client.component
 import { ConfirmDeletionDialogComponent } from './clients/confirm-deletion-dialog/confirm-deletion-dialog.component';
 import { MatDialogModule } from "@angular/material/dialog";
 import { CommissionsPreviewComponent } from './clients/commissions-preview/commissions-preview.component';
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 const routes: Routes = [
   {
@@ -66,7 +67,8 @@ const routes: Routes = [
         MatIconModule,
         MatButtonModule,
         MatTooltipModule,
-        MatDialogModule
+        MatDialogModule,
+        MatCheckboxModule
     ],
   providers: [
     ClientsService

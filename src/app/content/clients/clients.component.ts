@@ -58,7 +58,7 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit {
 
   private deleteSelectedClient(): void {
     const client = this.tableComponent.selectedClient;
-      if (client !== null) {
+    if (client !== null) {
       this.clientsService.deleteClient(client).subscribe(() => {
           this.messageService.notifySuccess("Client deleted!");
           this.tableComponent.refreshTable();
@@ -73,10 +73,7 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit {
   populateForms(client: Client | null) {
     if (client !== null) {
       this.editClientComponent.client = client;
-      if (this.commissionsPreviewComponent.commissionDiv.nativeElement.classList.contains('show')) {
-        console.log('true')
-        this.commissionsPreviewComponent.populateTable(client);
-      }
+      this.commissionsPreviewComponent.populateTable(client);
     } else {
       this.editClientComponent.client = new Client();
       this.commissionsPreviewComponent.populateTable(new Client())

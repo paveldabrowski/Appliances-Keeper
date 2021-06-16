@@ -13,3 +13,9 @@
   font-weight: bold;
 }
 
+.mat-column-adviceGiven , .mat-column-clientVisited , .mat-column-commissionStatus {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
