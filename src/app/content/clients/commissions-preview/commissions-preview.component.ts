@@ -32,13 +32,6 @@ export class CommissionsPreviewComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnDestroy(): void {
-    if (this.subscription)
-      this.subscription.unsubscribe();
-    if (this.dialogSubscription)
-      this.dialogSubscription.unsubscribe();
-  }
-
   ngOnInit(): void {
   }
 
@@ -73,5 +66,12 @@ export class CommissionsPreviewComponent implements OnInit, OnDestroy {
       this.dialogSubscription = dialog.afterClosed().subscribe(() => this.populateTable(this.client))
     } else
       this.messageService.notifyInfo("Select commission to inspect details.")
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription)
+      this.subscription.unsubscribe();
+    if (this.dialogSubscription)
+      this.dialogSubscription.unsubscribe();
   }
 }
