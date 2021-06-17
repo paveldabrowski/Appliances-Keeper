@@ -78,3 +78,25 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background-color: darkgrey;
 }
+
+/*---------------------------*/
+/*           Button          */
+/*---------------------------*/
+.my-custom-button {
+  margin-top: 1.5rem;
+  margin-right: 1rem;
+  font-size: 1.4rem;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s;
+  font-family: Rajdhani-Bold, sans-serif;
+  max-height: 3.3rem;
+  overflow: hidden;
+}
+
+.my-custom-button:hover {
+  background-color: dodgerblue;
+}
+
+.my-custom-button:hover .icon {
+  color: black;
+}

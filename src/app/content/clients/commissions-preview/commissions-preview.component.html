@@ -64,7 +64,7 @@
 
       <mat-header-row mat-header-row *matHeaderRowDef="COLUMNS"></mat-header-row>
       <mat-row (click)="selectCommission(row)"
-               [ngClass]="selectedCommission === row ? 'selected-row' : ''"
+               [ngClass]="selectedRow === row ? 'selected-row' : ''"
                *matRowDef="let row; columns: COLUMNS;"></mat-row>
 
     </mat-table>
