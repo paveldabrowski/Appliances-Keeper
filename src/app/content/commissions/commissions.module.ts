@@ -9,6 +9,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { FormsModule } from "@angular/forms";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 
 @NgModule({
@@ -16,15 +17,16 @@ import { FormsModule } from "@angular/forms";
     CommissionsViewComponent,
     CommissionsTableComponent
   ],
-  imports: [
-    CommonModule,
-    MatTableModule,
-    MatSortModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    MatPaginatorModule,
-    FormsModule
-  ]
+    imports: [
+        CommonModule,
+        MatTableModule,
+        MatSortModule,
+        MatInputModule,
+        MatIconModule,
+        MatButtonModule,
+        MatPaginatorModule,
+        FormsModule,
+        MatProgressSpinnerModule
+    ]
 })
 export class CommissionsModule { }

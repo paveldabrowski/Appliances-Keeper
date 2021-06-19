@@ -1,13 +1,14 @@
 export const COMMISSIONS_COLUMNS: string[] = [
   'id',
-  'appliance',
-  'creationDate',
+  'appliance_id',
+  'creation_date',
   // 'problemDescription',
-  'adviceGiven',
-  'technician',
-  'repairDate',
+  'advice_given',
+  'technician_id',
+  'repair_date_id' +
+  '',
   // 'technicianReport',
-  'clientVisited',
-  'commissionStatus',
-  'client'
+  'client_visited',
+  'commission_status',
+  'client_id'
 ];

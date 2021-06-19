@@ -2,7 +2,7 @@
   <div class="search-div d-flex align-items-center mx-4 pt-4">
     <mat-form-field class="search-form-field">
       <mat-label>Search</mat-label>
-      <input matInput [(ngModel)]="searchKey" placeholder="Search for client" autocomplete="off" (keyup)="applyFilter($event)" #input>
+      <input matInput [(ngModel)]="searchKey" placeholder="Search for client" autocomplete="off" #input>
       <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey"  (click)="onSearchClear()">
         <mat-icon>close</mat-icon>
       </button>
@@ -12,9 +12,15 @@
 
   </div>
 
+  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+
+    <mat-spinner></mat-spinner>
+
+  </div>
+
 
   <div class="mat-elevation-z2 mx-4">
-    <mat-table mat-table matSort>
+    <mat-table [dataSource]="dataSource" mat-table matSort>
 
       <!-- ID Column -->
       <ng-container matColumnDef="id">
@@ -22,42 +28,42 @@
         <mat-cell mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="appliance">
+      <ng-container matColumnDef="appliance_id">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Appliance</mat-header-cell>
         <mat-cell mat-cell *matCellDef="let row"> {{ row.appliance.model }} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="creationDate">
+      <ng-container matColumnDef="creation_date">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Created at</mat-header-cell>
         <mat-cell mat-cell *matCellDef="let row"> {{ row.creationDate }} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="adviceGiven">
+      <ng-container matColumnDef="advice_given">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Advice given</mat-header-cell>
         <mat-cell mat-cell *matCellDef="let row"> {{row.adviceGiven}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="technician">
+      <ng-container matColumnDef="technician_id">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Technician</mat-header-cell>
         <mat-cell mat-cell *matCellDef="let row"> {{row.technician?.id}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="repairDate">
+      <ng-container matColumnDef="repair_date_id">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Repair date</mat-header-cell>
         <mat-cell mat-cell *matCellDef="let row"> {{row.repairDate}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="clientVisited">
+      <ng-container matColumnDef="client_visited">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Client visited</mat-header-cell>
         <mat-cell mat-cell *matCellDef="let row"> {{row.clientVisited}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="commissionStatus">
+      <ng-container matColumnDef="commission_status">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Commission status</mat-header-cell>
         <mat-cell mat-cell *matCellDef="let row"> {{row.commissionStatus}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="client">
+      <ng-container matColumnDef="client_id">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>A</mat-header-cell>
         <mat-cell mat-cell *matCellDef="let row"> {{row.client.id}} </mat-cell>
       </ng-container>
@@ -74,9 +80,9 @@
     </mat-table>
 
     <mat-paginator #paginator
-                   [length]="dataSource?.data?.length"
+                   [length]="dataSource.length"
                    [pageIndex]="0"
-                   [pageSize]="10"
+                   [pageSize]="5"
                    [pageSizeOptions]="[2, 5, 10, 20, 100]">
     </mat-paginator>
 
