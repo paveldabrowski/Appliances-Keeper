@@ -24,6 +24,8 @@ import { CommissionsPreviewComponent } from './clients/commissions-preview/commi
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { CommissionDetailsComponent } from './clients/commissions-preview/commission-deatails/commission-details.component';
 import { MatExpansionModule } from "@angular/material/expansion";
+import { CommissionsModule } from "./commissions/commissions.module";
+import { CommissionsViewComponent } from "./commissions/commissions-view/commissions-view.component";
 
 const routes: Routes = [
   {
@@ -37,6 +39,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomePageComponent
+      },
+      {
+        path: 'commissions',
+        component: CommissionsViewComponent
       }
     ]
   }
@@ -57,25 +63,27 @@ const routes: Routes = [
     ContentComponent,
     ClientsComponent
   ],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        FormsModule,
-        MatTableModule,
-        MatSortModule,
-        MatSliderModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatPaginatorModule,
-        MatIconModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatDialogModule,
-        MatCheckboxModule,
-        MatExpansionModule
-    ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    FormsModule,
+    MatTableModule,
+    MatSortModule,
+    MatSliderModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatExpansionModule,
+    CommissionsModule
+  ],
   providers: [
     ClientsService
   ]
 })
-export class ContentModule { }
+export class ContentModule {
+}

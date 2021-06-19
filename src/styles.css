@@ -100,3 +100,9 @@ body::-webkit-scrollbar-thumb {
 .my-custom-button:hover .icon {
   color: black;
 }
+
+.my-custom-button i {
+  font-size: 1.5rem;
+  color: white;
+  margin-right: 0.5rem;
+}

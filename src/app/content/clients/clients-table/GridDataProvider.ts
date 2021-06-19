@@ -4,7 +4,8 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { ServiceKeeper } from "../../model";
 import { map } from "rxjs/operators";
-import { Client } from "../../../models";
+import { Client } from "../Client";
+
 
 
 export class GridDataProvider<T extends Client> extends DataSource<T> {

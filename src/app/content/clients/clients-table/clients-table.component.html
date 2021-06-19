@@ -1,117 +1,113 @@
-<div class="client-table">
-<!--<div class="client-table mat-elevation-z8 mx-3">-->
-<!--  <div class="p-3">-->
-<!--    <mat-form-field>-->
-<!--      <mat-label>Search</mat-label>-->
-<!--      <input matInput (keyup)="applyFilter($event)" placeholder="Type search term" #input>-->
-<!--    </mat-form-field>-->
-<!--  </div>-->
+<section id="clients-table2">
+  <div class="client-table">
+    <div class="search-div d-flex align-items-center mx-4 pt-4">
+      <mat-form-field class="search-form-field">
+        <mat-label>Search</mat-label>
+        <input matInput [(ngModel)]="searchKey" placeholder="Search for client" autocomplete="off"
+               (keyup)="applyFilter($event)" #input>
+        <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
 
-  <div class="search-div d-flex align-items-center mx-4 pt-4">
-    <mat-form-field class="search-form-field">
-      <mat-label>Search</mat-label>
-      <input matInput [(ngModel)]="searchKey" placeholder="Search for client" autocomplete="off" (keyup)="applyFilter($event)" #input>
-      <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey"  (click)="onSearchClear()">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
+      <div class="slogan d-flex align-items-end ms-auto"><h1 class="text-center">Manage clients with ease</h1></div>
 
-    <div class="slogan d-flex align-items-end ms-auto"><h1 class="text-center">Manage clients with ease</h1></div>
+    </div>
+
+
+    <div class="mat-elevation-z2 mx-4">
+      <mat-table mat-table matSort>
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Last name</mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let row"> {{ row.lastName }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="nip">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>NIP</mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let row"> {{row.nip}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="regon">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>REGON</mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let row"> {{row.regon}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let row"> {{row.type}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="street">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Street</mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let row"> {{row.street}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="building">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>B</mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let row"> {{row.building}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="apartment">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>A</mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let row"> {{row.apartment}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="zipCode">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Zip code</mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let row"> {{row.zipCode}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="city">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>City</mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let row"> {{row.city}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="phoneNumber">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let row"> {{row.phoneNumber}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+        </ng-container>
+
+
+        <mat-header-row mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+        <mat-row (click)="selectClient(row)"
+                 [ngClass]="selectedClient === row ? 'selected-row' : ''"
+                 *matRowDef="let row; columns: columns;"></mat-row>
+
+        <!-- Row shown when mat-header-cellere is no matching data. -->
+        <tr class="mat-row row justify-content-center text-center align-items-center" *matNoDataRow>
+          <td class="" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </mat-table>
+
+      <mat-paginator #paginator
+                     [length]="dataSource?.data?.length"
+                     [pageIndex]="0"
+                     [pageSize]="10"
+                     [pageSizeOptions]="[5, 10, 20, 100]">
+      </mat-paginator>
+
+    </div>
+
 
   </div>
-
-
-  <div class="mat-elevation-z2 mx-4">
-    <mat-table mat-table matSort>
-
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="name">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="lastName">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Last name</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{ row.lastName }} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="nip">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>NIP</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{row.nip}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="regon">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>REGON</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{row.regon}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="type">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{row.type}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="street">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Street</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{row.street}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="building">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>B</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{row.building}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="apartment">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>A</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{row.apartment}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="zipCode">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Zip code</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{row.zipCode}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="city">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>City</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{row.city}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="phoneNumber">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{row.phoneNumber}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="email">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
-      </ng-container>
-
-
-      <mat-header-row mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-      <mat-row (click)="selectClient(row)"
-               [ngClass]="selectedClient === row ? 'selected-row' : ''" *matRowDef="let row; columns: columns;"></mat-row>
-
-      <!-- Row shown when mat-header-cellere is no matching data. -->
-      <tr class="mat-row row justify-content-center text-center align-items-center" *matNoDataRow>
-        <td class="" colspan="4">No data matching the filter "{{input.value}}"</td>
-      </tr>
-    </mat-table>
-
-    <mat-paginator #paginator
-                   [length]="dataSource?.data?.length"
-                   [pageIndex]="0"
-                   [pageSize]="10"
-                   [pageSizeOptions]="[5, 10, 20, 100]">
-    </mat-paginator>
-
-  </div>
-
-
-</div>
+</section>
 
 
 <!--<div class="client-table content-table flex-grow-1" >-->

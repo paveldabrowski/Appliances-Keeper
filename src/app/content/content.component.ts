@@ -11,9 +11,7 @@ export class ContentComponent implements OnInit {
 
   constructor(private cd: ChangeDetectorRef, private titleService: TitleService) { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   changeNavbarTitle(event: ContentDescriptor) {
     let title = event.getTitle();
