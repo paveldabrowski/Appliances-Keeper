@@ -65,12 +65,11 @@ export class CommissionsTableComponent implements OnInit, AfterViewInit {
   }
 
   private loadData() {
-    this.dataSource.loadData(this.sort.active, this.sort.direction, this.searchField.nativeElement.value,
+    this.dataSource.loadData(this.sort.active, this.sort.direction, this.searchKey,
       this.paginator.pageIndex, this.paginator.pageSize);
   }
 
   onSearchClear() {
-    this.searchField.nativeElement.value = ""
     this.searchKey = "";
     this.loadData()
   }
