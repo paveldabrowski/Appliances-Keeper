@@ -5,7 +5,7 @@ export const COMMISSIONS_COLUMNS: string[] = [
   // 'problemDescription',
   'advice_given',
   'technician_id',
-  'repair_date_id' +
+  'repairDate' +
   '',
   // 'technicianReport',
   'client_visited',

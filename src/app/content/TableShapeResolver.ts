@@ -1,21 +1,87 @@
-import { AfterViewInit, ElementRef, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, Injectable, OnDestroy, OnInit } from "@angular/core";
 import { MatSort } from "@angular/material/sort";
 import { MatTable } from "@angular/material/table";
 import { ServerSideDataSource } from "./ServerSideDataSource";
-import { Subscription } from "rxjs";
+import { fromEvent, merge, Subscription } from "rxjs";
+import { ServiceKeeper } from "./model";
+import { MessageService } from "../message.service";
+import { debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
+import { MatPaginator } from "@angular/material/paginator";
+import { Commission } from "./commissions/Commission";
 
-export interface TableShapeResolver<T> extends OnInit, OnDestroy, AfterViewInit {
-  sort: MatSort;
-  table: MatTable<T>;
-  searchField: ElementRef;
-  dataSource: ServerSideDataSource<T>;
+
+@Component({
+  template: ''
+})
+export abstract class TableShapeResolver<T> implements OnInit, OnDestroy, AfterViewInit {
+  abstract paginator: MatPaginator;
+  abstract sort: MatSort;
+  abstract table: MatTable<T>;
+  abstract searchField: ElementRef;
+  dataSource!: ServerSideDataSource<T>;
   searchTerm: any;
-  selectedCommission: T | null;
+  selectedRow: T | null = null;
+  subscriptions: Subscription[] = [];
   columns: Array<string>;
-  subscriptions: Subscription[];
 
-  selectRow(row: T): void ;
-  loadData(): void
-  attachListeners(): Subscription[];
-  onSearchClear(): void;
+  protected constructor(@Inject("sasd") private serviceKeeper: ServiceKeeper<T>, private messageService: MessageService,
+                        columns: Array<string>) {
+    this.columns = columns;
+  }
+
+  abstract onSearchClear(): void;
+
+  initTable(): ServerSideDataSource<T> {
+      const dataSource = new ServerSideDataSource<T>(this.serviceKeeper, this.messageService);
+      dataSource.loadData();
+      return dataSource;
+  }
+
+
+  ngOnInit(): void {
+    this.dataSource = this.initTable();
+  }
+
+  ngAfterViewInit(): void {
+    this.subscriptions = this.attachListeners();
+  }
+
+  ngOnDestroy(): void {
+  }
+
+  attachListeners(): Subscription[] {
+    const subscriptions: Subscription[] = [];
+    subscriptions.push(this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0));
+
+    subscriptions.push(fromEvent(this.searchField.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.loadData();
+        })
+      )
+      .subscribe());
+
+    subscriptions.push(merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        tap(() => this.loadData())
+      )
+      .subscribe());
+    return subscriptions;
+  }
+
+  selectRow(row: T): void {
+    if (this.selectedRow === row) {
+      this.selectedRow = null;
+    } else
+      this.selectedRow = row;
+  }
+
+  loadData(): void {
+    this.dataSource.loadData(this.sort.active, this.sort.direction, this.searchTerm,
+      this.paginator.pageIndex, this.paginator.pageSize);
+  }
+
 }
