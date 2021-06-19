@@ -10,22 +10,23 @@ import { MatSort } from "@angular/material/sort";
 import { MessageService } from "../../../message.service";
 import { debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
 import { ServerSideDataSource } from "../../ServerSideDataSource";
+import { TableShapeResolver } from "../../TableShapeResolver";
 
 @Component({
   selector: 'com-commissions-table',
   templateUrl: './commissions-table.component.html',
   styleUrls: ['./commissions-table.component.css']
 })
-export class CommissionsTableComponent implements OnInit, OnDestroy, AfterViewInit {
+export class CommissionsTableComponent implements TableShapeResolver<Commission> {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Commission>;
   @ViewChild('input') searchField!: ElementRef;
   dataSource!: ServerSideDataSource<Commission>;
-  searchKey: any;
-  selectedClient: Client | null = null;
+  searchTerm: any;
+  selectedCommission: Commission | null = null;
   columns = COMMISSIONS_COLUMNS;
-  private subscriptions: Subscription[] = [];
+  subscriptions!: Subscription[];
 
   constructor(private commissionService: CommissionsService, private messageService: MessageService) { }
 
@@ -34,21 +35,20 @@ export class CommissionsTableComponent implements OnInit, OnDestroy, AfterViewIn
     this.dataSource.loadData();
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(value => value.unsubscribe());
-  }
-
-  selectClient(client: Client): void {
-    if (this.selectedClient === client) {
-      this.selectedClient = null;
-    } else
-      this.selectedClient = client;
+  loadData(): void {
+    this.dataSource.loadData(this.sort.active, this.sort.direction, this.searchTerm,
+      this.paginator.pageIndex, this.paginator.pageSize);
   }
 
   ngAfterViewInit(): void {
-    this.subscriptions.push(this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0));
+    this.subscriptions = this.attachListeners();
+  }
 
-    this.subscriptions.push(fromEvent(this.searchField.nativeElement, 'keyup')
+  attachListeners(): Subscription[] {
+    const subscriptions: Subscription[] = [];
+    subscriptions.push(this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0));
+
+    subscriptions.push(fromEvent(this.searchField.nativeElement, 'keyup')
       .pipe(
         debounceTime(150),
         distinctUntilChanged(),
@@ -59,21 +59,29 @@ export class CommissionsTableComponent implements OnInit, OnDestroy, AfterViewIn
       )
       .subscribe());
 
-    this.subscriptions.push(merge(this.sort.sortChange, this.paginator.page)
+    subscriptions.push(merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         tap(() => this.loadData())
       )
       .subscribe());
+    return subscriptions;
   }
 
-  private loadData() {
-    this.dataSource.loadData(this.sort.active, this.sort.direction, this.searchKey,
-      this.paginator.pageIndex, this.paginator.pageSize);
+  selectRow(commission: Commission): void {
+    if (this.selectedCommission === commission) {
+      this.selectedCommission = null;
+    } else
+      this.selectedCommission = commission;
   }
 
   onSearchClear() {
-    this.searchKey = "";
+    this.searchTerm = "";
     this.loadData()
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscriptions)
+      this.subscriptions.forEach(value => value.unsubscribe());
   }
 }
 
