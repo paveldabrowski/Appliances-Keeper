@@ -1,3 +1,11 @@
 .my-custom-button i {
   font-size: 1.6rem;
 }
+
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

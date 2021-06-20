@@ -24,6 +24,11 @@
         <mat-cell mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="a.serial_number">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Serial number</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row"> {{ row.appliance.serialNumber }} </mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="m.name">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Appliance</mat-header-cell>
         <mat-cell mat-cell *matCellDef="let row"> {{ row.appliance.model.name }} </mat-cell>
@@ -55,12 +60,12 @@
       </ng-container>
 
       <ng-container matColumnDef="commission_status">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Commission status</mat-header-cell>
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
         <mat-cell mat-cell *matCellDef="let row"> {{row.commissionStatus}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="client_id">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>A</mat-header-cell>
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Client id</mat-header-cell>
         <mat-cell mat-cell *matCellDef="let row"> {{row.client.id}} </mat-cell>
       </ng-container>
 

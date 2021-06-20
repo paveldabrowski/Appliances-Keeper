@@ -10,6 +10,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { FormsModule } from "@angular/forms";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSidenavModule } from "@angular/material/sidenav";
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
         MatButtonModule,
         MatPaginatorModule,
         FormsModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatSidenavModule
     ]
 })
 export class CommissionsModule { }

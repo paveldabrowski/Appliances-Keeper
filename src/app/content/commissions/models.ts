@@ -1,6 +1,7 @@
 export const COMMISSIONS_COLUMNS: string[] = [
   'id',
   // 'appliance_id',
+  'a.serial_number',
   'm.name',
   'creation_date',
   // 'problemDescription',
@@ -10,5 +11,5 @@ export const COMMISSIONS_COLUMNS: string[] = [
   // 'technicianReport',
   'client_visited',
   'commission_status',
-  'client_id'
+  'client_id',
 ];
