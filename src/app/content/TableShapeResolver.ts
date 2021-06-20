@@ -24,12 +24,14 @@ export abstract class TableShapeResolver<T> implements OnInit, OnDestroy, AfterV
   subscriptions: Subscription[] = [];
   columns: Array<string>;
 
-  protected constructor(@Inject("sasd") private serviceKeeper: ServiceKeeper<T>, private messageService: MessageService,
-                        columns: Array<string>) {
+  protected constructor(@Inject("serviceKeeper") private serviceKeeper: ServiceKeeper<T>,
+                        private messageService: MessageService, columns: Array<string>) {
     this.columns = columns;
   }
 
-  abstract onSearchClear(): void;
+  ngOnInit(): void {
+    this.dataSource = this.initTable();
+  }
 
   initTable(): ServerSideDataSource<T> {
       const dataSource = new ServerSideDataSource<T>(this.serviceKeeper, this.messageService);
@@ -37,16 +39,13 @@ export abstract class TableShapeResolver<T> implements OnInit, OnDestroy, AfterV
       return dataSource;
   }
 
-
-  ngOnInit(): void {
-    this.dataSource = this.initTable();
+  ngOnDestroy(): void {
+    if (this.subscriptions)
+      this.subscriptions.forEach(value => value.unsubscribe());
   }
 
   ngAfterViewInit(): void {
     this.subscriptions = this.attachListeners();
-  }
-
-  ngOnDestroy(): void {
   }
 
   attachListeners(): Subscription[] {
@@ -72,6 +71,11 @@ export abstract class TableShapeResolver<T> implements OnInit, OnDestroy, AfterV
     return subscriptions;
   }
 
+  loadData(): void {
+    this.dataSource.loadData(this.sort.active, this.sort.direction, this.searchTerm,
+      this.paginator.pageIndex, this.paginator.pageSize);
+  }
+
   selectRow(row: T): void {
     if (this.selectedRow === row) {
       this.selectedRow = null;
@@ -79,9 +83,8 @@ export abstract class TableShapeResolver<T> implements OnInit, OnDestroy, AfterV
       this.selectedRow = row;
   }
 
-  loadData(): void {
-    this.dataSource.loadData(this.sort.active, this.sort.direction, this.searchTerm,
-      this.paginator.pageIndex, this.paginator.pageSize);
+  onSearchClear() {
+    this.searchTerm = "";
+    this.loadData()
   }
-
 }

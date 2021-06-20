@@ -24,19 +24,14 @@ export class CommissionsTableComponent extends TableShapeResolver<Commission> {
     super(commissionService, messageService, COMMISSIONS_COLUMNS);
   }
 
-  selectRow(commission: Commission): void {
-    super.selectRow(commission)
-  }
-
-  onSearchClear() {
-    this.searchTerm = "";
-    this.loadData()
-  }
-
-  ngOnDestroy(): void {
-    if (this.subscriptions)
-      this.subscriptions.forEach(value => value.unsubscribe());
-  }
+  // selectRow(commission: Commission): void {
+  //   super.selectRow(commission)
+  // }
+  //
+  // ngOnDestroy(): void {
+  //   if (this.subscriptions)
+  //     this.subscriptions.forEach(value => value.unsubscribe());
+  // }
 }
 
 
