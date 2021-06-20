@@ -1,6 +1,7 @@
 export const COMMISSIONS_COLUMNS: string[] = [
   'id',
-  'appliance_id',
+  // 'appliance_id',
+  'm.name',
   'creation_date',
   // 'problemDescription',
   'advice_given',

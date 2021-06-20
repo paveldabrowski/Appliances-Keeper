@@ -1,4 +1,4 @@
-<div class="client-table">
+<div class="commission-table">
   <div class="search-div d-flex align-items-center mx-4 pt-4">
     <mat-form-field class="search-form-field">
       <mat-label>Search</mat-label>
@@ -12,25 +12,26 @@
 
   </div>
 
-  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+<!--  <div class="spinner-container">-->
 
-    <mat-spinner></mat-spinner>
+<!--    <mat-spinner mode="indeterminate"></mat-spinner>-->
 
-  </div>
-
+<!--  </div>-->
 
   <div class="mat-elevation-z2 mx-4">
-    <mat-table [dataSource]="dataSource" mat-table matSort>
-
+    <mat-table  [dataSource]="dataSource" mat-table matSort>
       <!-- ID Column -->
       <ng-container matColumnDef="id">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Id
+            <div [class.spinner-border]="dataSource.loading$ | async" class="text-danger ms-2" role="status">
+          </div>
+        </mat-header-cell>
         <mat-cell mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="appliance_id">
+      <ng-container matColumnDef="m.name">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Appliance</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{ row.appliance.model }} </mat-cell>
+        <mat-cell mat-cell *matCellDef="let row"> {{ row.appliance.model.name }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="creation_date">
@@ -70,7 +71,7 @@
 
 
       <mat-header-row mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-      <mat-row (click)="selectRow(row)"
+      <mat-row  (click)="selectRow(row)"
                [ngClass]="selectedRow === row ? 'selected-row' : ''" *matRowDef="let row; columns: columns;"></mat-row>
 
       <!-- Row shown when mat-header-cellere is no matching data. -->

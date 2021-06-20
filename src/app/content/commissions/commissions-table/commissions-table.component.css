@@ -1,0 +1,23 @@
+.commission-table {
+  height: fit-content;
+  width: 100%;
+}
+
+.spinner-container {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  padding-top: 100px;
+  padding-right: 100px;
+  align-self: stretch;
+  height: 100%;
+}
+
+.spinner-container mat-spinner {
+  height: 100px;
+  width: 100px;
+}
+
+
