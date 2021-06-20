@@ -2,7 +2,7 @@
   <div class="search-div d-flex align-items-center mx-4 pt-4">
     <mat-form-field class="search-form-field">
       <mat-label>Search</mat-label>
-      <input matInput [(ngModel)]="searchTerm" placeholder="Search for client" autocomplete="off" #input>
+      <input matInput [(ngModel)]="searchTerm" placeholder="Search for commission" autocomplete="off" #input>
       <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchTerm" (click)="onSearchClear()">
         <mat-icon>close</mat-icon>
       </button>
