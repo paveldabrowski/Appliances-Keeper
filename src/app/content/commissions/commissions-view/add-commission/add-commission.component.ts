@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from "rxjs";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { map, startWith } from "rxjs/operators";
+import { Observable, of } from "rxjs";
+import { FormBuilder, Validators } from "@angular/forms";
+import { AppliancesService } from "../../../appliances/appliances.service";
+import { Appliance } from "../../../appliances/models";
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 
 @Component({
   selector: 'com-add-commission',
@@ -9,6 +11,7 @@ import { map, startWith } from "rxjs/operators";
   styleUrls: ['./add-commission.component.css']
 })
 export class AddCommissionComponent implements OnInit {
+  appliances!: Observable<Appliance[]>;
 
   commissionGroup = this.fb.group({
     appliance: this.fb.group({
@@ -19,18 +22,24 @@ export class AddCommissionComponent implements OnInit {
 
   })
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private appliancesService: AppliancesService) {
   }
-
-  filteredOptions!: Observable<string[]>;
 
   ngOnInit() {
-
+    this.commissionGroup.get('appliance')?.get('serialNumber')?.valueChanges.pipe(
+      debounceTime(400),
+      distinctUntilChanged()
+    ).subscribe((value: string) => {
+      console.log(value)
+      if (value.length > 0){
+        this.appliances = this.appliancesService.findApplianceBySerialNumber(value);
+      } else {
+        this.appliances = of();
+      }
+    });
   }
 
-  private _filter(value: string): string[] {
-    return []
-  }
+
   createCommission($event: any) {
 
   }

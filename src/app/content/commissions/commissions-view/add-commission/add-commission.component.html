@@ -7,14 +7,13 @@
 
       <form [formGroup]="commissionGroup" class="add-commission-form d-flex flex-column" (ngSubmit)="createCommission($event)">
 
-
           <div class="d-flex container" formGroupName="appliance">
             <div class="col-6">
               <mat-form-field appearance="outline" class="example-full-width">
                 <mat-label>Serial number</mat-label>
                 <input type="text" placeholder="Serial number" aria-label="serial-number" matInput [matAutocomplete]="serial_number" formControlName="serialNumber">
                 <mat-autocomplete #serial_number="matAutocomplete">
-                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option"> {{option}} </mat-option>
+                  <mat-option *ngFor="let appliance of appliances | async" [value]="appliance.serialNumber"> {{appliance.serialNumber}} </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
             </div>
@@ -23,7 +22,7 @@
                 <mat-label>Model</mat-label>
                 <input type="text" placeholder="Model" aria-label="model" matInput [matAutocomplete]="model" formControlName="model">
                 <mat-autocomplete #model="matAutocomplete">
-                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option"> {{option}} </mat-option>
+                  <mat-option *ngFor="let option of appliances | async" [value]="option"> {{option}} </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
             </div>
