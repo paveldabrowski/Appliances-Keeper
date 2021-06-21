@@ -1,18 +1,31 @@
-<section id="commissions-header">
-  <div class="button-layout mx-4">
-    <button class="my-custom-button btn btn-dark text-light align-self-center"><i class="icon icofont-ui-add"></i>Add
-    </button>
-    <button class="my-custom-button btn btn-dark text-light align-self-center"><i class="icon icofont-ui-edit"></i>Edit
-    </button>
-    <button class="my-custom-button btn btn-dark text-light align-self-center"><i class="icon icofont-ui-delete"></i>Delete
-    </button>
+<div [class.right-sidebar-toggled]="toggled" class="d-flex main-vertical right-sidebar-toggled">
+  <div class="d-flex w-100 flex-grow-1">
+    <div class="d-flex  w-100 flex-column overflow-auto">
+      <section id="commissions-header">
+        <div class="button-layout mx-4">
+          <button class="my-custom-button btn btn-dark text-light align-self-center" (click)="toggleSideBar()">
+            <i class="icon icofont-ui-add"></i>Add
+          </button>
+          <button class="my-custom-button btn btn-dark text-light align-self-center"><i
+            class="icon icofont-ui-edit"></i>Edit
+          </button>
+          <button class="my-custom-button btn btn-dark text-light align-self-center"><i
+            class="icon icofont-ui-delete"></i>Delete
+          </button>
+        </div>
+      </section>
+
+      <section id="commissions-table">
+        <com-commissions-table></com-commissions-table>
+      </section>
+
+    </div>
   </div>
-</section>
 
-
-<section id="commissions-table">
-  <com-commissions-table></com-commissions-table>
-</section>
+  <div class="right-sidebar mat-elevation-z4">
+      <com-add-commission class="w-100 h-100" ></com-add-commission>
+  </div>
+</div>
 
 
 

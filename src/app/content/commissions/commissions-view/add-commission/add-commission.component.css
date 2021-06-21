@@ -1,0 +1,22 @@
+.add-commission {
+  /*background-color: black;*/
+  background: rgba(255, 0, 0, 0.5);
+  background-color: #393E46;
+  font-size: 1.6rem;
+}
+
+.add-commission p {
+  margin: 0;
+  font-family: var(--rajdhani-bold);
+  font-size: 3rem;
+  padding: 2rem 0;
+}
+
+.add-commission .add-commission-form input[type='checkbox'] {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+}
+
+
+

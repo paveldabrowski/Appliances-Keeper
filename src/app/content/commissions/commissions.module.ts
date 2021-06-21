@@ -8,27 +8,32 @@ import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatPaginatorModule } from "@angular/material/paginator";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSidenavModule } from "@angular/material/sidenav";
+import { AddCommissionComponent } from './commissions-view/add-commission/add-commission.component';
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
 
 
 @NgModule({
   declarations: [
     CommissionsViewComponent,
-    CommissionsTableComponent
+    CommissionsTableComponent,
+    AddCommissionComponent
   ],
-    imports: [
-        CommonModule,
-        MatTableModule,
-        MatSortModule,
-        MatInputModule,
-        MatIconModule,
-        MatButtonModule,
-        MatPaginatorModule,
-        FormsModule,
-        MatProgressSpinnerModule,
-        MatSidenavModule
-    ]
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatSortModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatPaginatorModule,
+    FormsModule,
+    MatProgressSpinnerModule,
+    MatSidenavModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule
+  ]
 })
 export class CommissionsModule { }
