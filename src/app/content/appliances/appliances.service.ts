@@ -1,24 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { Appliance } from "./models";
 import { BACKEND_URL } from "../../../environments/environment";
+import { GetterByParam, ServiceKeeper, Pageable } from "../model";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AppliancesService {
+export class AppliancesService implements ServiceKeeper<Appliance>, GetterByParam<Appliance> {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllAppliances() :Observable<Appliance[]> {
+  findAll() :Observable<Appliance[]> {
     return this.httpClient.get<Appliance[]>(`${BACKEND_URL}/appliances`);
   }
 
-  findApplianceBySerialNumber(value: string) {
+  findAllByParam(field: string, value: string): Observable<Appliance[]> {
+    if (value.length === 0)
+      return of([])
+
     return this.httpClient.get<Appliance[]>(`${BACKEND_URL}/appliances`, {
       params: new HttpParams()
-        .set("serialNumber", value)
+        .set(field, value)
     });
+  }
+
+  findSearchedPaginatedSortedCommissions(sortBy: string, sortDirection: string, searchTerm: string, page: number, size: number): Observable<Pageable<Appliance>> {
+    return of();
   }
 }

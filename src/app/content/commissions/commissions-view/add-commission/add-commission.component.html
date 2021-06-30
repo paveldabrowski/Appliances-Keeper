@@ -5,63 +5,94 @@
     </div>
     <div class="card-body">
 
-      <form [formGroup]="commissionGroup" class="add-commission-form d-flex flex-column" (ngSubmit)="createCommission($event)">
+      <form [formGroup]="commissionGroup" class="add-commission-form d-flex flex-column"
+            (ngSubmit)="createCommission(commissionGroup)">
 
-          <div class="d-flex container" formGroupName="appliance">
+        <div class="d-flex flex-column container" formGroupName="appliance">
+
+          <div class="d-flex">
             <div class="col-6">
-              <mat-form-field appearance="outline" class="example-full-width">
+              <mat-form-field style="padding-bottom: 0" appearance="outline" class="my-form-field">
                 <mat-label>Serial number</mat-label>
-                <input type="text" placeholder="Serial number" aria-label="serial-number" matInput [matAutocomplete]="serial_number" formControlName="serialNumber">
+                <input type="text" placeholder="Serial number" aria-label="serial-number" matInput
+                       [matAutocomplete]="serial_number" formControlName="serialNumber">
                 <mat-autocomplete #serial_number="matAutocomplete">
-                  <mat-option *ngFor="let appliance of appliances | async" [value]="appliance.serialNumber"> {{appliance.serialNumber}} </mat-option>
+                  <mat-option *ngFor="let appliance of appliances | async" [value]="appliance.serialNumber">
+                    {{ appliance.serialNumber }} </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+            <div class="col-6" formGroupName="model">
+              <mat-form-field appearance="outline" class="my-form-field">
+                <mat-label>Model</mat-label>
+                <input type="text" placeholder="Model" aria-label="model" matInput [matAutocomplete]="model"
+                       formControlName="name">
+                <mat-autocomplete #model="matAutocomplete">
+                  <mat-option *ngFor="let model of models | async"
+                              [value]="model"> {{ model?.name }} </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="d-flex">
+            <div class="col-6" formGroupName="brand">
+              <mat-form-field appearance="outline" class="my-form-field">
+                <mat-label>Brand</mat-label>
+                <input type="text" placeholder="Brand" aria-label="brand" matInput
+                       [matAutocomplete]="brand" formControlName="name">
+                <mat-autocomplete #brand="matAutocomplete">
+                  <mat-option *ngFor="let brand of brands | async" [value]="brand?.name">
+                    {{ brand?.name }} </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
             </div>
             <div class="col-6">
-              <mat-form-field appearance="outline" class="example-full-width">
-                <mat-label>Model</mat-label>
-                <input type="text" placeholder="Model" aria-label="model" matInput [matAutocomplete]="model" formControlName="model">
-                <mat-autocomplete #model="matAutocomplete">
-                  <mat-option *ngFor="let option of appliances | async" [value]="option"> {{option}} </mat-option>
+              <mat-form-field appearance="outline" class="my-form-field">
+                <mat-label>Type</mat-label>
+                <input type="text" placeholder="Type" aria-label="type" matInput [matAutocomplete]="type"
+                       formControlName="applianceType">
+                <mat-autocomplete #type="matAutocomplete">
+                  <mat-option *ngFor="let type of types | async"
+                              [value]="type?.name"> {{ type?.name }} </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
             </div>
           </div>
 
 
+        </div>
 
 
-            <div class="form-check d-flex align-items-end">
-              <input class="form-check-input" type="checkbox" value="" id="advice">
-              <label class="form-check-label" for="advice">
-                Advice given
-              </label>
-            </div>
+<!--        <div class="d-flex container" formGroupName="brand">-->
+
+<!--        </div>-->
 
 
-
-            <div class="form-check d-flex align-items-end">
-              <input class="form-check-input" type="checkbox" value="" id="visited">
-              <label class="form-check-label" for="visited">
-                Client visited
-              </label>
-            </div>
-
+        <div class="form-check d-flex align-items-end">
+          <input class="form-check-input" type="checkbox" value="" id="advice">
+          <label class="form-check-label" for="advice">
+            Advice given
+          </label>
+        </div>
 
 
-            <div class="form-check d-flex align-items-end">
-              <input class="form-check-input" type="checkbox" value="" id="status">
-              <label class="form-check-label" for="status">
-                Status
-              </label>
-            </div>
+        <div class="form-check d-flex align-items-end">
+          <input class="form-check-input" type="checkbox" value="" id="visited">
+          <label class="form-check-label" for="visited">
+            Client visited
+          </label>
+        </div>
 
 
+        <div class="form-check d-flex align-items-end">
+          <input class="form-check-input" type="checkbox" value="" id="status">
+          <label class="form-check-label" for="status">
+            Status
+          </label>
+        </div>
 
-
-
-
-
+        <button type="submit" mat-raised-button color="primary" [disabled]="commissionGroup.invalid">Submit</button>
       </form>
 
     </div>

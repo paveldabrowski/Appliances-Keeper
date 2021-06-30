@@ -13,6 +13,13 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { AddCommissionComponent } from './commissions-view/add-commission/add-commission.component';
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { ScrollingModule } from "@angular/cdk/scrolling";
+import { ClientsService } from "../clients/clients.service";
+import { CommissionsService } from "./commissions.service";
+import { BrandsService } from "../appliances/brands.service";
+import { ModelsService } from "../appliances/models.service";
+import { TypesService } from "../appliances/types.service";
+import { AppliancesService } from "../appliances/appliances.service";
 
 
 @NgModule({
@@ -33,7 +40,17 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ScrollingModule
+  ],
+  providers: [
+    ClientsService,
+    CommissionsService,
+    AppliancesService,
+    BrandsService,
+    ModelsService,
+    TypesService
   ]
 })
-export class CommissionsModule { }
+export class CommissionsModule {
+}
