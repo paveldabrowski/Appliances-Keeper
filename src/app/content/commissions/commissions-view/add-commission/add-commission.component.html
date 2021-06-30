@@ -47,11 +47,11 @@
                 </mat-autocomplete>
               </mat-form-field>
             </div>
-            <div class="col-6">
+            <div class="col-6" formGroupName="applianceType">
               <mat-form-field appearance="outline" class="my-form-field">
                 <mat-label>Type</mat-label>
                 <input type="text" placeholder="Type" aria-label="type" matInput [matAutocomplete]="type"
-                       formControlName="applianceType">
+                       formControlName="name">
                 <mat-autocomplete #type="matAutocomplete">
                   <mat-option *ngFor="let type of types | async"
                               [value]="type?.name"> {{ type?.name }} </mat-option>
@@ -64,9 +64,9 @@
         </div>
 
 
-<!--        <div class="d-flex container" formGroupName="brand">-->
+        <!--        <div class="d-flex container" formGroupName="brand">-->
 
-<!--        </div>-->
+        <!--        </div>-->
 
 
         <div class="form-check d-flex align-items-end">

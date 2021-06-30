@@ -1,6 +1,6 @@
-import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
-import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective, Validators } from "@angular/forms";
 import { AppliancesService } from "../../../appliances/appliances.service";
 import { Appliance, ApplianceType, Brand, Model } from "../../../appliances/models";
 import { debounceTime, distinctUntilChanged, mergeMap } from "rxjs/operators";
@@ -16,6 +16,8 @@ import { TypesService } from "../../../appliances/types.service";
   styleUrls: ['./add-commission.component.css']
 })
 export class AddCommissionComponent<T> implements OnInit, OnDestroy, DoCheck {
+  @ViewChild(FormGroupDirective) formGroup?: FormGroupDirective;
+
   appliances!: Observable<Appliance[]>;
   models!: Observable<Model[]>;
   brands!: Observable<Brand[]>;
@@ -29,14 +31,23 @@ export class AddCommissionComponent<T> implements OnInit, OnDestroy, DoCheck {
 
   commissionGroup = this.fb.group({
     appliance: this.fb.group({
+      id: [''],
       serialNumber: ['', Validators.required],
       model: this.fb.group({
-        name: ['']
+        id: [''],
+        name: [''],
+        brand: null
       }),
       brand: this.fb.group({
+        id: [''],
+        name: [''],
+        modelList: ['']
+      }),
+      applianceType: this.fb.group({
+        id: [''],
         name: ['']
       }),
-      applianceType: ['']
+      client: null
     }),
 
   })
@@ -56,21 +67,59 @@ export class AddCommissionComponent<T> implements OnInit, OnDestroy, DoCheck {
     this.models = this.fetchAllByParam(model, 'name', this.modelsSubject, this.modelsService);
     let brand = appliance?.get('brand');
     this.brands = this.fetchAllByParam(brand, 'name', this.brandsSubject, this.brandsService);
-    this.types = this.fetchAllByParam(appliance, 'applianceType', this.typesSubject, this.typesService);
+    let type = appliance?.get('applianceType');
+    this.types = this.fetchAllByParam(type, 'name', this.typesSubject, this.typesService);
+    this.subscriptions.push(this.appliances.subscribe(value => {
+      if (value && value.length === 1 && appliance?.get('serialNumber')?.value === value[0].serialNumber) {
+        appliance?.patchValue({
+          id: value[0].id,
+          model: {
+            id: value[0].model?.id,
+            name: value[0].model?.name
+          },
+          brand: {
+            id: value[0].brand?.id,
+            name: value[0].brand?.name,
+            modelList: value[0].brand?.modelList
+          },
+          applianceType: {
+            id: value[0].applianceType?.id,
+            name: value[0].applianceType?.name
+          }
+        });
+      } else {
+        appliance?.patchValue({
+          id: null,
+          model: {
+            id: null,
+            name: null
+          },
+          brand: {
+            id: null,
+            name: null,
+            modelList: null
+          },
+          applianceType: {
+            id: null,
+            name: null
+          }
+        });
+      }
+
+    }));
   }
 
   private fetchAllByParam(mainControl: AbstractControl | null | undefined, field: string,
-                          subject: BehaviorSubject<any>, service:
-    GetterByParam<any>): Observable<any[]> {
+                          subject: BehaviorSubject<any>, service: GetterByParam<any>): Observable<any[]> {
     if (mainControl) {
       let innerControl = mainControl.get(field);
       if (innerControl) {
         this.subscriptions.push(innerControl.valueChanges.pipe(
           debounceTime(250),
           distinctUntilChanged(),
-          mergeMap(value  => service.findAllByParam(field, value))
-          ).subscribe((value: any[]) => {
-            subject.next(value);
+          mergeMap(value => service.findAllByParam(field, value))
+        ).subscribe((value: any[]) => {
+          subject.next(value);
         }));
       }
     }
@@ -78,7 +127,24 @@ export class AddCommissionComponent<T> implements OnInit, OnDestroy, DoCheck {
   }
 
   createCommission(commissionGroup: FormGroup) {
-    this.subscriptions.push(this.commissionService.addCommission(commissionGroup.value).subscribe());
+    console.log(commissionGroup.value)
+    // let appliance = null;
+    // this.appliancesService.addAppliance().subscribe(value => appliance = value,).unsubscribe();
+    // console.log(appliance);
+    // if (appliance) {
+    //   commissionGroup.get('appliance')?.setValue(appliance);
+    //   this.commissionService.addCommission(commissionGroup.value).subscribe().unsubscribe();
+    // }
+
+    this.appliancesService.addAppliance(commissionGroup.get('appliance')?.value as Appliance).pipe(
+      mergeMap((value: Appliance)  => {
+        commissionGroup.get('appliance')?.setValue(value);
+         return this.commissionService.addCommission(commissionGroup.value);
+      })
+    ).subscribe(value => console.log(value));
+
+
+    this.formGroup?.resetForm();
   }
 
   ngOnDestroy(): void {

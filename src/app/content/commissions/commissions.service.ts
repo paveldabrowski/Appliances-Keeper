@@ -43,6 +43,7 @@ export class CommissionsService implements ServiceKeeper<Commission> {
   }
 
   addCommission(commission: Commission): Observable<Commission> {
+    console.log('commission add')
     return this.httpClient.post(`${BACKEND_URL}/commissions`, commission);
   }
 }

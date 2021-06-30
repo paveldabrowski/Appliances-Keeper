@@ -4,6 +4,8 @@ import { Observable, of } from "rxjs";
 import { Appliance } from "./models";
 import { BACKEND_URL } from "../../../environments/environment";
 import { GetterByParam, ServiceKeeper, Pageable } from "../model";
+import { AbstractControl } from "@angular/forms";
+import { take } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,7 @@ export class AppliancesService implements ServiceKeeper<Appliance>, GetterByPara
   }
 
   findAllByParam(field: string, value: string): Observable<Appliance[]> {
-    if (value.length === 0)
+    if (value && value.length === 0)
       return of([])
 
     return this.httpClient.get<Appliance[]>(`${BACKEND_URL}/appliances`, {
@@ -28,5 +30,10 @@ export class AppliancesService implements ServiceKeeper<Appliance>, GetterByPara
 
   findSearchedPaginatedSortedCommissions(sortBy: string, sortDirection: string, searchTerm: string, page: number, size: number): Observable<Pageable<Appliance>> {
     return of();
+  }
+
+
+  addAppliance(appliance: Appliance) {
+    return this.httpClient.post(`${BACKEND_URL}/appliances`, appliance);
   }
 }
