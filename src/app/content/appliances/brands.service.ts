@@ -19,4 +19,8 @@ export class BrandsService implements GetterByParam<Brand>{
           .set(field, value)
       })
   }
+
+  add(brand: Brand) {
+    return this.httpClient.post<Brand>(`${BACKEND_URL}/appliances/brands`, brand);
+  }
 }

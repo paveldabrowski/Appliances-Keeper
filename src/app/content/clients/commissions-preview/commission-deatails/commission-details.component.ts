@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Commission } from "../../../commissions/Commission";
 import { Client } from "../../Client";

@@ -2,23 +2,5 @@
   font-size: 1.6rem;
 }
 
-.main-vertical {
-  margin-right: calc(2 * var(--drawer-size-margin));
-  transition: margin 1s ease-in-out;
-}
-
-.right-sidebar-toggled {
-  margin-right: 0!important;
-}
-
-.right-sidebar {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  min-width: calc(2 * var(--drawer-size));
-  min-height: calc(100vh - 68px);
-  width: calc(2 * var(--drawer-size));
-  right: 0;
-}
 
 

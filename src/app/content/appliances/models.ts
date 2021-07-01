@@ -7,7 +7,6 @@ export class Model {
 export class Brand {
   id?: number;
   name?: string;
-  modelList?: Model[];
 }
 
 export class Appliance {

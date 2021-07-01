@@ -9,8 +9,8 @@ export interface ServiceKeeper<T> {
 
   findAll(): Observable<T[]>;
 
-  findSearchedPaginatedSortedCommissions( sortBy: string, sortDirection: string, searchTerm: string,
-                                          page: number, size: number): Observable<Pageable<T>>;
+  findSearchedPaginatedSorted(sortBy: string, sortDirection: string, searchTerm: string,
+                              page: number, size: number): Observable<Pageable<T>>;
 }
 
 export interface GetterByParam<T> {

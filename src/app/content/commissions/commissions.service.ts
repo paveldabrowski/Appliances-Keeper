@@ -30,8 +30,8 @@ export class CommissionsService implements ServiceKeeper<Commission> {
     return this.httpClient.get<Commission[]>(`${ BACKEND_URL }/commissions`);
   }
 
-  findSearchedPaginatedSortedCommissions(sortBy: string = "id", sortDirection: string = "asc", searchTerm: string = "",
-                                         page: number = 0, size: number = 5): Observable<Pageable<Commission>> {
+  findSearchedPaginatedSorted(sortBy: string = "id", sortDirection: string = "asc", searchTerm: string = "",
+                              page: number = 0, size: number = 5): Observable<Pageable<Commission>> {
     console.log(sortBy, sortDirection, searchTerm, page, size)
     return this.httpClient.get<Pageable<Commission>>(`${ BACKEND_URL }/commissions`, {
       params: new HttpParams()
@@ -42,7 +42,7 @@ export class CommissionsService implements ServiceKeeper<Commission> {
     });
   }
 
-  addCommission(commission: Commission): Observable<Commission> {
+  add(commission: Commission): Observable<Commission> {
     console.log('commission add')
     return this.httpClient.post(`${BACKEND_URL}/commissions`, commission);
   }

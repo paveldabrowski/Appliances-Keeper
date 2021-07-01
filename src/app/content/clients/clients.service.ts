@@ -30,7 +30,7 @@ export class ClientsService implements ServiceKeeper<Client> {
     return this.httpClient.patch<Client>(`${ BACKEND_URL }/clients/${ client.id }`, client);
   }
 
-  findSearchedPaginatedSortedCommissions(sortBy: string, sortDirection: string, searchTerm: string, page: number, size: number): Observable<Pageable<Client>> {
+  findSearchedPaginatedSorted(sortBy: string, sortDirection: string, searchTerm: string, page: number, size: number): Observable<Pageable<Client>> {
     return of();
   }
 }

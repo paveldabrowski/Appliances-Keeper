@@ -19,4 +19,8 @@ export class TypesService implements GetterByParam<ApplianceType> {
           .set(field, value)
       })
   }
+
+  add(applianceType: ApplianceType) {
+    return this.httpClient.post<ApplianceType>(`${BACKEND_URL}/appliances/types`, applianceType);
+  }
 }

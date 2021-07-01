@@ -22,51 +22,19 @@
                 </mat-autocomplete>
               </mat-form-field>
             </div>
-            <div class="col-6" formGroupName="model">
-              <mat-form-field appearance="outline" class="my-form-field">
-                <mat-label>Model</mat-label>
-                <input type="text" placeholder="Model" aria-label="model" matInput [matAutocomplete]="model"
-                       formControlName="name">
-                <mat-autocomplete #model="matAutocomplete">
-                  <mat-option *ngFor="let model of models | async"
-                              [value]="model"> {{ model?.name }} </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-            </div>
+
           </div>
 
           <div class="d-flex">
-            <div class="col-6" formGroupName="brand">
-              <mat-form-field appearance="outline" class="my-form-field">
-                <mat-label>Brand</mat-label>
-                <input type="text" placeholder="Brand" aria-label="brand" matInput
-                       [matAutocomplete]="brand" formControlName="name">
-                <mat-autocomplete #brand="matAutocomplete">
-                  <mat-option *ngFor="let brand of brands | async" [value]="brand?.name">
-                    {{ brand?.name }} </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-            </div>
-            <div class="col-6" formGroupName="applianceType">
-              <mat-form-field appearance="outline" class="my-form-field">
-                <mat-label>Type</mat-label>
-                <input type="text" placeholder="Type" aria-label="type" matInput [matAutocomplete]="type"
-                       formControlName="name">
-                <mat-autocomplete #type="matAutocomplete">
-                  <mat-option *ngFor="let type of types | async"
-                              [value]="type?.name"> {{ type?.name }} </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-            </div>
+
+
           </div>
 
 
         </div>
 
 
-        <!--        <div class="d-flex container" formGroupName="brand">-->
 
-        <!--        </div>-->
 
 
         <div class="form-check d-flex align-items-end">
@@ -92,7 +60,7 @@
           </label>
         </div>
 
-        <button type="submit" mat-raised-button color="primary" [disabled]="commissionGroup.invalid">Submit</button>
+        <button type="submit" mat-raised-button color="primary">Submit</button>
       </form>
 
     </div>

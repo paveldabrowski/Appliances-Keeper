@@ -1,0 +1,83 @@
+<div class="add-appliance container-fluid h-100 p-4 text-center">
+  <div class="card">
+    <div class="card-header d-flex justify-content-center align-items-center">
+      <p>Create Appliance</p>
+    </div>
+    <div class="card-body">
+
+      <form #applianceForm="ngForm" class="add-appliance-form d-flex flex-column">
+
+        <div class="d-flex flex-column container">
+
+          <div class="row g-3">
+            <div class="col-6">
+              <mat-form-field style="padding-bottom: 0" appearance="outline" class="my-form-field">
+                <mat-label>Serial number</mat-label>
+                <input [formControl]="serialNumber" type="text" placeholder="Serial number" aria-label="serial-number" matInput
+                       [matAutocomplete]="serial_number">
+                <mat-autocomplete #serial_number="matAutocomplete">
+                  <mat-option *ngFor="let appliance of appliances | async" [value]="appliance.serialNumber">
+                    {{ appliance.serialNumber }} </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="serialNumber.hasError('required')">You must provide a serial number</mat-error>
+                <mat-error *ngIf="serialNumber.hasError('applianceExists')">Appliance already exists</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <mat-form-field appearance="outline">
+                <mat-label>Model</mat-label>
+                <mat-select [compareWith]="compareModels" [value]="model?.name" [disabled]="!!model" (selectionChange)="print()" [(ngModel)]="model" name="model" #modelSelect>
+                  <mat-select-trigger>
+                    {{ model?.name }}
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let model of models | async" [value]="model">{{model.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-6">
+              <mat-form-field appearance="outline">
+                <mat-label>Brand</mat-label>
+                <input #brandInput disabled matInput placeholder="Brand" [value]="model?.brand?.name">
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-check d-flex align-items-end">
+          <input class="form-check-input" type="checkbox" value="" id="advice">
+          <label class="form-check-label" for="advice">
+            Advice given
+          </label>
+        </div>
+
+
+        <div class="form-check d-flex align-items-end">
+          <input class="form-check-input" type="checkbox" value="" id="visited">
+          <label class="form-check-label" for="visited">
+            Client visited
+          </label>
+        </div>
+
+
+        <div class="form-check d-flex align-items-end">
+          <input class="form-check-input" type="checkbox" value="" id="status">
+          <label class="form-check-label" for="status">
+            Status
+          </label>
+        </div>
+
+        <button #submitButton type="submit" mat-raised-button color="primary">Submit</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+

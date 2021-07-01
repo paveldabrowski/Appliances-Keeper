@@ -27,7 +27,7 @@ export class ServerSideDataSource<T> implements DataSource<T> {
            size: number = 5): void {
     this.loadingSubject.next(true);
 
-    this.service.findSearchedPaginatedSortedCommissions(sortBy, sortDirection, searchTerm, page, size).pipe(
+    this.service.findSearchedPaginatedSorted(sortBy, sortDirection, searchTerm, page, size).pipe(
       map(value => {
         this.length = value.totalElements;
         return value.content;

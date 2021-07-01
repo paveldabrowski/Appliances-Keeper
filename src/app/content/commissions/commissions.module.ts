@@ -20,29 +20,33 @@ import { BrandsService } from "../appliances/brands.service";
 import { ModelsService } from "../appliances/models.service";
 import { TypesService } from "../appliances/types.service";
 import { AppliancesService } from "../appliances/appliances.service";
+import { AddApplianceComponent } from './commissions-view/add-appliance/add-appliance.component';
+import { MatSelectModule } from "@angular/material/select";
 
 
 @NgModule({
   declarations: [
     CommissionsViewComponent,
     CommissionsTableComponent,
-    AddCommissionComponent
+    AddCommissionComponent,
+    AddApplianceComponent
   ],
-  imports: [
-    CommonModule,
-    MatTableModule,
-    MatSortModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    MatPaginatorModule,
-    FormsModule,
-    MatProgressSpinnerModule,
-    MatSidenavModule,
-    MatAutocompleteModule,
-    ReactiveFormsModule,
-    ScrollingModule
-  ],
+    imports: [
+        CommonModule,
+        MatTableModule,
+        MatSortModule,
+        MatInputModule,
+        MatIconModule,
+        MatButtonModule,
+        MatPaginatorModule,
+        FormsModule,
+        MatProgressSpinnerModule,
+        MatSidenavModule,
+        MatAutocompleteModule,
+        ReactiveFormsModule,
+        ScrollingModule,
+        MatSelectModule
+    ],
   providers: [
     ClientsService,
     CommissionsService,
