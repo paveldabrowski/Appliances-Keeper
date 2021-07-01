@@ -1,22 +1,12 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Appliance, ApplianceType, Brand, Model } from "../../../appliances/models";
 import { BehaviorSubject, Observable } from "rxjs";
 import { AppliancesService } from "../../../appliances/appliances.service";
 import { ModelsService } from "../../../appliances/models.service";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import {
-  AbstractControl,
-  FormControl,
-  NgForm,
-  ValidationErrors,
-  Validator,
-  ValidatorFn,
-  Validators
-} from "@angular/forms";
+import { AbstractControl, FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
 import { MatSelect } from "@angular/material/select";
 import { MatButton } from "@angular/material/button";
-
-
 
 
 @Component({
@@ -37,36 +27,46 @@ export class AddApplianceComponent implements OnInit, AfterViewInit {
   types: Observable<ApplianceType[]> = new Observable<ApplianceType[]>();
   model?: Model;
   appliance: Appliance = new Appliance();
-  serialNumber: FormControl = new FormControl(null, [
-    Validators.required,
-    control => this.forbiddenNameValidator(control, this.appliance)
-  ]);
+  applianceGroup: FormGroup = new FormGroup({
+    serialNumber: new FormControl(null, [
+      Validators.required,
+      control => this.forbiddenSerialNumberValidator(control, this.appliance)
+    ]),
+    model: new FormGroup({
+      id: new FormControl(),
+      name: new FormControl(),
+      brand: new FormControl()
+    }),
+    brand: new FormControl(),
+    type: new FormControl(),
+  });
+
 
   constructor(private appliancesService: AppliancesService, private modelsService: ModelsService) {
   }
 
   ngAfterViewInit(): void {
-    this.serialNumber.valueChanges.pipe(
-      debounceTime(250),
-      distinctUntilChanged(),
-      switchMap((value: string) => this.appliancesService.findAllByParam('serialNumber', value))
-    ).subscribe((appliances: Appliance[]) => {
-      this.appliancesSubject.next(appliances);
-      if (appliances.length === 1 && this.serialNumber.value === appliances[0].serialNumber) {
-        this.submitButton.disabled = true;
-        this.appliance = appliances[0];
-        this.serialNumber.updateValueAndValidity({onlySelf: true})
-      } else {
-        this.submitButton.disabled = false;
-        this.appliance = new Appliance();
-      }
 
-    })
   }
 
   ngOnInit(): void {
     this.models = this.modelsService.findAll();
     this.appliances = this.appliancesSubject.asObservable();
+    const serialNumber = this.applianceGroup.controls['serialNumber'];
+    serialNumber.valueChanges.pipe(
+      debounceTime(250),
+      distinctUntilChanged(),
+      switchMap((value: string) => this.appliancesService.findAllByParam('serialNumber', value))
+    ).subscribe((appliances: Appliance[]) => {
+      this.appliancesSubject.next(appliances);
+      if (appliances.length === 1 && serialNumber.value === appliances[0].serialNumber) {
+        this.appliance = appliances[0];
+        serialNumber.updateValueAndValidity();
+      } else {
+        this.appliance = new Appliance();
+      }
+    })
+
 
   }
 
@@ -78,19 +78,7 @@ export class AddApplianceComponent implements OnInit, AfterViewInit {
     console.log(this.model)
   }
 
-  fetchApplianceFromBackend(value: string) {
-    if (value !== null && value.length > 0) {
-      this.appliances = this.appliancesService.findAllByParam('serialNumber', value).pipe(
-        debounceTime(250),
-        distinctUntilChanged(),
-      );
-    } else
-      this.appliances = new Observable<Appliance[]>();
-  }
-
-
-  forbiddenNameValidator<ValidatorFn>(control: AbstractControl, appliance: Appliance) {
+  forbiddenSerialNumberValidator<ValidatorFn>(control: AbstractControl, appliance: Appliance) {
     return control.value === appliance.serialNumber ? {'applianceExists': true} : null;
   }
-
 }
