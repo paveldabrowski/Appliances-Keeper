@@ -28,7 +28,7 @@
             <div class="col-6" formGroupName="model">
               <mat-form-field appearance="outline" class="my-form-field">
                 <mat-label>Model</mat-label>
-                <input formControlName="name" type="text" placeholder="Model" aria-label="model"
+                <input (focusout)="verifyModel()" formControlName="name" type="text" placeholder="Model" aria-label="model"
                        matInput [matAutocomplete]="modelAutoComplete">
                 <mat-autocomplete #modelAutoComplete="matAutocomplete">
                   <mat-option (onSelectionChange)="onModelSelect($event, model)" *ngFor="let model of models | async" [value]="model.name">
@@ -44,7 +44,7 @@
                 <mat-label>Brand</mat-label>
                 <input formControlName="name" matInput placeholder="Brand" [matAutocomplete]="brandAutoComplete">
                 <mat-autocomplete #brandAutoComplete="matAutocomplete">
-                  <mat-option (onSelectionChange)="onBrandSelect(brand)" *ngFor="let brand of brands | async" [value]="brand.name">
+                  <mat-option (onSelectionChange)="onBrandSelect($event, brand)" *ngFor="let brand of brands | async" [value]="brand.name">
                     {{ brand?.name }} </mat-option>
                 </mat-autocomplete>
               </mat-form-field>

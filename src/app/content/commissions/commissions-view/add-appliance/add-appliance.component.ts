@@ -31,10 +31,10 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
   subscriptions: Subscription = new Subscription();
 
   applianceGroup: FormGroup;
+  private model?: Model;
 
   constructor(private appliancesService: AppliancesService, private modelsService: ModelsService,
-              private brandsService: BrandsService
-              ) {
+              private brandsService: BrandsService) {
     this.applianceGroup = new ApplianceGroup(this).applianceGroup;
   }
 
@@ -42,9 +42,9 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
     this.appliances = this.appliancesSubject.asObservable();
     this.fetchAppliancesFromBackend();
     this.models = this.fetchDataFromBackend(this.applianceGroup, 'model', 'name',
-      this.modelsService, this.modelsSubject)
+      this.modelsService, this.modelsSubject);
     this.brands = this.fetchDataFromBackend(this.applianceGroup, 'brand', 'name',
-      this.brandsService, this.brandsSubject)
+      this.brandsService, this.brandsSubject);
 
   }
 
@@ -82,10 +82,20 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
     return control.value === this.appliance.serialNumber ? {'applianceExists': true} : null;
   }
 
+  verifyModel(): void {
+    const value = this.applianceGroup.controls['model'].get('name')?.value;
+    if (!value || (this.model && value !== this.model?.name)) {
+      this.applianceGroup.controls['model'].reset();
+      this.applianceGroup.controls['brand'].reset();
+    }
+
+  }
+
   onModelSelect($event: MatOptionSelectionChange, model: Model) {
     if ($event.source.selected) {
       this.applianceGroup.controls['model'].patchValue(model, {emitEvent: true});
       this.applianceGroup.controls['brand'].patchValue(model.brand);
+      this.model = model;
     }
   }
 
@@ -93,8 +103,11 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
     console.log(this.applianceGroup.value);
   }
 
-  onBrandSelect(brand: Brand) {
-
+  onBrandSelect($event: MatOptionSelectionChange, brand: Brand) {
+    if ($event.source.selected) {
+      console.log('brand selected')
+      this.applianceGroup.controls['brand'].patchValue(brand);
+    }
   }
 
   ngOnDestroy(): void {

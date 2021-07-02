@@ -13,6 +13,13 @@ export class ModelsService implements ServiceKeeper<Model>, GetterByParam<Model>
   constructor(private httpClient: HttpClient) { }
 
   findAllByParam(field: string, value: string): Observable<Model[]> {
+    if (value)
+      value = value.trim();
+    else return of([])
+
+    if (value.length === 0)
+      return of([])
+
     return this.httpClient.get<Model[]>(`${BACKEND_URL}/appliances/models`,
       {
         params: new HttpParams()
