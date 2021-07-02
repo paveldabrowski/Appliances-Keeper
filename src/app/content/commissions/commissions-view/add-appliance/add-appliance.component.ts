@@ -8,6 +8,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/fo
 import { BrandsService } from "../../../appliances/brands.service";
 import { MatOptionSelectionChange } from "@angular/material/core";
 import { GetterByParam } from "../../../model";
+import { ApplianceGroup } from "./ApplianceGroup";
 
 
 @Component({
@@ -29,35 +30,12 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
   appliance: Appliance = new Appliance();
   subscriptions: Subscription = new Subscription();
 
-  applianceGroup: FormGroup = this.formBuilder.group({
-    serialNumber: [
-      null,
-      [
-        Validators.required,
-        (control: AbstractControl) => AddApplianceComponent.forbiddenSerialNumberValidator(control, this.appliance)
-      ]
-    ],
-    model: this.formBuilder.group({
-      id: null,
-      name: null,
-      brand: this.formBuilder.group({
-        id: null,
-        name: null
-      })
-    }),
-    brand: this.formBuilder.group({
-      id: null,
-      name: null
-    }),
-    type: this.formBuilder.group({
-      id: null,
-      name: null
-    }),
-  });
+  applianceGroup: FormGroup;
 
   constructor(private appliancesService: AppliancesService, private modelsService: ModelsService,
-              private brandsService: BrandsService,
-              private formBuilder: FormBuilder) {
+              private brandsService: BrandsService
+              ) {
+    this.applianceGroup = new ApplianceGroup(this).applianceGroup;
   }
 
   ngOnInit(): void {
@@ -100,8 +78,8 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
     return x && y ? x.id === y.id : x === y;
   }
 
-  private static forbiddenSerialNumberValidator<ValidatorFn>(control: AbstractControl, appliance: Appliance) {
-    return control.value === appliance.serialNumber ? {'applianceExists': true} : null;
+  forbiddenSerialNumberValidator<ValidatorFn>(control: AbstractControl) {
+    return control.value === this.appliance.serialNumber ? {'applianceExists': true} : null;
   }
 
   onModelSelect($event: MatOptionSelectionChange, model: Model) {
