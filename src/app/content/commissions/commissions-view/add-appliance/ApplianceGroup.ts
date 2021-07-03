@@ -18,20 +18,20 @@ export class ApplianceGroup {
     ],
     model: this.formBuilder.group({
       id: null,
-      name: null,
+      name: [null, [Validators.required]],
       brand: this.formBuilder.group({
         id: null,
         name: null
-      })
+      }),
+      applianceType: this.formBuilder.group({
+        id: null,
+        name: [{value: null, disabled: true}],
+      }),
     }),
     brand: this.formBuilder.group({
       id: null,
-      name: null
-    }),
-    type: this.formBuilder.group({
-      id: null,
-      name: null
-    }),
+      name: [null, [Validators.required]]
+    })
   });
 
 

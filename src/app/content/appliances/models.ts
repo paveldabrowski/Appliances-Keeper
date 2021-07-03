@@ -2,6 +2,7 @@ export class Model {
   id?: number;
   name?: string;
   brand?: Brand;
+  applianceType?: ApplianceType;
 }
 
 export class Brand {
@@ -14,7 +15,6 @@ export class Appliance {
   serialNumber?: string;
   model?: Model;
   brand?: Brand;
-  applianceType?: ApplianceType;
 }
 
 export class ApplianceType {

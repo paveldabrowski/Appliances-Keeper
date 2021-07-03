@@ -18,6 +18,9 @@ export class AppliancesService implements ServiceKeeper<Appliance>, GetterByPara
   }
 
   findAllByParam(field: string, value: string): Observable<Appliance[]> {
+    if (!value)
+      return of([]);
+
     value = value.trim();
     if (value.length === 0)
       return of([])

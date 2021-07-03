@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GetterByParam } from "../model";
-import { ApplianceType } from "./models";
+import { Appliance, ApplianceType } from "./models";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { BACKEND_URL } from "../../../environments/environment";
@@ -22,5 +22,9 @@ export class TypesService implements GetterByParam<ApplianceType> {
 
   add(applianceType: ApplianceType) {
     return this.httpClient.post<ApplianceType>(`${BACKEND_URL}/appliances/types`, applianceType);
+  }
+
+  findAll(): Observable<ApplianceType[]> {
+    return this.httpClient.get<ApplianceType[]>(`${BACKEND_URL}/appliances/types`);
   }
 }

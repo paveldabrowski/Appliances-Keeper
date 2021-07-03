@@ -22,6 +22,7 @@ import { TypesService } from "../appliances/types.service";
 import { AppliancesService } from "../appliances/appliances.service";
 import { AddApplianceComponent } from './commissions-view/add-appliance/add-appliance.component';
 import { MatSelectModule } from "@angular/material/select";
+import { MatDialogModule } from "@angular/material/dialog";
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { MatSelectModule } from "@angular/material/select";
         MatAutocompleteModule,
         ReactiveFormsModule,
         ScrollingModule,
-        MatSelectModule
+        MatSelectModule,
+        MatDialogModule
     ],
   providers: [
     ClientsService,

@@ -1,14 +1,16 @@
-import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Appliance, ApplianceType, Brand, Model } from "../../../appliances/models";
-import { BehaviorSubject, Observable, Subscription } from "rxjs";
+import { BehaviorSubject, Observable, Subject, Subscription } from "rxjs";
 import { AppliancesService } from "../../../appliances/appliances.service";
 import { ModelsService } from "../../../appliances/models.service";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormGroup, FormGroupDirective } from "@angular/forms";
 import { BrandsService } from "../../../appliances/brands.service";
 import { MatOptionSelectionChange } from "@angular/material/core";
 import { GetterByParam } from "../../../model";
 import { ApplianceGroup } from "./ApplianceGroup";
+import { TypesService } from "../../../appliances/types.service";
+import { MessageService } from "../../../../message.service";
 
 
 @Component({
@@ -17,6 +19,7 @@ import { ApplianceGroup } from "./ApplianceGroup";
   styleUrls: ['./add-appliance.component.css']
 })
 export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
+  @ViewChild(FormGroupDirective) formGroup?: FormGroupDirective;
 
   appliances: Observable<Appliance[]> = new Observable<Appliance[]>();
   appliancesSubject: BehaviorSubject<Appliance[]> = new BehaviorSubject<Appliance[]>([]);
@@ -24,17 +27,20 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
   brandsSubject: BehaviorSubject<Brand[]> = new BehaviorSubject<Brand[]>([]);
   models!: Observable<Model[]>;
   modelsSubject: BehaviorSubject<Model[]> = new BehaviorSubject<Model[]>([]);
+  addApplianceSubject: Subject<Appliance> = new Subject<Appliance>();
 
   types: Observable<ApplianceType[]> = new Observable<ApplianceType[]>();
 
   appliance: Appliance = new Appliance();
+  model?: Model;
+
   subscriptions: Subscription = new Subscription();
 
   applianceGroup: FormGroup;
-  private model?: Model;
 
   constructor(private appliancesService: AppliancesService, private modelsService: ModelsService,
-              private brandsService: BrandsService) {
+              private brandsService: BrandsService, private typesService: TypesService,
+              private messageService: MessageService) {
     this.applianceGroup = new ApplianceGroup(this).applianceGroup;
   }
 
@@ -45,7 +51,13 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
       this.modelsService, this.modelsSubject);
     this.brands = this.fetchDataFromBackend(this.applianceGroup, 'brand', 'name',
       this.brandsService, this.brandsSubject);
-
+    this.types = this.typesService.findAll();
+    this.addApplianceSubject.pipe(switchMap(value => this.appliancesService.add(value))).subscribe(
+      value => {
+        this.messageService.notifySuccess(`Appliance ${value.serialNumber} created!`);
+        this.formGroup?.resetForm();
+      }, error => this.messageService.notifyError(error.message)
+    )
   }
 
   private fetchAppliancesFromBackend(): void {
@@ -82,13 +94,23 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
     return control.value === this.appliance.serialNumber ? {'applianceExists': true} : null;
   }
 
-  verifyModel(): void {
+  verifyIfModelEqualsSelectedModel(): void {
     const value = this.applianceGroup.controls['model'].get('name')?.value;
-    if (!value || (this.model && value !== this.model?.name)) {
-      this.applianceGroup.controls['model'].reset();
-      this.applianceGroup.controls['brand'].reset();
+    if (!value || !this.model || (this.model && value !== this.model?.name)) {
+      this.resetFormTree('model', 'name');
+      this.resetFormTree('brand', 'name');
     }
+  }
 
+  private resetFormTree(formGroupName: string, formControlName: string): void {
+    this.applianceGroup.controls[formGroupName].reset();
+    const control = this.applianceGroup.controls[formGroupName].get(formControlName);
+    AddApplianceComponent.activateRequiredValidator(control);
+  }
+
+  private static activateRequiredValidator(control: AbstractControl | null): void {
+    control?.markAsTouched();
+    control?.setErrors({'required': true});
   }
 
   onModelSelect($event: MatOptionSelectionChange, model: Model) {
@@ -115,5 +137,15 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
     this.appliancesSubject.complete();
     this.brandsSubject.complete();
     this.modelsSubject.complete()
+  }
+
+  onSelectApplianceType($event: MatOptionSelectionChange, type: ApplianceType) {
+    if ($event.source.selected) {
+      this.applianceGroup.controls['type'].patchValue(type);
+    }
+  }
+
+  createAppliance(): void {
+    this.addApplianceSubject.next(this.applianceGroup.value as Appliance);
   }
 }
