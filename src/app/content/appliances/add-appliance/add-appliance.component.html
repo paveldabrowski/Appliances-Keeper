@@ -51,6 +51,9 @@
                 </mat-autocomplete>
                 <mat-error *ngIf="applianceGroup.controls['brand'].get('name')?.hasError('required')">
                   Brand must be specified.</mat-error>
+                <mat-error *ngIf="applianceGroup.controls['brand'].get('name')
+                ?.hasError('modelIsNotAssignedToRightBrand')">
+                  Valid model must be assigned to the brand.</mat-error>
               </mat-form-field>
             </div>
             <div class="col-6" formGroupName="model">

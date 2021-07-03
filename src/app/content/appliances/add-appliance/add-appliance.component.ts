@@ -19,23 +19,20 @@ import { MessageService } from "../../../message.service";
   styleUrls: ['./add-appliance.component.css']
 })
 export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
+
   @ViewChild(FormGroupDirective) formGroup?: FormGroupDirective;
-
-  appliances: Observable<Appliance[]> = new Observable<Appliance[]>();
-  appliancesSubject: BehaviorSubject<Appliance[]> = new BehaviorSubject<Appliance[]>([]);
-  brands: Observable<Brand[]> = new Observable<Brand[]>();
-  brandsSubject: BehaviorSubject<Brand[]> = new BehaviorSubject<Brand[]>([]);
+  appliances = new Observable<Appliance[]>();
+  appliancesSubject = new BehaviorSubject<Appliance[]>([]);
+  brands = new Observable<Brand[]>();
+  brandsSubject = new BehaviorSubject<Brand[]>([]);
   models!: Observable<Model[]>;
-  modelsSubject: BehaviorSubject<Model[]> = new BehaviorSubject<Model[]>([]);
-  addApplianceSubject: Subject<Appliance> = new Subject<Appliance>();
-
-  types: Observable<ApplianceType[]> = new Observable<ApplianceType[]>();
-
-  appliance: Appliance = new Appliance();
+  modelsSubject = new BehaviorSubject<Model[]>([]);
+  addApplianceSubject = new Subject<Appliance>();
+  brandChangeSubject = new Subject<string>();
+  types = new Observable<ApplianceType[]>();
+  appliance = new Appliance();
   model?: Model;
-
-  subscriptions: Subscription = new Subscription();
-
+  subscriptions = new Subscription();
   applianceGroup: FormGroup;
 
   constructor(private appliancesService: AppliancesService, private modelsService: ModelsService,
@@ -52,12 +49,15 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
     this.brands = this.fetchDataFromBackend(this.applianceGroup, 'brand', 'name',
       this.brandsService, this.brandsSubject);
     this.types = this.typesService.findAll();
-    this.addApplianceSubject.pipe(switchMap(value => this.appliancesService.add(value))).subscribe(
+    this.subscriptions.add(this.addApplianceSubject.pipe(switchMap(value => this.appliancesService.add(value))).subscribe(
       value => {
-        this.messageService.notifySuccess(`Appliance ${value.serialNumber} created!`);
+        this.messageService.notifySuccess(`Appliance ${ value.serialNumber } created!`);
         this.formGroup?.resetForm();
       }, error => this.messageService.notifyError(error.message)
-    )
+    ));
+    this.subscriptions.add(this.brandChangeSubject.pipe(
+      switchMap(value => this.modelsService.findAllByParam('brand', value))
+    ).subscribe(models => this.modelsSubject.next(models)))
   }
 
   private fetchAppliancesFromBackend(): void {
@@ -90,10 +90,6 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
     return x && y ? x.id === y.id : x === y;
   }
 
-  forbiddenSerialNumberValidator<ValidatorFn>(control: AbstractControl) {
-    return control.value === this.appliance.serialNumber ? {'applianceExists': true} : null;
-  }
-
   verifyIfModelEqualsSelectedModel(): void {
     const value = this.applianceGroup.controls['model'].get('name')?.value;
     if (!value || !this.model || (this.model && value !== this.model?.name)) {
@@ -122,14 +118,28 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   ngDoCheck(): void {
-    console.log(this.applianceGroup.value);
+    // console.log(this.applianceGroup.value);
   }
 
   onBrandSelect($event: MatOptionSelectionChange, brand: Brand) {
     if ($event.source.selected) {
-      console.log('brand selected')
       this.applianceGroup.controls['brand'].patchValue(brand);
+      this.brandChangeSubject.next(brand.name);
     }
+  }
+
+  createAppliance(): void {
+    this.addApplianceSubject.next(this.applianceGroup.value as Appliance);
+  }
+
+  forbiddenSerialNumberValidator<ValidatorFn>(control: AbstractControl) {
+    return control.value === this.appliance.serialNumber ? {'applianceExists': true} : null;
+  }
+
+  validateModelBelongsToRightBrand<ValidatorFn>(control: AbstractControl, applianceGroup: FormGroup) {
+    const brandIdFromModel: number = applianceGroup?.get('model')?.get('brand')?.get('id')?.value;
+    const brandIdFromMainForm: number = applianceGroup?.get('brand')?.get('id')?.value;
+    return brandIdFromModel === brandIdFromMainForm ? null : {'modelIsNotAssignedToRightBrand': true};
   }
 
   ngOnDestroy(): void {
@@ -137,15 +147,7 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
     this.appliancesSubject.complete();
     this.brandsSubject.complete();
     this.modelsSubject.complete()
-  }
-
-  onSelectApplianceType($event: MatOptionSelectionChange, type: ApplianceType) {
-    if ($event.source.selected) {
-      this.applianceGroup.controls['type'].patchValue(type);
-    }
-  }
-
-  createAppliance(): void {
-    this.addApplianceSubject.next(this.applianceGroup.value as Appliance);
+    this.addApplianceSubject.complete();
+    this.brandChangeSubject.complete();
   }
 }

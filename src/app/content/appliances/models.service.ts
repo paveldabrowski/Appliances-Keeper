@@ -10,7 +10,8 @@ import { BACKEND_URL } from "../../../environments/environment";
 })
 export class ModelsService implements ServiceKeeper<Model>, GetterByParam<Model> {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   findAllByParam(field: string, value: string): Observable<Model[]> {
     if (value)
@@ -20,7 +21,7 @@ export class ModelsService implements ServiceKeeper<Model>, GetterByParam<Model>
     if (value.length === 0)
       return of([])
 
-    return this.httpClient.get<Model[]>(`${BACKEND_URL}/appliances/models`,
+    return this.httpClient.get<Model[]>(`${ BACKEND_URL }/appliances/models`,
       {
         params: new HttpParams()
           .set(field, value)
@@ -28,11 +29,11 @@ export class ModelsService implements ServiceKeeper<Model>, GetterByParam<Model>
   }
 
   add(model: Model) {
-    return this.httpClient.post<Model>(`${BACKEND_URL}/appliances/models`, model);
+    return this.httpClient.post<Model>(`${ BACKEND_URL }/appliances/models`, model);
   }
 
   findAll(): Observable<Model[]> {
-    return this.httpClient.get<Model[]>(`${BACKEND_URL}/appliances/models`);
+    return this.httpClient.get<Model[]>(`${ BACKEND_URL }/appliances/models`);
   }
 
   findSearchedPaginatedSorted(sortBy: string, sortDirection: string, searchTerm: string, page: number, size: number): Observable<Pageable<Model>> {

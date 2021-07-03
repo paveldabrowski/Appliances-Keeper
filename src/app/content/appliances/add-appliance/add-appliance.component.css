@@ -21,12 +21,6 @@
 .add-appliance-form .clear-button {
   margin-top: 0.5rem;
   margin-right: 0;
-  font-size: 1.4rem;
-  padding: 0.5rem 1rem;
-  transition: background-color 0.3s;
-  font-family: Rajdhani-Bold, sans-serif;
-  max-height: 3.3rem;
-  overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.6);
 }
 

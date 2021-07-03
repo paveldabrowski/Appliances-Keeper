@@ -17,7 +17,7 @@ export class ApplianceGroup {
     ],
     model: this.formBuilder.group({
       id: null,
-      name: [null, [Validators.required]],
+      name: null,
       brand: this.formBuilder.group({
         id: null,
         name: null
@@ -29,7 +29,7 @@ export class ApplianceGroup {
     }),
     brand: this.formBuilder.group({
       id: null,
-      name: [null, [Validators.required]]
+      name: [null, [Validators.required,  (control: AbstractControl) => this.addApplianceComponent.validateModelBelongsToRightBrand(control, this._applianceGroup)]]
     })
   });
 
