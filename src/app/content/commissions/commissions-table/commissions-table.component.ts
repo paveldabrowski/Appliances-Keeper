@@ -6,7 +6,6 @@ import { COMMISSIONS_COLUMNS } from "../models";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MessageService } from "../../../message.service";
-import { ServerSideDataSource } from "../../ServerSideDataSource";
 import { TableShapeResolver } from "../../TableShapeResolver";
 
 @Component({

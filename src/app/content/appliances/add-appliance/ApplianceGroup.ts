@@ -1,6 +1,5 @@
 import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AddApplianceComponent } from "./add-appliance.component";
-import { Appliance } from "../../../appliances/models";
 
 export class ApplianceGroup {
 

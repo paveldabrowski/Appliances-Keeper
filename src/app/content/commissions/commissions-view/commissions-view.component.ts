@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ContentDescriptor } from "../../model";
 import { MatDialog } from "@angular/material/dialog";
 import { AddCommissionComponent } from "./add-commission/add-commission.component";
-import { AddApplianceComponent } from "./add-appliance/add-appliance.component";
+import { AddApplianceComponent } from "../../appliances/add-appliance/add-appliance.component";
 
 @Component({
   selector: 'app-commissions-view',
