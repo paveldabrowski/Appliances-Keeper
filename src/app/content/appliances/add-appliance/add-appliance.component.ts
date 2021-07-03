@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Appliance, ApplianceType, Brand, Model } from "../models";
 import { BehaviorSubject, Observable, Subject, Subscription } from "rxjs";
-import { AppliancesService } from "../appliances.service";
-import { ModelsService } from "../models.service";
+import { AppliancesService } from "../services/appliances.service";
+import { ModelsService } from "../services/models.service";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { FormGroup, FormGroupDirective } from "@angular/forms";
-import { BrandsService } from "../brands.service";
+import { BrandsService } from "../services/brands.service";
 import { MatOptionSelectionChange } from "@angular/material/core";
 import { GetterByParam } from "../../model";
 import { ApplianceGroup } from "./ApplianceGroup";
-import { TypesService } from "../types.service";
+import { TypesService } from "../services/types.service";
 import { MessageService } from "../../../message.service";
 import { ApplianceValidators } from "../ApplianceValidators";
 

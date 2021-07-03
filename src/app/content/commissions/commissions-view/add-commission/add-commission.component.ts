@@ -1,14 +1,14 @@
 import { Component, DoCheck, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
 import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective, Validators } from "@angular/forms";
-import { AppliancesService } from "../../../appliances/appliances.service";
+import { AppliancesService } from "../../../appliances/services/appliances.service";
 import { Appliance, ApplianceType, Brand, Model } from "../../../appliances/models";
 import { catchError, debounceTime, distinctUntilChanged, mergeMap, switchMap } from "rxjs/operators";
 import { GetterByParam } from "../../../model";
 import { CommissionsService } from "../../commissions.service";
-import { ModelsService } from "../../../appliances/models.service";
-import { BrandsService } from "../../../appliances/brands.service";
-import { TypesService } from "../../../appliances/types.service";
+import { ModelsService } from "../../../appliances/services/models.service";
+import { BrandsService } from "../../../appliances/services/brands.service";
+import { TypesService } from "../../../appliances/services/types.service";
 
 @Component({
   selector: 'com-add-commission',

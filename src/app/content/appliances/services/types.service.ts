@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { GetterByParam } from "../model";
-import { Appliance, ApplianceType } from "./models";
+import { GetterByParam } from "../../model";
+import { Appliance, ApplianceType } from "../models";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { BACKEND_URL } from "../../../environments/environment";
+import { BACKEND_URL } from "../../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'

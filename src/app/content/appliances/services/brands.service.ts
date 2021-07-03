@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { GetterByParam } from "../model";
-import { Brand } from "./models";
+import { GetterByParam } from "../../model";
+import { Brand } from "../models";
 import { Observable, of } from "rxjs";
-import { BACKEND_URL } from "../../../environments/environment";
+import { BACKEND_URL } from "../../../../environments/environment";
 import { HttpClient, HttpParams } from "@angular/common/http";
 
 @Injectable({

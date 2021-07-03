@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppliancesService } from "./appliances.service";
-import { BrandsService } from "./brands.service";
-import { ModelsService } from "./models.service";
-import { TypesService } from "./types.service";
+import { AppliancesService } from "./services/appliances.service";
+import { BrandsService } from "./services/brands.service";
+import { ModelsService } from "./services/models.service";
+import { TypesService } from "./services/types.service";
 import { AddApplianceComponent } from "./add-appliance/add-appliance.component";
 import { AddModelComponent } from "./add-appliance/add-model/add-model.component";
 import { ReactiveFormsModule } from "@angular/forms";

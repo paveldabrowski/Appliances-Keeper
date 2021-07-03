@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable, of } from "rxjs";
-import { Appliance } from "./models";
-import { BACKEND_URL } from "../../../environments/environment";
-import { GetterByParam, Pageable, ServiceKeeper } from "../model";
+import { Appliance } from "../models";
+import { BACKEND_URL } from "../../../../environments/environment";
+import { GetterByParam, Pageable, ServiceKeeper } from "../../model";
 
 @Injectable({
   providedIn: 'root'
