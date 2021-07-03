@@ -86,7 +86,7 @@ body::-webkit-scrollbar-thumb {
   margin-top: 1.5rem;
   margin-right: 1rem;
   font-size: 1.4rem;
-  padding: 0.5rem 1rem;
+  padding: 0.8rem 1rem;
   transition: background-color 0.3s;
   font-family: Rajdhani-Bold, sans-serif;
   max-height: 3.3rem;
