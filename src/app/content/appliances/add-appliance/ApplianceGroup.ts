@@ -1,5 +1,6 @@
 import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AddApplianceComponent } from "./add-appliance.component";
+import { ApplianceValidators } from "../ApplianceValidators";
 
 export class ApplianceGroup {
 
@@ -12,7 +13,7 @@ export class ApplianceGroup {
       null,
       [
         Validators.required,
-        (control: AbstractControl) => this.addApplianceComponent.forbiddenSerialNumberValidator(control)
+        (control: AbstractControl) => ApplianceValidators.forbiddenSerialNumberValidator(control, this.addApplianceComponent.appliance)
       ]
     ],
     model: this.formBuilder.group({
@@ -29,7 +30,7 @@ export class ApplianceGroup {
     }),
     brand: this.formBuilder.group({
       id: null,
-      name: [null, [Validators.required,  (control: AbstractControl) => this.addApplianceComponent.validateModelBelongsToRightBrand(control, this._applianceGroup)]]
+      name: [null, [Validators.required,  (control: AbstractControl) => ApplianceValidators.validateModelBelongsToRightBrand(control, this._applianceGroup)]]
     })
   });
 

@@ -1,16 +1,17 @@
-import { Component, DoCheck, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Appliance, ApplianceType, Brand, Model } from "../models";
 import { BehaviorSubject, Observable, Subject, Subscription } from "rxjs";
 import { AppliancesService } from "../appliances.service";
 import { ModelsService } from "../models.service";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { AbstractControl, FormGroup, FormGroupDirective } from "@angular/forms";
+import { FormGroup, FormGroupDirective } from "@angular/forms";
 import { BrandsService } from "../brands.service";
 import { MatOptionSelectionChange } from "@angular/material/core";
 import { GetterByParam } from "../../model";
 import { ApplianceGroup } from "./ApplianceGroup";
 import { TypesService } from "../types.service";
 import { MessageService } from "../../../message.service";
+import { ApplianceValidators } from "../ApplianceValidators";
 
 
 @Component({
@@ -18,7 +19,7 @@ import { MessageService } from "../../../message.service";
   templateUrl: './add-appliance.component.html',
   styleUrls: ['./add-appliance.component.css']
 })
-export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
+export class AddApplianceComponent implements OnInit, OnDestroy {
 
   @ViewChild(FormGroupDirective) formGroup?: FormGroupDirective;
   appliances = new Observable<Appliance[]>();
@@ -101,12 +102,7 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
   private resetFormTree(formGroupName: string, formControlName: string): void {
     this.applianceGroup.controls[formGroupName].reset();
     const control = this.applianceGroup.controls[formGroupName].get(formControlName);
-    AddApplianceComponent.activateRequiredValidator(control);
-  }
-
-  private static activateRequiredValidator(control: AbstractControl | null): void {
-    control?.markAsTouched();
-    control?.setErrors({'required': true});
+    ApplianceValidators.activateRequiredValidator(control);
   }
 
   onModelSelect($event: MatOptionSelectionChange, model: Model) {
@@ -115,10 +111,6 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
       this.applianceGroup.controls['brand'].patchValue(model.brand);
       this.model = model;
     }
-  }
-
-  ngDoCheck(): void {
-    // console.log(this.applianceGroup.value);
   }
 
   onBrandSelect($event: MatOptionSelectionChange, brand: Brand) {
@@ -130,16 +122,6 @@ export class AddApplianceComponent implements OnInit, DoCheck, OnDestroy {
 
   createAppliance(): void {
     this.addApplianceSubject.next(this.applianceGroup.value as Appliance);
-  }
-
-  forbiddenSerialNumberValidator<ValidatorFn>(control: AbstractControl) {
-    return control.value === this.appliance.serialNumber ? {'applianceExists': true} : null;
-  }
-
-  validateModelBelongsToRightBrand<ValidatorFn>(control: AbstractControl, applianceGroup: FormGroup) {
-    const brandIdFromModel: number = applianceGroup?.get('model')?.get('brand')?.get('id')?.value;
-    const brandIdFromMainForm: number = applianceGroup?.get('brand')?.get('id')?.value;
-    return brandIdFromModel === brandIdFromMainForm ? null : {'modelIsNotAssignedToRightBrand': true};
   }
 
   ngOnDestroy(): void {
