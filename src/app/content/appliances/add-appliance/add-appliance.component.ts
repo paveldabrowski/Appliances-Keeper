@@ -31,9 +31,10 @@ export class AddApplianceComponent implements OnInit, OnDestroy {
   addApplianceSubject = new Subject<Appliance>();
   brandChangeSubject = new Subject<string>();
   types = new Observable<ApplianceType[]>();
+  subscriptions = new Subscription();
+
   appliance = new Appliance();
   model?: Model;
-  subscriptions = new Subscription();
   applianceGroup: FormGroup;
 
   constructor(private appliancesService: AppliancesService, private modelsService: ModelsService,
