@@ -23,4 +23,8 @@ export class BrandsService implements GetterByParam<Brand>{
   add(brand: Brand) {
     return this.httpClient.post<Brand>(`${BACKEND_URL}/appliances/brands`, brand);
   }
+
+  findAll(): Observable<Brand[]> {
+    return this.httpClient.get<Brand[]>(`${BACKEND_URL}/appliances/brands`);
+  }
 }

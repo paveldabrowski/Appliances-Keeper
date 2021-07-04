@@ -20,7 +20,7 @@
                     {{ appliance.serialNumber }} </mat-option>
                 </mat-autocomplete>
                 <mat-error *ngIf="applianceGroup.controls['serialNumber'].hasError('required')">
-                  You must provide a serial number.</mat-error>
+                  Serial number is required.</mat-error>
                 <mat-error *ngIf="applianceGroup.controls['serialNumber'].hasError('applianceExists')">
                   Appliance already exists</mat-error>
               </mat-form-field>
@@ -34,6 +34,7 @@
                   <mat-option (onSelectionChange)="onModelSelect($event, model)" *ngFor="let model of models | async" [value]="model.name">
                     {{ model?.name }} </mat-option>
                 </mat-autocomplete>
+                <mat-hint>Create model <button (click)="showAddModelComponent()" type="button" class="btn btn-link">>> here <<</button></mat-hint>
                 <mat-error *ngIf="applianceGroup.controls['model'].get('name')?.hasError('required')">
                   Model must be specified.</mat-error>
               </mat-form-field>

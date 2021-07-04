@@ -11,6 +11,13 @@ export interface ServiceKeeper<T> {
 
   findSearchedPaginatedSorted(sortBy: string, sortDirection: string, searchTerm: string,
                               page: number, size: number): Observable<Pageable<T>>;
+
+}
+
+export interface ServiceAsyncValidator {
+
+  checkIfNameExists(name: string): Observable<boolean>;
+
 }
 
 export interface GetterByParam<T> {

@@ -12,6 +12,8 @@ import { ApplianceGroup } from "./ApplianceGroup";
 import { TypesService } from "../services/types.service";
 import { MessageService } from "../../../message.service";
 import { ApplianceValidators } from "../ApplianceValidators";
+import { MatDialog } from "@angular/material/dialog";
+import { AddModelComponent } from "./add-model/add-model.component";
 
 
 @Component({
@@ -39,7 +41,7 @@ export class AddApplianceComponent implements OnInit, OnDestroy {
 
   constructor(private appliancesService: AppliancesService, private modelsService: ModelsService,
               private brandsService: BrandsService, private typesService: TypesService,
-              private messageService: MessageService) {
+              private messageService: MessageService, private dialog: MatDialog) {
     this.applianceGroup = new ApplianceGroup(this).applianceGroup;
   }
 
@@ -60,6 +62,8 @@ export class AddApplianceComponent implements OnInit, OnDestroy {
     this.subscriptions.add(this.brandChangeSubject.pipe(
       switchMap(value => this.modelsService.findAllByParam('brand', value))
     ).subscribe(models => this.modelsSubject.next(models)))
+
+    this.showAddModelComponent();
   }
 
   private fetchAppliancesFromBackend(): void {
@@ -106,7 +110,7 @@ export class AddApplianceComponent implements OnInit, OnDestroy {
     ApplianceValidators.activateRequiredValidator(control);
   }
 
-  onModelSelect($event: MatOptionSelectionChange, model: Model) {
+  onModelSelect($event: MatOptionSelectionChange, model: Model): void {
     if ($event.source.selected) {
       this.applianceGroup.controls['model'].patchValue(model, {emitEvent: true});
       this.applianceGroup.controls['brand'].patchValue(model.brand);
@@ -114,7 +118,7 @@ export class AddApplianceComponent implements OnInit, OnDestroy {
     }
   }
 
-  onBrandSelect($event: MatOptionSelectionChange, brand: Brand) {
+  onBrandSelect($event: MatOptionSelectionChange, brand: Brand): void {
     if ($event.source.selected) {
       this.applianceGroup.controls['brand'].patchValue(brand);
       this.brandChangeSubject.next(brand.name);
@@ -125,6 +129,10 @@ export class AddApplianceComponent implements OnInit, OnDestroy {
     this.addApplianceSubject.next(this.applianceGroup.value as Appliance);
   }
 
+  showAddModelComponent(): void {
+    this.dialog.open(AddModelComponent, {disableClose: true, autoFocus: true, role: "dialog"})
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
     this.appliancesSubject.complete();
@@ -133,4 +141,6 @@ export class AddApplianceComponent implements OnInit, OnDestroy {
     this.addApplianceSubject.complete();
     this.brandChangeSubject.complete();
   }
+
+
 }

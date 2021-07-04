@@ -1,0 +1,30 @@
+.my-dialog {
+  background-color: #393E46;
+  font-size: 1.6rem;
+  padding: 1.5rem!important;
+  text-align: center!important;
+}
+
+.my-dialog p {
+  margin: 0;
+  font-family: var(--rajdhani-bold);
+  font-size: 3rem;
+  padding: 2rem 0;
+}
+
+.my-dialog .my-dialog-form input[type='checkbox'] {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+}
+
+.my-dialog-form .clear-button {
+  margin-top: 0.5rem;
+  margin-right: 0;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.my-dialog-form .clear-button:hover {
+  background-color: red;
+  color: white;
+}
