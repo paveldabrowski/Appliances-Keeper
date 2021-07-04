@@ -62,9 +62,7 @@ export class AddApplianceComponent implements OnInit, OnDestroy {
     ));
     this.subscriptions.add(this.brandChangeSubject.pipe(
       switchMap(value => this.modelsService.findAllByParam('brand', value))
-    ).subscribe(models => this.modelsSubject.next(models)))
-
-    this.showAddModelComponent();
+    ).subscribe(models => this.modelsSubject.next(models)));
   }
 
   private fetchAppliancesFromBackend(): void {
