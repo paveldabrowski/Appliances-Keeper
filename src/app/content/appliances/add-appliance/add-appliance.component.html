@@ -32,11 +32,11 @@
                        matInput [matAutocomplete]="modelAutoComplete">
                 <mat-autocomplete #modelAutoComplete="matAutocomplete">
                   <mat-option (onSelectionChange)="onModelSelect($event, model)" *ngFor="let model of models | async" [value]="model.name">
-                    {{ model?.name }} </mat-option>
+                    {{ model?.name }} <span class="brand-span">{{ model?.brand?.name }}</span></mat-option>
                 </mat-autocomplete>
                 <mat-hint>Create model <button (click)="showAddModelComponent()" type="button" class="btn btn-link">>> here <<</button></mat-hint>
                 <mat-error *ngIf="applianceGroup.controls['model'].get('name')?.hasError('required')">
-                  Model must be specified.</mat-error>
+                  Model is required. <button (click)="showAddModelComponent()" type="button" class="btn btn-link">>> new <<</button></mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -45,7 +45,7 @@
             <div class="col-6" formGroupName="brand" >
               <mat-form-field appearance="outline">
                 <mat-label>Brand</mat-label>
-                <input formControlName="name" matInput placeholder="Brand" [matAutocomplete]="brandAutoComplete">
+                <input (focusout)="verifyIfBrandEqualsSelectedBrand()" formControlName="name" matInput placeholder="Brand" [matAutocomplete]="brandAutoComplete">
                 <mat-autocomplete #brandAutoComplete="matAutocomplete">
                   <mat-option (onSelectionChange)="onBrandSelect($event, brand)" *ngFor="let brand of brands | async" [value]="brand.name">
                     {{ brand?.name }} </mat-option>

@@ -28,6 +28,10 @@
   background-color: red;
   color: white;
 }
+
+.brand-span {
+  font-size: 1rem;
+}
 /*::ng-deep .mat-form-field-wrapper {*/
 /*  padding-bottom: 0;*/
 /*}*/

@@ -1,4 +1,5 @@
 import { Observable } from "rxjs";
+import { Brand } from "./appliances/models";
 
 export interface ContentDescriptor {
 
@@ -16,7 +17,7 @@ export interface ServiceKeeper<T> {
 
 export interface ServiceAsyncValidator {
 
-  checkIfNameExists(name: string): Observable<boolean>;
+  checkIfNameExists(name: string, brand: Brand | null): Observable<boolean>;
 
 }
 

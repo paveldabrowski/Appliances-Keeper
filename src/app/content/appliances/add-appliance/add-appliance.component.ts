@@ -37,6 +37,7 @@ export class AddApplianceComponent implements OnInit, OnDestroy {
 
   appliance = new Appliance();
   model?: Model;
+  brand?: Brand;
   applianceGroup: FormGroup;
 
   constructor(private appliancesService: AppliancesService, private modelsService: ModelsService,
@@ -104,6 +105,14 @@ export class AddApplianceComponent implements OnInit, OnDestroy {
     }
   }
 
+  verifyIfBrandEqualsSelectedBrand(): void {
+    const value = this.applianceGroup.controls['brand'].get('name')?.value;
+    if (!value || !this.brand || (this.brand && value !== this.brand?.name)) {
+      this.resetFormTree('model', 'name');
+      this.resetFormTree('brand', 'name');
+    }
+  }
+
   private resetFormTree(formGroupName: string, formControlName: string): void {
     this.applianceGroup.controls[formGroupName].reset();
     const control = this.applianceGroup.controls[formGroupName].get(formControlName);
@@ -122,6 +131,7 @@ export class AddApplianceComponent implements OnInit, OnDestroy {
     if ($event.source.selected) {
       this.applianceGroup.controls['brand'].patchValue(brand);
       this.brandChangeSubject.next(brand.name);
+      this.brand = brand;
     }
   }
 
