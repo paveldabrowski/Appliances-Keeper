@@ -13,7 +13,9 @@
               <mat-option (onSelectionChange)="onBrandSelect($event, brand)"
                           *ngFor="let brand of brands | async" [value]="brand.name"> {{ brand.name }} </mat-option>
             </mat-select>
-            <mat-error *ngIf="modelGroup.controls['brand']?.get('name')?.hasError('required')">Brand must be specified.</mat-error>
+            <mat-hint>Create brand <button (click)="showAddBrandComponent()" type="button" class="btn btn-link">>> here <<</button></mat-hint>
+
+            <mat-error *ngIf="modelGroup.controls['brand']?.get('name')?.hasError('required')">Brand is required. <button (click)="showAddBrandComponent()" type="button" class="btn btn-link">>> new <<</button></mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
@@ -29,7 +31,8 @@
               <mat-option (onSelectionChange)="onTypeSelect($event, type)"
                           *ngFor="let type of types | async" [value]="type.name"> {{ type.name }} </mat-option>
             </mat-select>
-            <mat-error *ngIf="modelGroup.controls['applianceType']?.get('name')?.hasError('required')">Type must be specified.</mat-error>
+            <mat-hint>Create type <button (click)="showAddTypeComponent()" type="button" class="btn btn-link">>> here <<</button></mat-hint>
+            <mat-error *ngIf="modelGroup.controls['applianceType']?.get('name')?.hasError('required')">Type is required. Create type <button (click)="showAddTypeComponent()" type="button" class="btn btn-link">>> new <<</button> </mat-error>
 
           </mat-form-field>
 

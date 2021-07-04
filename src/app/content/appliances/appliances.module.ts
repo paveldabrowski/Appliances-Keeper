@@ -12,10 +12,12 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatInputModule } from "@angular/material/input";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSelectModule } from "@angular/material/select";
+import { AddBrandComponent } from './add-appliance/add-brand/add-brand.component';
+import { AddTypeComponent } from "./add-appliance/add-type/add-type.component";
 
 
 @NgModule({
-  declarations: [AddApplianceComponent, AddModelComponent],
+  declarations: [AddApplianceComponent, AddModelComponent, AddBrandComponent, AddTypeComponent],
     imports: [
         CommonModule,
         ReactiveFormsModule,

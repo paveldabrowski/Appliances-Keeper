@@ -9,6 +9,9 @@ import { TypesService } from "../../services/types.service";
 import { ModelNameValidator } from "./ModelNameValidator";
 import { MessageService } from "../../../../message.service";
 import { switchMap } from "rxjs/operators";
+import { MatDialog } from "@angular/material/dialog";
+import { AddBrandComponent } from "../add-brand/add-brand.component";
+import { AddTypeComponent } from "../add-type/add-type.component";
 
 @Component({
   selector: 'app-add-model',
@@ -51,7 +54,8 @@ export class AddModelComponent implements OnInit, OnDestroy {
               private modelsService: ModelsService,
               private brandsService: BrandsService,
               private typesService: TypesService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -60,7 +64,7 @@ export class AddModelComponent implements OnInit, OnDestroy {
     this.subscriptions.add(this.addModelSubject.pipe(
       switchMap(model => this.modelsService.add(model))
     ).subscribe(model => {
-      this.messageService.notifySuccess(`Model ${model.name} successful created in brand ${model.brand?.name}`);
+      this.messageService.notifySuccess(`Model ${ model.name } successful created in brand ${ model.brand?.name }`);
     }, error => this.messageService.notifyError(error.message)));
   }
 
@@ -95,5 +99,21 @@ export class AddModelComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe()
     this.addModelSubject.complete();
+  }
+
+  showAddBrandComponent(): void {
+    this.dialog.open(AddBrandComponent, {
+      disableClose: true,
+      role: "dialog",
+      autoFocus: true
+    })
+  }
+
+  showAddTypeComponent(): void {
+    this.dialog.open(AddTypeComponent, {
+      disableClose: true,
+      role: "dialog",
+      autoFocus: true
+    })
   }
 }
