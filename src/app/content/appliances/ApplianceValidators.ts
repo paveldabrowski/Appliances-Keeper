@@ -1,7 +1,8 @@
 import { AbstractControl, FormGroup } from "@angular/forms";
 import { Appliance } from "./models";
+import { CustomValidators } from "../CustomValidators";
 
-export class ApplianceValidators {
+export class ApplianceValidators extends CustomValidators {
 
   static forbiddenSerialNumberValidator<ValidatorFn>(control: AbstractControl, appliance: Appliance) {
     return control.value === appliance.serialNumber ? {'applianceExists': true} : null;
@@ -13,8 +14,4 @@ export class ApplianceValidators {
     return brandIdFromModel === brandIdFromMainForm ? null : {'modelIsNotAssignedToRightBrand': true};
   }
 
-  static activateRequiredValidator(control: AbstractControl | null): void {
-    control?.markAsTouched();
-    control?.setErrors({'required': true});
-  }
 }

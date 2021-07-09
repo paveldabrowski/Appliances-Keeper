@@ -16,14 +16,14 @@ export class CommissionsViewComponent implements ContentDescriptor, OnInit {
   }
 
   ngOnInit(): void {
-    this.showAddApplianceForm();
+    this.showAddCommissionForm();
   }
 
   getTitle(): string {
     return "Commissions";
   }
 
-  showAddCommissionForm() {
+  showAddCommissionForm(): void {
     this.dialog.open(AddCommissionComponent, {
       role: "dialog",
       autoFocus: false,
@@ -31,7 +31,7 @@ export class CommissionsViewComponent implements ContentDescriptor, OnInit {
     })
   }
 
-  showAddApplianceForm() {
+  showAddApplianceForm(): void {
     this.dialog.open(AddApplianceComponent, {
       role: "dialog",
       autoFocus: false,

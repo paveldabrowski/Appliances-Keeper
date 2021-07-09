@@ -1,23 +1,25 @@
-<div class="add-commission container-fluid h-100 p-4 text-center">
+<div class="my-dialog container-fluid h-100 p-4 text-center">
   <div class="card">
     <div class="card-header d-flex justify-content-center align-items-center">
       <p>Create Commission</p>
     </div>
     <div class="card-body">
 
-      <form [formGroup]="commissionGroup" class="add-commission-form d-flex flex-column"
+      <form [formGroup]="commissionGroup" class="my-dialog-form d-flex flex-column"
             (ngSubmit)="createCommission(commissionGroup)">
 
-        <div class="d-flex flex-column container" formGroupName="appliance">
+        <div class="d-flex flex-column">
 
           <div class="d-flex">
-            <div class="col-6">
-              <mat-form-field style="padding-bottom: 0" appearance="outline" class="my-form-field">
+            <div class="col-12" formGroupName="appliance">
+              <mat-form-field appearance="outline" class="my-form-field">
                 <mat-label>Serial number</mat-label>
-                <input type="text" placeholder="Serial number" aria-label="serial-number" matInput
+                <input (focusout)="verifyAppliance()" type="text" placeholder="Serial number" aria-label="serial-number"
+                       matInput
                        [matAutocomplete]="serial_number" formControlName="serialNumber">
                 <mat-autocomplete #serial_number="matAutocomplete">
-                  <mat-option *ngFor="let appliance of appliances | async" [value]="appliance.serialNumber">
+                  <mat-option (onSelectionChange)="onSelectAppliance($event, appliance)"
+                              *ngFor="let appliance of appliances | async" [value]="appliance.serialNumber">
                     {{ appliance.serialNumber }} </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
@@ -25,16 +27,31 @@
 
           </div>
 
+          <div class="col-12" >
+            <mat-form-field appearance="outline" class="my-form-field">
+              <mat-label>Client</mat-label>
+              <input (focusout)="verifyAppliance()" type="text" placeholder="Search for client" aria-label="serial-number"
+                     matInput [matAutocomplete]="client" [formControl]="clientControl">
+              <mat-autocomplete [displayWith]="displayClient"  #client="matAutocomplete">
+                <mat-option (onSelectionChange)="onSelectClient($event, client)"
+                            *ngFor="let client of clients | async" [value]="client">
+                  {{ client.name }} {{ client.lastName }} <span style="font-size: 1rem;"> {{ client.phoneNumber }}</span> </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
           <div class="d-flex">
+            <div class="col-12">
+              <mat-form-field appearance="outline" class="my-form-field">
+                <mat-label>Problem description</mat-label>
+                <textarea matInput formControlName="problemDescription"></textarea>
 
-
+              </mat-form-field>
+            </div>
           </div>
 
 
         </div>
-
-
-
 
 
         <div class="form-check d-flex align-items-end">

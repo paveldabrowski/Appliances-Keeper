@@ -28,16 +28,16 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
 
   constructor(private clientsService: ClientsService) {}
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.buildTable();
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.setUpFilter(filterValue);
   }
 
-  onSearchClear() {
+  onSearchClear(): void {
     this.searchKey = ""
     this.setUpFilter(this.searchKey);
   }

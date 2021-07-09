@@ -26,6 +26,12 @@ export interface GetterByParam<T> {
 
 }
 
+export interface GetterBySearchTerm<T> {
+
+  findAllBySearchTerm(searchTerm: string) : Observable<T[]>;
+}
+
+
 export interface Pageable<T> {
   content: T[],
   empty: boolean,
