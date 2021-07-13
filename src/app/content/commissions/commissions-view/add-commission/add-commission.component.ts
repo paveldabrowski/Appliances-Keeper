@@ -10,6 +10,8 @@ import { MatOptionSelectionChange } from "@angular/material/core";
 import { CustomValidators } from "../../../CustomValidators";
 import { Client } from "../../../clients/Client";
 import { ClientsService } from "../../../clients/clients.service";
+import { Commission } from "../../Commission";
+import { MessageService } from "../../../../message.service";
 
 @Component({
   selector: 'com-add-commission',
@@ -48,7 +50,8 @@ export class AddCommissionComponent<T> implements OnInit, OnDestroy, DoCheck {
   constructor(private fb: FormBuilder,
               private appliancesService: AppliancesService,
               private commissionService: CommissionsService,
-              private clientsService: ClientsService) {
+              private clientsService: ClientsService,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -85,8 +88,10 @@ export class AddCommissionComponent<T> implements OnInit, OnDestroy, DoCheck {
     }));
   }
 
-  createCommission(commissionGroup2: FormGroup) {
-
+  createCommission(commissionGroup: FormGroup) {
+    this.subscriptions.add(this.commissionService.add(new Commission(this.commissionGroup.value)).subscribe(commission => {
+      this.messageService.notifySuccess(`Commission ${commission.appliance?.serialNumber} successfully created!`)
+    }, error => this.messageService.notifyError(`Error while creating commission ${error.message}`)));
   }
 
   ngOnDestroy(): void {
