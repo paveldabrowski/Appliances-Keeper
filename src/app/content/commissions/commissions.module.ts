@@ -15,6 +15,10 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatInputModule } from "@angular/material/input";
 import { MatSortModule } from "@angular/material/sort";
 import { MatButtonModule } from "@angular/material/button";
+import { MatDialogModule } from "@angular/material/dialog";
+import { TechniciansModule } from "../technicians/technicians.module";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
 
 
 @NgModule({
@@ -23,21 +27,25 @@ import { MatButtonModule } from "@angular/material/button";
     CommissionsTableComponent,
     AddCommissionComponent
   ],
-  imports: [
-    CommonModule,
-    AppliancesModule,
-    MatFormFieldModule,
-    FormsModule,
-    MatIconModule,
-    MatTableModule,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    MatAutocompleteModule,
-    MatInputModule,
-    MatSortModule,
-    MatButtonModule
+    imports: [
+        CommonModule,
+        AppliancesModule,
+        TechniciansModule,
+        MatFormFieldModule,
+        FormsModule,
+        MatIconModule,
+        MatTableModule,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule,
+        MatInputModule,
+        MatSortModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatDatepickerModule,
+        MatNativeDateModule
 
-  ],
+    ],
   providers: [
     ClientsService,
     CommissionsService,

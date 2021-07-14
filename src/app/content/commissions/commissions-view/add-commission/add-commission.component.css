@@ -1,9 +1,19 @@
+.my-dialog {
+  max-height: 93vh;
+}
+
 .my-dialog .my-dialog-form input[type='checkbox'] {
   width: 2rem;
   height: 2rem;
   margin-right: 1rem;
 }
 
-.clients-autocomplete-options {
+.autocomplete-options {
   font-size: 1rem;
+  font-weight: bold;
+}
+
+.autocomplete-options span {
+  font-size: 0.8rem;
+  font-weight: normal;
 }

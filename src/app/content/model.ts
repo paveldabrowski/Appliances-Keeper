@@ -28,7 +28,7 @@ export interface GetterByParam<T> {
 
 export interface GetterBySearchTerm<T> {
 
-  findAllBySearchTerm(searchTerm: string) : Observable<T[]>;
+  findAllBySearchTerm(searchTerm: string | any) : Observable<T[]>;
 }
 
 
