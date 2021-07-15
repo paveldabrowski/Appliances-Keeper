@@ -19,13 +19,17 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { TechniciansModule } from "../technicians/technicians.module";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
+import { HourSchedulerComponent } from './hour-secheduler/hour-scheduler.component';
+import { MatGridListModule } from "@angular/material/grid-list";
+import { MatListModule } from "@angular/material/list";
 
 
 @NgModule({
   declarations: [
     CommissionsViewComponent,
     CommissionsTableComponent,
-    AddCommissionComponent
+    AddCommissionComponent,
+    HourSchedulerComponent
   ],
     imports: [
         CommonModule,
@@ -43,7 +47,9 @@ import { MatNativeDateModule } from "@angular/material/core";
         MatButtonModule,
         MatDialogModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatGridListModule,
+        MatListModule
 
     ],
   providers: [

@@ -7,7 +7,7 @@ import { MessageService } from "../../../../message.service";
 import { Subscription } from "rxjs";
 
 @Component({
-  selector: 'app-commission-deatails',
+  selector: 'app-commission-details',
   templateUrl: './commission-details.component.html',
   styleUrls: ['./commission-details.component.css']
 })

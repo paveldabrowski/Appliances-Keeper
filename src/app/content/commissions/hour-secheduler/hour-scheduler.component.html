@@ -1,0 +1,27 @@
+<div class="container text-center">
+  <div *ngIf="!isWorkday">
+    <p style="color: red">This technician doesn't work at this day.</p>
+  </div>
+
+  <h2 mat-dialog-title>{{ selectedTechnician.name }} {{ selectedTechnician.lastName }}</h2>
+  <p> {{ date | date: 'dd-MM-yyyy' }}</p>
+  <p>Available hours:</p>
+  <mat-dialog-content>
+
+    <mat-selection-list #list (selectionChange)="onHourSelect($event)" [multiple]="false">
+      <mat-list-option [disabled]="!!term.commission" *ngFor="let term of terms | async" [value]="term">
+        {{ enum(term) }}
+      </mat-list-option>
+    </mat-selection-list>
+
+  </mat-dialog-content>
+  <div class="d-flex justify-content-end">
+    <mat-dialog-actions>
+      <button [disabled]="!list.selectedOptions.hasValue()" mat-button color="primary"
+              [mat-dialog-close]="selectedTerm">Confirm
+      </button>
+      <button mat-button color="warn" mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+  </div>
+</div>
+

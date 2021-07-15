@@ -31,7 +31,7 @@
                 <input (focusout)="verifyAppliance()" type="text" placeholder="Search for client"
                        aria-label="serial-number"
                        matInput [matAutocomplete]="client" formControlName="client">
-                <mat-autocomplete [displayWith]="displayClient" #client="matAutocomplete">
+                <mat-autocomplete [displayWith]="customDisplay" #client="matAutocomplete">
                   <mat-option class="autocomplete-options" (onSelectionChange)="onSelectClient($event, client)"
                               *ngFor="let client of clients | async" [value]="client">
                     {{ client.name }} {{ client.lastName }} <span> {{ client.phoneNumber }}</span></mat-option>
@@ -58,7 +58,7 @@
                        aria-label="technician"
                        matInput
                        [matAutocomplete]="technician" formControlName="technician">
-                <mat-autocomplete [displayWith]="displayTechnician" #technician="matAutocomplete">
+                <mat-autocomplete [displayWith]="customDisplay" #technician="matAutocomplete">
                   <mat-option class="autocomplete-options" (onSelectionChange)="onSelectTechnician($event, technician)"
                               *ngFor="let technician of technicians | async" [value]="technician">
                     {{ technician.name }} {{ technician.lastName }}
@@ -67,10 +67,11 @@
                 </mat-autocomplete>
               </mat-form-field>
             </div>
+
             <div class="col-6">
               <mat-form-field style="max-width: 204px" appearance="outline">
                 <mat-label>Choose a date</mat-label>
-                <input placeholder="Choose repair date and time." matInput [matDatepicker]="picker">
+                <input [formControl]="dateControl" (dateChange)="openHoursScheduler($event, dateControl)" [min]="startDate" [matDatepickerFilter]="onlyWorkDays" placeholder="Choose repair date and time." matInput [matDatepicker]="picker">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
               </mat-form-field>
