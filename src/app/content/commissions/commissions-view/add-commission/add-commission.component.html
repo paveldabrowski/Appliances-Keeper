@@ -49,7 +49,6 @@
 
           </div>
 
-
           <div class="row">
             <div class="col-6">
               <mat-form-field appearance="outline">
@@ -76,6 +75,13 @@
                 <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
               </mat-form-field>
             </div>
+          </div>
+
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Technician visit time</mat-label>
+              <input matInput placeholder="Technician Visit Time" formControlName="technicianTerm">
+            </mat-form-field>
           </div>
 
           <div class="form-check d-flex align-items-end">

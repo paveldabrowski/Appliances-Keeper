@@ -14,6 +14,7 @@ export interface TechnicianTerm {
   date: Date,
   technicianWorkingDay: WorkingDay
   commission?: Commission
+  isAvailable: boolean;
 }
 
 export interface WorkingDay {

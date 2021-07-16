@@ -1,10 +1,11 @@
 import { Component, DoCheck, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { Hour, Technician, TechnicianTerm, WorkingDay } from "../../technicians/models";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { Hour, Technician, TechnicianTerm } from "../../technicians/models";
 import { TechniciansService } from "../../technicians/technicians.service";
-import { BehaviorSubject, Observable, Subject, Subscription } from "rxjs";
-import { MatListOption, MatSelectionList, MatSelectionListChange } from "@angular/material/list";
-import { map } from "rxjs/operators";
+import { BehaviorSubject, combineLatest, forkJoin, of, Subject, Subscription, timer } from "rxjs";
+import { MatSelectionListChange } from "@angular/material/list";
+import { TechniciansTermsService } from "../../technicians/technicians-terms.service";
+import { combineAll, switchMap, take, tap } from "rxjs/operators";
 
 @Component({
   selector: 'app-hour-scheduler',
@@ -23,7 +24,9 @@ export class HourSchedulerComponent implements OnInit, DoCheck {
 
 
   constructor(@Inject(MAT_DIALOG_DATA) data: { date: Date, technician: Technician },
-              private techniciansService: TechniciansService) {
+              private techniciansService: TechniciansService,
+              private termsService: TechniciansTermsService,
+              private dialogRef: MatDialogRef<HourSchedulerComponent, TechnicianTerm>,) {
     this.selectedTechnician = data.technician;
     this.date = data.date;
 
@@ -42,6 +45,10 @@ export class HourSchedulerComponent implements OnInit, DoCheck {
         } else
           this.isWorkday = false;
       }));
+
+    this.subscriptions.add(this.terms.subscribe(value => {
+      console.log("Terms updated: ", value)
+    }))
   }
 
   enum(term: TechnicianTerm) {
@@ -49,7 +56,18 @@ export class HourSchedulerComponent implements OnInit, DoCheck {
   }
 
   onHourSelect($event: MatSelectionListChange) {
-    // console.log($event)
-    this.selectedTerm = $event.options[0].value as TechnicianTerm;
+    console.log($event)
+    const term= $event.options[0].value as TechnicianTerm;
+    if (!this.selectedTerm) {
+      this.termsService.reserveTechnicianTerm(term).pipe(take(1)).subscribe(value => this.selectedTerm = value);
+      return;
+    }
+
+    combineLatest([this.termsService.reserveTechnicianTerm(this.selectedTerm), this.termsService.reserveTechnicianTerm(term)]).pipe(
+      take(1)
+    ).subscribe(value => {
+      this.selectedTerm = value[1];
+      console.log(value);
+    })
   }
 }
