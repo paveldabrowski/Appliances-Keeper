@@ -9,7 +9,7 @@
   <mat-dialog-content>
 
     <mat-selection-list #list (selectionChange)="onHourSelect($event)" [multiple]="false">
-      <mat-list-option  *ngFor="let term of terms | async" [value]="term">
+      <mat-list-option [disabled]="!term.isAvailable" *ngFor="let term of terms | async" [value]="term">
         {{ enum(term) }}
       </mat-list-option>
     </mat-selection-list>

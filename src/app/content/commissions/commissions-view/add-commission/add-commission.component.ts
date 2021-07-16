@@ -51,6 +51,7 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
   });
   startDate: Date = new Date(Date.now());
   dateControl = new FormControl({value: null, disabled: true})
+  private selectedTerm?: TechnicianTerm;
 
   constructor(private fb: FormBuilder,
               private appliancesService: AppliancesService,
@@ -165,6 +166,10 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
 
   openHoursScheduler($event: MatDatepickerInputEvent<Date, Date | null>, dateControl: FormControl): void {
     if ($event.value && dateControl.valid) {
+      if (this.selectedTerm) {
+        this.termsService.releaseTerm(this.selectedTerm).subscribe()
+      }
+
       const dialog: MatDialogRef<HourSchedulerComponent, TechnicianTerm> = this.dialog.open(HourSchedulerComponent, {
         role: "dialog", disableClose: true, data: {
           date: $event.value,
@@ -177,7 +182,8 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
         //     term.isAvailable = false
         // }),
         // switchMap(value => this.termsService.updateTechnicianTerm(value))
-      ).subscribe(value => console.log(value));
+        take(1)
+      ).subscribe(value => this.selectedTerm = value);
     }
   }
 

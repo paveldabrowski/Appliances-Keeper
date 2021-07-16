@@ -56,18 +56,23 @@ export class HourSchedulerComponent implements OnInit, DoCheck {
   }
 
   onHourSelect($event: MatSelectionListChange) {
-    console.log($event)
-    const term= $event.options[0].value as TechnicianTerm;
-    if (!this.selectedTerm) {
-      this.termsService.reserveTechnicianTerm(term).pipe(take(1)).subscribe(value => this.selectedTerm = value);
-      return;
-    }
-
-    combineLatest([this.termsService.reserveTechnicianTerm(this.selectedTerm), this.termsService.reserveTechnicianTerm(term)]).pipe(
-      take(1)
-    ).subscribe(value => {
-      this.selectedTerm = value[1];
-      console.log(value);
-    })
+    this.selectedTerm = $event.options[0].value as TechnicianTerm;
   }
+
+
+  // onHourSelect($event: MatSelectionListChange) {
+  //   console.log($event)
+  //   const term= $event.options[0].value as TechnicianTerm;
+  //   if (!this.selectedTerm) {
+  //     this.termsService.reserveTechnicianTerm(term).pipe(take(1)).subscribe(value => this.selectedTerm = value);
+  //     return;
+  //   }
+  //
+  //   combineLatest([this.termsService.reserveTechnicianTerm(this.selectedTerm), this.termsService.reserveTechnicianTerm(term)]).pipe(
+  //     take(1)
+  //   ).subscribe(value => {
+  //     this.selectedTerm = value[1];
+  //     console.log(value);
+  //   })
+  // }
 }

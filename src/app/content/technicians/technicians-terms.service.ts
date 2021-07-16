@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { TechnicianTerm } from "./models";
 import { BACKEND_URL } from "../../../environments/environment";
 import { Observable, of } from "rxjs";
+import { take } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,13 @@ export class TechniciansTermsService {
       term.isAvailable = !term.isAvailable;
       return this.httpClient.patch<TechnicianTerm>(`${BACKEND_URL}/technicians/terms`, term);
     }
+    return of();
+  }
+
+  releaseTerm(term: TechnicianTerm | undefined | null): Observable<TechnicianTerm> {
+    if (term)
+      return this.httpClient.patch<TechnicianTerm>(`${BACKEND_URL}/technicians/terms/${term.id}`, term)
+        .pipe(take(1));
     return of();
   }
 }
