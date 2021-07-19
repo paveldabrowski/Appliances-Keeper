@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, ElementRef, Inject, Injectable, OnDestroy, OnInit } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Injectable,
+  OnDestroy,
+  OnInit, Output
+} from "@angular/core";
 import { MatSort } from "@angular/material/sort";
 import { MatTable } from "@angular/material/table";
 import { ServerSideDataSource } from "./ServerSideDataSource";
@@ -23,6 +32,7 @@ export abstract class TableShapeResolver<T> implements OnInit, OnDestroy, AfterV
   selectedRow: T | null = null;
   subscriptions: Subscription[] = [];
   columns: Array<string>;
+  @Output("rowSelected") rowSelected: EventEmitter<T> = new EventEmitter<T>();
 
   protected constructor(@Inject("serviceKeeper") private serviceKeeper: ServiceKeeper<T>,
                         private messageService: MessageService, columns: Array<string>) {
@@ -79,8 +89,15 @@ export abstract class TableShapeResolver<T> implements OnInit, OnDestroy, AfterV
   selectRow(row: T): void {
     if (this.selectedRow === row) {
       this.selectedRow = null;
-    } else
+      this.rowSelected.emit(undefined);
+    } else {
       this.selectedRow = row;
+      this.rowSelected.emit(row);
+    }
+  }
+
+  refreshTable(): void {
+    this.loadData();
   }
 
   onSearchClear() {

@@ -7,6 +7,9 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MessageService } from "../../../message.service";
 import { TableShapeResolver } from "../../TableShapeResolver";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { switchMap } from "rxjs/operators";
+import { Client } from "../../clients/Client";
 
 @Component({
   selector: 'com-commissions-table',
@@ -19,8 +22,13 @@ export class CommissionsTableComponent extends TableShapeResolver<Commission> {
   @ViewChild(MatTable) table!: MatTable<Commission>;
   @ViewChild('input') searchField!: ElementRef;
 
-  constructor(commissionService: CommissionsService, messageService: MessageService) {
+
+
+
+
+  constructor(public commissionService: CommissionsService, messageService: MessageService) {
     super(commissionService, messageService, COMMISSIONS_COLUMNS);
+
   }
 
   // selectRow(commission: Commission): void {
@@ -31,6 +39,7 @@ export class CommissionsTableComponent extends TableShapeResolver<Commission> {
   //   if (this.subscriptions)
   //     this.subscriptions.forEach(value => value.unsubscribe());
   // }
+
 }
 
 

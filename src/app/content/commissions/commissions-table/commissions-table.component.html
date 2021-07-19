@@ -41,7 +41,7 @@
 
       <ng-container matColumnDef="advice_given">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Advice given</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{row.adviceGiven}} </mat-cell>
+        <mat-cell mat-cell *matCellDef="let row"><mat-checkbox [disabled]="true" [checked]="row.adviceGiven"></mat-checkbox> </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="technician_id">
@@ -56,12 +56,12 @@
 
       <ng-container matColumnDef="client_visited">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Client visited</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{row.clientVisited}} </mat-cell>
+        <mat-cell mat-cell *matCellDef="let row"><mat-checkbox [disabled]="true" [checked]="row.clientVisited"></mat-checkbox></mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="commission_status">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{row.commissionStatus}} </mat-cell>
+        <mat-cell mat-cell *matCellDef="let row"><mat-checkbox [disabled]="true" [checked]="row.commissionStatus"></mat-checkbox></mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="client_id">
@@ -71,7 +71,7 @@
 
 
       <mat-header-row mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-      <mat-row  (click)="selectRow(row)"
+      <mat-row (click)="selectRow(row)"
                [ngClass]="selectedRow === row ? 'selected-row' : ''" *matRowDef="let row; columns: columns;"></mat-row>
 
       <!-- Row shown when mat-header-cellere is no matching data. -->

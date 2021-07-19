@@ -24,6 +24,7 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { MatListModule } from "@angular/material/list";
 import { ClientsModule } from "../clients/clients.module";
 import { RouterModule } from "@angular/router";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { RouterModule } from "@angular/router";
     MatNativeDateModule,
     MatGridListModule,
     MatListModule,
-    RouterModule
+    RouterModule,
+    MatCheckboxModule
 
   ],
   providers: [

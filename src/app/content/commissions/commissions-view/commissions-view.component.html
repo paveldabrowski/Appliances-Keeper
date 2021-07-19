@@ -3,23 +3,23 @@
     <div class="d-flex  w-100 flex-column overflow-auto">
       <section id="commissions-header">
         <div class="button-layout mx-4">
-          <button class="my-custom-button btn btn-dark text-light align-self-center" (click)="showAddApplianceForm()">
+          <button (click)="showAddApplianceForm()" class="my-custom-button btn btn-dark text-light align-self-center" >
             <i class="icon icofont-ui-add"></i>Add appliance
           </button>
-          <button class="my-custom-button btn btn-dark text-light align-self-center" (click)="showAddCommissionForm()">
+          <button (click)="showAddCommissionForm()" class="my-custom-button btn btn-dark text-light align-self-center" >
             <i class="icon icofont-ui-add"></i>Add commission
           </button>
           <button (click)="showCommissionDetails()" class="my-custom-button btn btn-dark text-light align-self-center"><i
             class="icon icofont-ui-edit"></i>Edit
           </button>
-          <button class="my-custom-button btn btn-dark text-light align-self-center"><i
+          <button (click)="deleteCommission()" class="my-custom-button btn btn-dark text-light align-self-center"><i
             class="icon icofont-ui-delete"></i>Delete
           </button>
         </div>
       </section>
 
       <section id="commissions-table">
-        <com-commissions-table></com-commissions-table>
+        <com-commissions-table (rowSelected)="commissionSelected($event)"></com-commissions-table>
       </section>
 
     </div>

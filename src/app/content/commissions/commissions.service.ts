@@ -46,4 +46,8 @@ export class CommissionsService implements ServiceKeeper<Commission> {
     console.log('commission add')
     return this.httpClient.post(`${BACKEND_URL}/commissions`, commission);
   }
+
+  deleteCommission(commission: Commission) {
+    return this.httpClient.delete<Commission>(`${BACKEND_URL}/commissions/${commission.id}`);
+  }
 }

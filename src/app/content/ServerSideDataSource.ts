@@ -2,7 +2,7 @@ import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { ServiceKeeper } from "./model";
 import { MessageService } from "../message.service";
-import { catchError, finalize, map } from "rxjs/operators";
+import { catchError, finalize, map, take } from "rxjs/operators";
 
 export class ServerSideDataSource<T> implements DataSource<T> {
 
@@ -33,7 +33,8 @@ export class ServerSideDataSource<T> implements DataSource<T> {
         return value.content;
       }),
       catchError(err => of(err)),
-      finalize(() => this.loadingSubject.next(false))
+      finalize(() => this.loadingSubject.next(false)),
+      take(1)
     )
       .subscribe(data => {
           this.data.next(data);
