@@ -33,7 +33,8 @@ import { MatExpansionModule } from "@angular/material/expansion";
     EditClientComponent,
     ConfirmDeletionDialogComponent,
     CommissionsPreviewComponent,
-    CommissionDetailsComponent],
+    CommissionDetailsComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,

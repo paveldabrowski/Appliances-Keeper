@@ -24,7 +24,7 @@ export class ServerSideDataSource<T> implements DataSource<T> {
   }
 
   loadData(sortBy: string = "id", sortDirection: string = "asc", searchTerm: string = "", page: number = 0,
-           size: number = 5): void {
+           size: number = 10): void {
     this.loadingSubject.next(true);
 
     this.service.findSearchedPaginatedSorted(sortBy, sortDirection, searchTerm, page, size).pipe(

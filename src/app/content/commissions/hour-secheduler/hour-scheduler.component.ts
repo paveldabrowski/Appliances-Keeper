@@ -2,11 +2,10 @@ import { Component, DoCheck, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Hour, Technician, TechnicianTerm, WorkingDay } from "../../technicians/models";
 import { TechniciansService } from "../../technicians/technicians.service";
-import { BehaviorSubject, combineLatest, forkJoin, of, Subject, Subscription, timer } from "rxjs";
+import { Subject, Subscription } from "rxjs";
 import { MatSelectionListChange } from "@angular/material/list";
 import { TechniciansTermsService } from "../../technicians/technicians-terms.service";
-import { combineAll, map, switchMap, take, tap } from "rxjs/operators";
-import { ifStmt } from "@angular/compiler/src/output/output_ast";
+import { switchMap, take, tap } from "rxjs/operators";
 
 @Component({
   selector: 'app-hour-scheduler',
@@ -59,11 +58,8 @@ export class HourSchedulerComponent implements OnInit, DoCheck {
       const technicianTerms = workingDay.technicianTerms;
       if (technicianTerms) {
         technicianTerms.forEach(term => {
-          if (!term.commissionId) {
-            console.log(term)
+          if (!term.commissionId)
             this.termsService.releaseTerm(term).pipe(take(1)).subscribe();
-
-          }
         });
       }
     }

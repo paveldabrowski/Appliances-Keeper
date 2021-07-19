@@ -51,7 +51,7 @@
 
       <ng-container matColumnDef="repair_date_id">
         <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Repair date</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row"> {{row.repairDate}} </mat-cell>
+        <mat-cell mat-cell *matCellDef="let row"> {{row?.repairDate?.date}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="client_visited">
@@ -83,7 +83,7 @@
     <mat-paginator #paginator
                    [length]="dataSource.length"
                    [pageIndex]="0"
-                   [pageSize]="5"
+                   [pageSize]="10"
                    [pageSizeOptions]="[5, 10, 20, 100]">
     </mat-paginator>
 

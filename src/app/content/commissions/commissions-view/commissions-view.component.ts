@@ -16,7 +16,7 @@ export class CommissionsViewComponent implements ContentDescriptor, OnInit {
   }
 
   ngOnInit(): void {
-    this.showAddCommissionForm();
+
   }
 
   getTitle(): string {
@@ -37,6 +37,10 @@ export class CommissionsViewComponent implements ContentDescriptor, OnInit {
       autoFocus: false,
       disableClose: true
     })
+  }
+
+  showCommissionDetails() {
+
   }
 }
 
