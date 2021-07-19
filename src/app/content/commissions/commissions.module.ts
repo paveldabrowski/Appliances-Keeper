@@ -22,6 +22,8 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { HourSchedulerComponent } from './hour-secheduler/hour-scheduler.component';
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatListModule } from "@angular/material/list";
+import { ClientsModule } from "../clients/clients.module";
+import { RouterModule } from "@angular/router";
 
 
 @NgModule({
@@ -31,27 +33,29 @@ import { MatListModule } from "@angular/material/list";
     AddCommissionComponent,
     HourSchedulerComponent
   ],
-    imports: [
-        CommonModule,
-        AppliancesModule,
-        TechniciansModule,
-        MatFormFieldModule,
-        FormsModule,
-        MatIconModule,
-        MatTableModule,
-        MatPaginatorModule,
-        ReactiveFormsModule,
-        MatAutocompleteModule,
-        MatInputModule,
-        MatSortModule,
-        MatButtonModule,
-        MatDialogModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatGridListModule,
-        MatListModule
+  imports: [
+    CommonModule,
+    AppliancesModule,
+    ClientsModule,
+    TechniciansModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatSortModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatGridListModule,
+    MatListModule,
+    RouterModule
 
-    ],
+  ],
   providers: [
     ClientsService,
     CommissionsService,

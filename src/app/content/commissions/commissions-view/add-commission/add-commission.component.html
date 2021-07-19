@@ -38,8 +38,8 @@
                               *ngFor="let client of clients | async" [value]="client">
                     {{ client.name }} {{ client.lastName }} <span> {{ client.phoneNumber }}</span></mat-option>
                 </mat-autocomplete>
-                <mat-hint>Create client <button (click)="showAddClientForm()" type="button" class="btn btn-link">>> here <<</button></mat-hint>
-                <mat-error *ngIf="commissionGroup.controls['client']?.hasError('required')">Client is required. <button (click)="showAddClientForm()" type="button" class="btn btn-link">>> new <<</button></mat-error>
+                <mat-hint>Create client <a target="_blank" [routerLink]="'/content/clients'" type="button" class="btn btn-link">>> here <<</a></mat-hint>
+                <mat-error *ngIf="commissionGroup.controls['client']?.hasError('required')">Client is required. <a target="_blank" [routerLink]="'/content/clients'" type="button" class="btn btn-link">>> new <<</a></mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -141,7 +141,7 @@
           <button [disabled]="commissionGroup.invalid" class="my-custom-button btn btn-dark text-light me-0"
                   type="submit">Submit
           </button>
-          <button type="reset" class="clear-button my-custom-button btn btn-light me-0 mt-2">Reset</button>
+          <button (click)="resetForm()" type="reset" class="clear-button my-custom-button btn btn-light me-0 mt-2">Reset</button>
           <button type="reset" class="my-custom-button btn btn-outline-secondary me-0 mt-2" mat-dialog-close>Close
           </button>
 

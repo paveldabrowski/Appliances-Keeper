@@ -54,13 +54,16 @@ export class HourSchedulerComponent implements OnInit, DoCheck {
     }));
   }
 
-  private releaseTermsIfNotAssignToCommission(workingDay: WorkingDay){
+  private releaseTermsIfNotAssignToCommission(workingDay: WorkingDay) {
     if (workingDay) {
       const technicianTerms = workingDay.technicianTerms;
       if (technicianTerms) {
-        technicianTerms.forEach(value => {
-          if (!value.commission)
-            this.termsService.releaseTerm(value).pipe(take(1)).subscribe();
+        technicianTerms.forEach(term => {
+          if (!term.commissionId) {
+            console.log(term)
+            this.termsService.releaseTerm(term).pipe(take(1)).subscribe();
+
+          }
         });
       }
     }

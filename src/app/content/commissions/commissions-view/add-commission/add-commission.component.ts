@@ -1,6 +1,6 @@
 import { Component, DoCheck, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, Subscription } from "rxjs";
-import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective, Validators } from "@angular/forms";
+import { AbstractControl, FormBuilder, FormGroupDirective, Validators } from "@angular/forms";
 import { AppliancesService } from "../../../appliances/services/appliances.service";
 import { Appliance } from "../../../appliances/models";
 import { debounceTime, distinctUntilChanged, mergeMap, switchMap, take } from "rxjs/operators";
@@ -19,7 +19,6 @@ import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { HourSchedulerComponent } from "../../hour-secheduler/hour-scheduler.component";
 import { TechniciansTermsService } from "../../../technicians/technicians-terms.service";
 import { AddApplianceComponent } from "../../../appliances/add-appliance/add-appliance.component";
-import { ClientFormComponent } from "../../../clients/client-form/client-form.component";
 
 @Component({
   selector: 'com-add-commission',
@@ -40,7 +39,7 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
   private subscriptions: Subscription = new Subscription();
   private subjects: BehaviorSubject<any>[] = [];
   private selectedTechnician: Technician | null = null;
-  private selectedTerm?: TechnicianTerm;
+  private selectedTerm: TechnicianTerm | null = null;
 
   commissionGroup = this.fb.group({
     appliance: this.fb.group({
@@ -53,6 +52,7 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
     technician: null,
     technicianTerm:  [{value: null, disabled: true}, Validators.required],
     dateControl: [{value: null, disabled: true}, Validators.required],
+    repairDate: null,
     technicianReport: null,
     solutionDescription: null,
     adviceGiven: false,
@@ -82,9 +82,13 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
     this.validateDateControl();
     this.subscriptions.add(this.commissionCreateSubject.pipe(
       switchMap(commission => this.commissionService.add(commission))
-    ).subscribe(commission => this.messageService.notifySuccess(`Commission ${commission.id} for client
-    ${commission.client?.name} ${commission.client?.lastName} successfully crated!`),
-        error => this.messageService.notifyError(error.message)));
+    ).subscribe(commission => {
+      this.messageService.notifySuccess(`Commission ${commission.id} for client ${commission.client?.name} ${commission.client?.lastName} successfully crated!`);
+      },
+        error => {
+      this.messageService.notifyError(error.message);
+      console.log(error)
+        }));
   }
 
   private fetchAllByParam(mainControl: AbstractControl | null | undefined, field: string,
@@ -119,7 +123,7 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
 
   private validateDateControl() {
     const dateControl = this.commissionGroup.controls['dateControl'];
-    this.subscriptions.add(dateControl.valueChanges.subscribe(date => {
+    this.subscriptions.add(dateControl.valueChanges.subscribe(() => {
       if (dateControl.invalid || !dateControl.value) {
         this.commissionGroup.controls['technicianTerm'].reset();
       }
@@ -127,8 +131,16 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   createCommission(): void {
-    this.commissionCreateSubject.next(new Commission(this.commissionGroup.value));
+    const commission = new Commission(this.commissionGroup.value);
+    this.commissionCreateSubject.next(commission);
+    this.resetForm();
+  }
+
+  resetForm(): void {
     this.formGroup?.resetForm();
+    this.selectedTerm = null;
+    this.selectedTechnician = null;
+    this.selectedAppliance = null;
   }
 
   onSelectAppliance($event: MatOptionSelectionChange, appliance: Appliance): void {
@@ -209,6 +221,7 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
     ).subscribe(term => {
       this.selectedTerm = term;
       this.commissionGroup.controls['technicianTerm'].patchValue(Hour[term.hour as unknown as keyof typeof Hour]);
+      this.commissionGroup.controls['repairDate'].patchValue(term);
     });
   }
 
@@ -218,14 +231,6 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
 
   showAddApplianceForm(): void {
     this.dialog.open(AddApplianceComponent, {
-      role: "dialog",
-      autoFocus: false,
-      disableClose: true
-    })
-  }
-
-  showAddClientForm(): void {
-    this.dialog.open(ClientFormComponent, {
       role: "dialog",
       autoFocus: false,
       disableClose: true
