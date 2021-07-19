@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { TechnicianTerm } from "./models";
 import { BACKEND_URL } from "../../../environments/environment";
 import { Observable, of } from "rxjs";
@@ -24,15 +24,20 @@ export class TechniciansTermsService {
 
   reserveTechnicianTerm(term: TechnicianTerm | undefined | null): Observable<TechnicianTerm> {
     if (term) {
-      term.isAvailable = !term.isAvailable;
-      return this.httpClient.patch<TechnicianTerm>(`${BACKEND_URL}/technicians/terms`, term);
+      return this.httpClient.patch<TechnicianTerm>(`${BACKEND_URL}/technicians/terms/${term.id}`, term, {
+        params: new HttpParams()
+          .set("isAvailable", false)
+      });
     }
     return of();
   }
 
   releaseTerm(term: TechnicianTerm | undefined | null): Observable<TechnicianTerm> {
     if (term)
-      return this.httpClient.patch<TechnicianTerm>(`${BACKEND_URL}/technicians/terms/${term.id}`, term)
+      return this.httpClient.patch<TechnicianTerm>(`${BACKEND_URL}/technicians/terms/${term.id}`, term, {
+        params: new HttpParams()
+          .set("isAvailable", true)
+      })
         .pipe(take(1));
     return of();
   }

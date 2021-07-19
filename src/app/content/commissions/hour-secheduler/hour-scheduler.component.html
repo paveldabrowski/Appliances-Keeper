@@ -10,7 +10,7 @@
 
     <mat-selection-list #list (selectionChange)="onHourSelect($event)" [multiple]="false">
       <mat-list-option [disabled]="!term.isAvailable" *ngFor="let term of terms | async" [value]="term">
-        {{ enum(term) }}
+        {{ covertEnumNameToHourValue(term) }}
       </mat-list-option>
     </mat-selection-list>
 

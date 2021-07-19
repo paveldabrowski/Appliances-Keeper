@@ -1,11 +1,12 @@
 import { Component, DoCheck, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { Hour, Technician, TechnicianTerm } from "../../technicians/models";
+import { Hour, Technician, TechnicianTerm, WorkingDay } from "../../technicians/models";
 import { TechniciansService } from "../../technicians/technicians.service";
 import { BehaviorSubject, combineLatest, forkJoin, of, Subject, Subscription, timer } from "rxjs";
 import { MatSelectionListChange } from "@angular/material/list";
 import { TechniciansTermsService } from "../../technicians/technicians-terms.service";
-import { combineAll, switchMap, take, tap } from "rxjs/operators";
+import { combineAll, map, switchMap, take, tap } from "rxjs/operators";
+import { ifStmt } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: 'app-hour-scheduler',
@@ -37,21 +38,35 @@ export class HourSchedulerComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {
-    this.subscriptions.add(this.techniciansService.getWorkingDay(this.selectedTechnician, this.date)
-      .subscribe(workingDay => {
-        if (workingDay) {
-          this.isWorkday = true;
-          this.terms.next(workingDay.technicianTerms);
-        } else
-          this.isWorkday = false;
-      }));
-
-    this.subscriptions.add(this.terms.subscribe(value => {
-      console.log("Terms updated: ", value)
-    }))
+    this.initializeWorkingDayTerms();
   }
 
-  enum(term: TechnicianTerm) {
+  private initializeWorkingDayTerms() {
+    this.subscriptions.add(this.techniciansService.getWorkingDay(this.selectedTechnician, this.date).pipe(
+      tap(workingDay => this.releaseTermsIfNotAssignToCommission(workingDay)),
+      switchMap(() => this.techniciansService.getWorkingDay(this.selectedTechnician, this.date))
+    ).subscribe(workingDay => {
+      if (workingDay) {
+        this.isWorkday = true;
+        this.terms.next(workingDay.technicianTerms);
+      } else
+        this.isWorkday = false;
+    }));
+  }
+
+  private releaseTermsIfNotAssignToCommission(workingDay: WorkingDay){
+    if (workingDay) {
+      const technicianTerms = workingDay.technicianTerms;
+      if (technicianTerms) {
+        technicianTerms.forEach(value => {
+          if (!value.commission)
+            this.termsService.releaseTerm(value).pipe(take(1)).subscribe();
+        });
+      }
+    }
+  }
+
+  covertEnumNameToHourValue(term: TechnicianTerm) {
     return Hour[term.hour as unknown as keyof typeof Hour];
   }
 

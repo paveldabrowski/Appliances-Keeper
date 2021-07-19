@@ -1,9 +1,9 @@
 import { Component, DoCheck, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, Subscription } from "rxjs";
-import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from "@angular/forms";
+import { AbstractControl, FormBuilder, FormGroup, FormGroupDirective, Validators } from "@angular/forms";
 import { AppliancesService } from "../../../appliances/services/appliances.service";
 import { Appliance } from "../../../appliances/models";
-import { debounceTime, distinctUntilChanged, map, mergeMap, switchMap, take, tap } from "rxjs/operators";
+import { debounceTime, distinctUntilChanged, mergeMap, switchMap, take } from "rxjs/operators";
 import { GetterByParam, GetterBySearchTerm } from "../../../model";
 import { CommissionsService } from "../../commissions.service";
 import { MatOptionSelectionChange } from "@angular/material/core";
@@ -12,12 +12,14 @@ import { Client } from "../../../clients/Client";
 import { ClientsService } from "../../../clients/clients.service";
 import { Commission } from "../../Commission";
 import { MessageService } from "../../../../message.service";
-import { Technician, TechnicianTerm } from "../../../technicians/models";
+import { Hour, Technician, TechnicianTerm } from "../../../technicians/models";
 import { TechniciansService } from "../../../technicians/technicians.service";
 import { MatDatepickerInputEvent } from "@angular/material/datepicker";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { HourSchedulerComponent } from "../../hour-secheduler/hour-scheduler.component";
 import { TechniciansTermsService } from "../../../technicians/technicians-terms.service";
+import { AddApplianceComponent } from "../../../appliances/add-appliance/add-appliance.component";
+import { ClientFormComponent } from "../../../clients/client-form/client-form.component";
 
 @Component({
   selector: 'com-add-commission',
@@ -33,25 +35,32 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
   private appliancesSubject: BehaviorSubject<Appliance[]> = new BehaviorSubject<Appliance[]>([]);
   private clientsSubject: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
   private techniciansSubject: BehaviorSubject<Technician[]> = new BehaviorSubject<Technician[]>([]);
+  private commissionCreateSubject: Subject<Commission> = new Subject<Commission>();
   private selectedAppliance: Appliance | null = null;
   private subscriptions: Subscription = new Subscription();
   private subjects: BehaviorSubject<any>[] = [];
   private selectedTechnician: Technician | null = null;
+  private selectedTerm?: TechnicianTerm;
 
   commissionGroup = this.fb.group({
     appliance: this.fb.group({
       id: null,
       serialNumber: [null, [Validators.required]]
     }),
-    client: null,
+    client: [null, [Validators.required]],
     creationDate: [{value: Date.now(), disabled: true}],
     problemDescription: null,
     technician: null,
-    technicianTerm: [{value: null, disabled: true}]
+    technicianTerm:  [{value: null, disabled: true}, Validators.required],
+    dateControl: [{value: null, disabled: true}, Validators.required],
+    technicianReport: null,
+    solutionDescription: null,
+    adviceGiven: false,
+    clientVisited: false,
+    commissionStatus: false
   });
+
   startDate: Date = new Date(Date.now());
-  dateControl = new FormControl({value: null, disabled: true})
-  private selectedTerm?: TechnicianTerm;
 
   constructor(private fb: FormBuilder,
               private appliancesService: AppliancesService,
@@ -70,6 +79,12 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
     this.clients = this.fetchAllForControl<Client>(clientControl, this.clientsService, this.clientsSubject)
     let technicianControl = this.commissionGroup.controls['technician'];
     this.technicians = this.fetchAllForControl<Technician>(technicianControl, this.techniciansService, this.techniciansSubject)
+    this.validateDateControl();
+    this.subscriptions.add(this.commissionCreateSubject.pipe(
+      switchMap(commission => this.commissionService.add(commission))
+    ).subscribe(commission => this.messageService.notifySuccess(`Commission ${commission.id} for client
+    ${commission.client?.name} ${commission.client?.lastName} successfully crated!`),
+        error => this.messageService.notifyError(error.message)));
   }
 
   private fetchAllByParam(mainControl: AbstractControl | null | undefined, field: string,
@@ -102,11 +117,17 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
     return subject.asObservable();
   }
 
-  createCommission(commissionGroup: FormGroup): void {
-    this.subscriptions.add(this.commissionService.add(new Commission(this.commissionGroup.value))
-      .subscribe(commission => {
-        this.messageService.notifySuccess(`Commission ${ commission.appliance?.serialNumber } successfully created!`)
-      }, error => this.messageService.notifyError(`Error while creating commission ${ error.message }`)));
+  private validateDateControl() {
+    const dateControl = this.commissionGroup.controls['dateControl'];
+    this.subscriptions.add(dateControl.valueChanges.subscribe(date => {
+      if (dateControl.invalid || !dateControl.value) {
+        this.commissionGroup.controls['technicianTerm'].reset();
+      }
+    }));
+  }
+
+  createCommission(): void {
+    this.commissionCreateSubject.next(new Commission(this.commissionGroup.value));
     this.formGroup?.resetForm();
   }
 
@@ -143,7 +164,7 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
   verifyTechnician(): void {
     let technicianControl = this.commissionGroup.controls['technician'];
     if (!(technicianControl.value instanceof Object)) {
-      this.dateControl.disable();
+      this.commissionGroup.controls['dateControl'].disable();
       technicianControl.reset();
       this.selectedTechnician = null;
     }
@@ -152,7 +173,7 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
   onSelectTechnician($event: MatOptionSelectionChange, technician: Technician): void {
     if ($event.source.selected) {
       this.selectedTechnician = technician;
-      this.dateControl.enable();
+      this.commissionGroup.controls['dateControl'].enable();
     }
   }
 
@@ -164,10 +185,11 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
     return false;
   }
 
-  openHoursScheduler($event: MatDatepickerInputEvent<Date, Date | null>, dateControl: FormControl): void {
-    if ($event.value && dateControl.valid) {
+  openHoursScheduler($event: MatDatepickerInputEvent<Date, Date | null>): void {
+
+    if ($event.value && this.commissionGroup.controls['dateControl'].valid) {
       if (this.selectedTerm) {
-        this.termsService.releaseTerm(this.selectedTerm).subscribe()
+        this.termsService.releaseTerm(this.selectedTerm).pipe(take(1)).subscribe()
       }
 
       const dialog: MatDialogRef<HourSchedulerComponent, TechnicianTerm> = this.dialog.open(HourSchedulerComponent, {
@@ -176,19 +198,38 @@ export class AddCommissionComponent implements OnInit, OnDestroy, DoCheck {
           technician: this.selectedTechnician
         }
       });
-      dialog.afterClosed().pipe(
-        // tap(term => {
-        //   if (term)
-        //     term.isAvailable = false
-        // }),
-        // switchMap(value => this.termsService.updateTechnicianTerm(value))
-        take(1)
-      ).subscribe(value => this.selectedTerm = value);
+      this.subscribeTermsDialogClose(dialog);
     }
+  }
+
+  private subscribeTermsDialogClose(dialog: MatDialogRef<HourSchedulerComponent, TechnicianTerm>) {
+    dialog.afterClosed().pipe(
+      take(1),
+      switchMap(term => this.termsService.reserveTechnicianTerm(term).pipe(take(1)))
+    ).subscribe(term => {
+      this.selectedTerm = term;
+      this.commissionGroup.controls['technicianTerm'].patchValue(Hour[term.hour as unknown as keyof typeof Hour]);
+    });
   }
 
   ngDoCheck(): void {
     // console.log(this.commissionGroup.value)
+  }
+
+  showAddApplianceForm(): void {
+    this.dialog.open(AddApplianceComponent, {
+      role: "dialog",
+      autoFocus: false,
+      disableClose: true
+    })
+  }
+
+  showAddClientForm(): void {
+    this.dialog.open(ClientFormComponent, {
+      role: "dialog",
+      autoFocus: false,
+      disableClose: true
+    })
   }
 
   ngOnDestroy(): void {
