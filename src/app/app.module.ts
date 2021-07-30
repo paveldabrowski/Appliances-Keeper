@@ -7,7 +7,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { RouterModule, Routes } from "@angular/router";
-import { DrawerComponent } from './drawer/drawer.component';
+import { DrawerComponent } from './content/drawer/drawer.component';
 import { ContentModule } from "./content/content.module";
 import { TitleService } from "./title.service";
 import { HomePageComponent } from "./home-page/home-page.component";
@@ -15,31 +15,38 @@ import { ToastrModule } from "ngx-toastr";
 import { MessageService } from "./message.service";
 import { ErrorHandlingInterceptor } from "./error-handling.interceptor";
 import { MatButtonModule } from "@angular/material/button";
+import { LoginComponent } from "./auth/login/login.component";
+import { RegisterComponent } from "./auth/register/register.component";
+import { AuthGuard } from "./auth/auth.guard";
+import { AuthModule } from "./auth/auth.module";
+import { authInterceptorProviders } from "./auth/auth.interceptor";
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
-  { path: "content", loadChildren: () => import('src/app/content/content.module').then(m => m.ContentModule) }
+  { path: 'login', component: LoginComponent},
+  { path: 'register', component: RegisterComponent},
+  { path: 'content', loadChildren: () => import('src/app/content/content.module').then(m => m.ContentModule),
+    canActivate: [AuthGuard] }
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    DrawerComponent,
     HomePageComponent
   ],
     imports: [
         BrowserModule,
         HttpClientModule,
         BrowserAnimationsModule,
-        MatSidenavModule,
         ToastrModule.forRoot(),
         RouterModule.forRoot(routes),
-        MatButtonModule
+        AuthModule
     ],
   providers: [
     TitleService,
     MessageService,
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorHandlingInterceptor, multi:true}
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorHandlingInterceptor, multi:true},
+    authInterceptorProviders,
   ],
   bootstrap: [AppComponent]
 })

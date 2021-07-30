@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ContentDescriptor } from "./model";
 import { TitleService } from "../title.service";
+import { Observable } from "rxjs";
+import { AuthService } from "../auth/auth.service";
 
 @Component({
   selector: 'content-component',
@@ -9,12 +11,25 @@ import { TitleService } from "../title.service";
 })
 export class ContentComponent implements OnInit {
 
-  constructor(private cd: ChangeDetectorRef, private titleService: TitleService) { }
+  toggled: boolean = true;
+  observable: Observable<any>;
 
-  ngOnInit(): void { }
+  constructor(private cd: ChangeDetectorRef, private titleService: TitleService, private authService: AuthService) {
+    this.observable = titleService.select();
+  }
 
-  changeNavbarTitle(event: ContentDescriptor) {
+  ngOnInit(): void {  }
+
+  changeNavbarTitle(event: ContentDescriptor): void {
     let title = event.getTitle();
     this.titleService.next(title);
+  }
+
+  toggleSidebar(): void {
+    this.toggled = !this.toggled;
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

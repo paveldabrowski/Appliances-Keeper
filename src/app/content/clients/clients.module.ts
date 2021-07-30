@@ -21,13 +21,13 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { MatSortModule } from "@angular/material/sort";
 import { MatExpansionModule } from "@angular/material/expansion";
+import { ContentModule } from "../content.module";
 
 
 
 @NgModule({
   declarations: [
     ClientsComponent,
-    ContentComponent,
     ClientFormComponent,
     ClientsTableComponent,
     EditClientComponent,
@@ -35,26 +35,26 @@ import { MatExpansionModule } from "@angular/material/expansion";
     CommissionsPreviewComponent,
     CommissionDetailsComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    MatDialogModule,
-    MatTableModule,
-    MatCheckboxModule,
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatButtonModule,
-    MatInputModule,
-    MatSortModule,
-    MatExpansionModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        MatDialogModule,
+        MatTableModule,
+        MatCheckboxModule,
+        MatPaginatorModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatButtonModule,
+        MatInputModule,
+        MatSortModule,
+        MatExpansionModule,
+
+    ],
   providers: [
     ClientsService
   ],
   exports: [
-    ContentComponent,
     ClientsComponent,
     ClientFormComponent
   ]

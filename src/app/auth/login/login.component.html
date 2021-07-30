@@ -1,1 +1,29 @@
-<p>login works!</p>
+<div class="d-flex justify-content-center align-items-center h-100 w-100">
+  <div class="my-dialog text-center">
+    <div class="card">
+      <div class="card-header">
+        <p>Sign in to Appliance Keeper Account</p>
+      </div>
+
+      <div class="card-body">
+
+        <form class="my-dialog-form" (ngSubmit)="onSubmit()" [formGroup]="loginGroup">
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input formControlName="username" matInput placeholder="Username...">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input formControlName="password" matInput placeholder="Password...">
+          </mat-form-field>
+          <button [disabled]="loginGroup.invalid" class="my-custom-button btn btn-dark text-light me-0"
+                  type="submit">Submit
+          </button>
+          <button (click)="resetForm()" type="reset" class="clear-button my-custom-button btn btn-light me-0 mt-2">Reset</button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

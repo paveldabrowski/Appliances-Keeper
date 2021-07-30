@@ -8,15 +8,11 @@ import { TitleService } from "./title.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  toggled: boolean = true;
-  observable: Observable<any>;
 
-  constructor(private cd: ChangeDetectorRef, private titleService: TitleService) {
-    this.observable = titleService.select();
+  constructor() {
   }
-  ngOnInit(): void {  }
 
-  toggleSidebar() {
-    this.toggled = !this.toggled;
+  ngOnInit(): void {
   }
+
 }

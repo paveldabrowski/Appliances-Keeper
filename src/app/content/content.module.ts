@@ -20,11 +20,14 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { CommissionsModule } from "./commissions/commissions.module";
 import { CommissionsViewComponent } from "./commissions/commissions-view/commissions-view.component";
 import { ClientsModule } from "./clients/clients.module";
+import { DrawerComponent } from "./drawer/drawer.component";
+import { AuthGuard } from "../auth/auth.guard";
 
 const routes: Routes = [
   {
     path: '',
     component: ContentComponent,
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: 'clients',
@@ -44,9 +47,11 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-
+    DrawerComponent,
+    ContentComponent
   ],
   exports: [
+    DrawerComponent
 
   ],
   imports: [
