@@ -7,9 +7,6 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MessageService } from "../../../message.service";
 import { TableShapeResolver } from "../../TableShapeResolver";
-import { BehaviorSubject, Observable, Subject } from "rxjs";
-import { switchMap } from "rxjs/operators";
-import { Client } from "../../clients/Client";
 
 @Component({
   selector: 'com-commissions-table',

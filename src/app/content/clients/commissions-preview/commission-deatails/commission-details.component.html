@@ -60,11 +60,21 @@
             </div>
           </mat-expansion-panel>
 
-          <div class="input-group mb-3">
-            <span class="input-group-text">Repair date</span>
-            <input type="text" class="form-control form-control-lg text-center" disabled
-                   [value]="commission.repairDate?.date">
-          </div>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <div class="input-group">
+                  <span class="input-group-text">Repair date</span>
+                  <input type="text" class="form-control form-control-lg text-center" disabled
+                         [value]="commission.repairDate?.date">
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="text-center">
+              <p>Hour: {{ covertEnumNameToHourValue(commission?.repairDate) }}</p>
+            </div>
+          </mat-expansion-panel>
+
 
           <div class="input-group mb-3">
             <span class="input-group-text">Technician report</span>

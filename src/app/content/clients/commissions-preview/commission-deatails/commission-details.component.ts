@@ -5,6 +5,7 @@ import { Client } from "../../Client";
 import { CommissionsService } from "../../../commissions/commissions.service";
 import { MessageService } from "../../../../message.service";
 import { Subscription } from "rxjs";
+import { Hour, TechnicianTerm } from "../../../technicians/models";
 
 @Component({
   selector: 'app-commission-details',
@@ -18,7 +19,7 @@ export class CommissionDetailsComponent implements OnDestroy {
 
   constructor(private commissionsService: CommissionsService,
               private messageService: MessageService,
-              @Inject(MAT_DIALOG_DATA) public data: {commission: Commission, client: Client}) {
+              @Inject(MAT_DIALOG_DATA) public data: { commission: Commission, client: Client }) {
     this.commission = data.commission;
     this.client = data.client;
   }
@@ -35,6 +36,12 @@ export class CommissionDetailsComponent implements OnDestroy {
         console.log(error);
       }
     )
+  }
+
+  covertEnumNameToHourValue(term: TechnicianTerm | undefined) {
+    if (term)
+      return Hour[term.hour as unknown as keyof typeof Hour];
+    return "";
   }
 
   ngOnDestroy(): void {

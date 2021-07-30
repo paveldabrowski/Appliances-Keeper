@@ -17,9 +17,15 @@ export class TechniciansService implements GetterBySearchTerm<Technician> {
   }
 
   getWorkingDay(technician: Technician, date: Date) {
+    const result = date.toLocaleDateString("pl-PL", { // you can use undefined as first argument
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+
     return this.httpClient.get<WorkingDay>(`${BACKEND_URL}/technicians/${technician.id}/workingDays`, {
       params: new HttpParams()
-        .set("workingDay", date.toLocaleDateString())
+        .set("workingDay", result)
     }).pipe(map(value => {
       // for (let i of value.technicianTerms) {
       //   i.commission = {id: 1}

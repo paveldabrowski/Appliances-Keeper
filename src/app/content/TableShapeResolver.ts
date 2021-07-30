@@ -1,13 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Inject,
-  Injectable,
-  OnDestroy,
-  OnInit, Output
-} from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output } from "@angular/core";
 import { MatSort } from "@angular/material/sort";
 import { MatTable } from "@angular/material/table";
 import { ServerSideDataSource } from "./ServerSideDataSource";
@@ -16,7 +7,6 @@ import { ServiceKeeper } from "./model";
 import { MessageService } from "../message.service";
 import { debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
 import { MatPaginator } from "@angular/material/paginator";
-import { Commission } from "./commissions/Commission";
 
 
 @Component({

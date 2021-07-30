@@ -28,20 +28,17 @@ export class ServerSideDataSource<T> implements DataSource<T> {
     this.loadingSubject.next(true);
 
     this.service.findSearchedPaginatedSorted(sortBy, sortDirection, searchTerm, page, size).pipe(
-      map(value => {
-        this.length = value.totalElements;
-        return value.content;
+      map(pageable => {
+        this.length = pageable.totalElements;
+        return pageable.content;
       }),
-      catchError(err => of(err)),
+      catchError(err => {
+        this.messageService.notifyError(`Error while trying to fill table with ${ this.toString() } data`);
+        console.log(err);
+        return of(err)
+      }),
       finalize(() => this.loadingSubject.next(false)),
       take(1)
-    )
-      .subscribe(data => {
-          this.data.next(data);
-        },
-        error => {
-          this.messageService.notifyError(`Error while trying to fill table with ${ this.toString() } data`);
-          console.log(error);
-        });
+    ).subscribe(data => this.data.next(data));
   };
 }

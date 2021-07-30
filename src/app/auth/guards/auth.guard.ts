@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   canActivateChild(childRoute: ActivatedRouteSnapshot,
                    state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    console.log("AuthGuard invoked in child");
+    // console.log("AuthGuard invoked in child");
     return this.authService.checkIfTokenValid(this.tokenStorageService.getToken()).pipe(
       map(isTokenValid => {
         if (isTokenValid) {
@@ -38,7 +38,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log("AuthGuard invoked in Parent");
+    // console.log("AuthGuard invoked in Parent");
     return this.authService.checkIfTokenValid(this.tokenStorageService.getToken()).pipe(
       map(isTokenValid => {
         if (isTokenValid) {
