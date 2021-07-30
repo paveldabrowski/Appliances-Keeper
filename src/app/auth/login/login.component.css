@@ -1,0 +1,17 @@
+.my-dialog {
+  box-shadow: 0 0 5px #fff;
+  border-radius: 15px;
+  min-width: 600px;
+}
+
+.my-dialog-form-body {
+  font-size: 1.6rem;
+}
+
+.fail-login-text {
+  font-size: 2rem;
+}
+
+/*mat-form-field.mat-form-field {*/
+/*  font-size: 20px;*/
+/*}*/

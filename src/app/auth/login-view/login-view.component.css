@@ -1,0 +1,42 @@
+.login-view {
+  /*background: linear-gradient(rgba(57, 62, 70, 0.51), rgba(0, 0, 0, 0.9), rgba(57, 62, 70, 0.51));*/
+  background: linear-gradient(rgba(57, 62, 70, 0.51), black);
+}
+
+.login-view .login-component {
+  width: fit-content;
+}
+
+.login-view .logo-div {
+  max-height: 100px;
+}
+
+.login-view .logo-div .logo {
+  max-height: 100%;
+}
+
+/*mat-form-field .mat-form-field {*/
+/*  font-size: 20px;*/
+/*}*/
+
+.login-view section {
+  flex-grow: 1;
+}
+
+.title {
+  max-height: 100px;
+}
+
+.title-div p {
+  font-size: 7rem;
+  text-transform: capitalize;
+  font-family: var(--rajdhani-bold);
+  color: white;
+  text-shadow: 0 0 5px #fff
+}
+
+.login-view .footer-logo {
+  height: 3rem;
+  color: red;
+  filter: invert(100%);
+}

@@ -1,4 +1,5 @@
 import {
+  HTTP_INTERCEPTORS,
   HttpErrorResponse,
   HttpEvent,
   HttpHandler,
@@ -23,13 +24,15 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
       if (err instanceof HttpErrorResponse) {
         if (err.status !== HttpStatusCode.Unauthorized) {
           this.massageService.notifyError("Server respond is error.")
-          return throwError(err);
+          // return throwError(err);
         }
-        return of(err.error);
+        return throwError(err);
       } else
         return throwError(err);
     }));
   }
-
-
 }
+
+export const contentErrorInterceptors = [
+  {provide: HTTP_INTERCEPTORS, useClass: ErrorHandlingInterceptor, multi:true},
+];

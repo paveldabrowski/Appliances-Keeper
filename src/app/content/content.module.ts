@@ -22,6 +22,7 @@ import { CommissionsViewComponent } from "./commissions/commissions-view/commiss
 import { ClientsModule } from "./clients/clients.module";
 import { DrawerComponent } from "./drawer/drawer.component";
 import { AuthGuard } from "../auth/auth.guard";
+import { contentErrorInterceptors } from "../error-handling.interceptor";
 
 const routes: Routes = [
   {
@@ -74,7 +75,7 @@ const routes: Routes = [
     ClientsModule
   ],
   providers: [
-
+    contentErrorInterceptors
   ]
 })
 export class ContentModule {

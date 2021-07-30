@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from "../auth.service";
 import { TokenStorageService } from "../token-storage.service";
-import { FormBuilder, FormGroupDirective } from "@angular/forms";
+import { FormBuilder, FormGroupDirective, Validators } from "@angular/forms";
 import { LoginCredentials } from "../models";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-login',
@@ -18,17 +20,17 @@ export class LoginComponent implements OnInit {
   };
   isLoggedIn = false;
   isLoginFailed = false;
-  errorMessage = '';
   roles: string[] = [];
 
   loginGroup = this.fb.group({
-    username: null,
-    password: null
+    username: [null, [Validators.required]],
+    password: [null, [Validators.required]]
   });
 
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -39,18 +41,17 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-
     this.authService.login(this.loginGroup.value as LoginCredentials).subscribe(
-      data => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
+      user => {
+        console.log(user);
+        this.tokenStorage.saveToken(user.accessToken);
+        this.tokenStorage.saveUser(user);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
-        // this.reloadPage();
+        this.router.navigate(["/content"]);
       },
-      err => {
-        this.errorMessage = err.error.message;
+      () => {
         this.isLoginFailed = true;
       }
     );
@@ -62,9 +63,6 @@ export class LoginComponent implements OnInit {
 
   resetForm() {
     this.formGroupDirective.resetForm();
-  }
-
-  login() {
-    this.authService.login(this.loginGroup.value as LoginCredentials)
+    this.isLoginFailed = false;
   }
 }

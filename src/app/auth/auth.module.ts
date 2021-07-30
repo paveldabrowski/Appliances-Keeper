@@ -7,12 +7,14 @@ import { TokenStorageService } from "./token-storage.service";
 import { AuthGuard } from "./auth.guard";
 import { MatInputModule } from "@angular/material/input";
 import { ReactiveFormsModule } from "@angular/forms";
+import { LoginViewComponent } from './login-view/login-view.component';
 
 
 @NgModule({
   declarations: [
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    LoginViewComponent
   ],
   imports: [
     CommonModule,

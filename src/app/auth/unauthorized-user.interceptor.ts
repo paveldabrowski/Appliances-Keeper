@@ -38,7 +38,7 @@ export class UnauthorizedUserInterceptor implements HttpInterceptor {
         if (err instanceof HttpErrorResponse) {
           if (err.status === HttpStatusCode.Unauthorized) {
             console.log("User is not authenticated or authorized.");
-            this.massageService.notifyError("User is not authenticated or authorized.")
+            // this.massageService.notifyError("User is not authenticated or authorized.")
             this.router.navigate(['/login']).then(() => this.authService.logout());
           }
         }
