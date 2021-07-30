@@ -10,7 +10,7 @@ export interface User {
   accessToken: string;
   type: string,
   email: string,
-  roles: Array<UserRoles>;
+  roles: UserRoles[];
 }
 
 export enum UserRoles {

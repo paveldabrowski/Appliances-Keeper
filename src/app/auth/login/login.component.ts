@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from "../auth.service";
 import { TokenStorageService } from "../token-storage.service";
 import { FormBuilder, FormGroupDirective, Validators } from "@angular/forms";
-import { LoginCredentials } from "../models";
+import { LoginCredentials, UserRoles } from "../models";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   };
   isLoggedIn = false;
   isLoginFailed = false;
-  roles: string[] = [];
+  roles: UserRoles[] | undefined = [];
 
   loginGroup = this.fb.group({
     username: [null, [Validators.required]],
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
+      this.roles = this.tokenStorage.getUser()?.roles;
     }
   }
 
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveUser(user);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
+        this.roles = this.tokenStorage.getUser()?.roles;
         this.router.navigate(["/content"]);
       },
       () => {

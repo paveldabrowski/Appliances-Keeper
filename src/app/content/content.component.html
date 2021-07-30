@@ -22,9 +22,9 @@
     </nav>
 
     <!--    <content-component (navbar-title)="navbarTitle.innerText = $event" class="content-table"></content-component>-->
-    <div class="main-body">
+    <div class="main-body w-100 h-100">
 <!--      <router-outlet></router-outlet>-->
-<router-outlet (activate)="changeNavbarTitle($event)"></router-outlet>
+      <router-outlet class="h-100 w-100" (activate)="changeNavbarTitle($event)"></router-outlet>
     </div>
 
   </div>

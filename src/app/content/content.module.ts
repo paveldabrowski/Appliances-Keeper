@@ -21,8 +21,11 @@ import { CommissionsModule } from "./commissions/commissions.module";
 import { CommissionsViewComponent } from "./commissions/commissions-view/commissions-view.component";
 import { ClientsModule } from "./clients/clients.module";
 import { DrawerComponent } from "./drawer/drawer.component";
-import { AuthGuard } from "../auth/auth.guard";
+import { AuthGuard } from "../auth/guards/auth.guard";
 import { contentErrorInterceptors } from "../error-handling.interceptor";
+import { RoleAdminGuard } from "../auth/guards/role-admin.guard";
+import { RoleUserGuard } from "../auth/guards/role-user.guard";
+import { InitialViewComponent } from './initial-view/initial-view.component';
 
 const routes: Routes = [
   {
@@ -31,16 +34,19 @@ const routes: Routes = [
     canActivateChild: [AuthGuard],
     children: [
       {
-        path: 'clients',
-        component: ClientsComponent
+        path: '',
+        component: InitialViewComponent,
       },
       {
-        path: 'home',
-        component: HomePageComponent
+        path: 'clients',
+        component: ClientsComponent,
+        canActivate: [RoleUserGuard]
+
       },
       {
         path: 'commissions',
-        component: CommissionsViewComponent
+        component: CommissionsViewComponent,
+        canActivate: [RoleUserGuard]
       }
     ]
   }
@@ -49,7 +55,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     DrawerComponent,
-    ContentComponent
+    ContentComponent,
+    InitialViewComponent
   ],
   exports: [
     DrawerComponent

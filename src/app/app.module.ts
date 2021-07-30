@@ -10,7 +10,7 @@ import { HomePageComponent } from "./home-page/home-page.component";
 import { ToastrModule } from "ngx-toastr";
 import { MessageService } from "./message.service";
 import { RegisterComponent } from "./auth/register/register.component";
-import { AuthGuard } from "./auth/auth.guard";
+import { AuthGuard } from "./auth/guards/auth.guard";
 import { AuthModule } from "./auth/auth.module";
 import { authInterceptorProviders } from "./auth/auth.interceptor";
 import { LoginViewComponent } from "./auth/login-view/login-view.component";

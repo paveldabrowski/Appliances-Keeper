@@ -58,11 +58,16 @@ body {
   src: url("src/assets/fonts/Rajdhani-Regular.ttf") format("truetype");
 }
 
+
+/*---------------------------*/
+/*------   Variables   ------*/
+/*---------------------------*/
 :root {
   --drawer-size: 25rem;
   --drawer-size-margin: calc(-1 * var(--drawer-size));
   --rajdhani-regular: 'Rajdhani', sans-serif;
   --rajdhani-bold: 'Rajdhani-Bold', sans-serif;
+  --navbar-height: 68px
 }
 
 /*---------------------------*/
