@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserRoles } from "../models";
-import { TokenStorageService } from "../token-storage.service";
+import { TokenStorageService } from "../service/token-storage.service";
 import { MessageService } from "../../message.service";
 
 @Injectable({

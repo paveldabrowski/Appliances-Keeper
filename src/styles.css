@@ -48,6 +48,21 @@ body {
   color: #bbb3b3;
 }
 
+/*---------------------------*/
+/*------   FOOTER   ------*/
+/*---------------------------*/
+.footer {
+  height: 90px;
+  max-height: 90px;
+}
+
+.footer .footer-logo {
+  height: 3rem;
+  color: red;
+  filter: invert(100%);
+}
+
+
 @font-face {
   font-family: 'Rajdhani-Bold';
   src: url("src/assets/fonts/Rajdhani-Bold.ttf") format("truetype");
@@ -67,7 +82,8 @@ body {
   --drawer-size-margin: calc(-1 * var(--drawer-size));
   --rajdhani-regular: 'Rajdhani', sans-serif;
   --rajdhani-bold: 'Rajdhani-Bold', sans-serif;
-  --navbar-height: 68px
+  --navbar-height: 68px;
+  --footer-height: 90px;
 }
 
 /*---------------------------*/

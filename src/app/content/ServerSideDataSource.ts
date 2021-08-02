@@ -35,10 +35,10 @@ export class ServerSideDataSource<T> implements DataSource<T> {
       catchError(err => {
         this.messageService.notifyError(`Error while trying to fill table with ${ this.toString() } data`);
         console.log(err);
-        return of(err)
+        return of(err);
       }),
       finalize(() => this.loadingSubject.next(false)),
       take(1)
     ).subscribe(data => this.data.next(data));
-  };
+  }
 }

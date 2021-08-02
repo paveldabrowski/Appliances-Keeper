@@ -9,24 +9,27 @@ import { TitleService } from "./title.service";
 import { HomePageComponent } from "./home-page/home-page.component";
 import { ToastrModule } from "ngx-toastr";
 import { MessageService } from "./message.service";
-import { RegisterComponent } from "./auth/register/register.component";
 import { AuthGuard } from "./auth/guards/auth.guard";
 import { AuthModule } from "./auth/auth.module";
-import { authInterceptorProviders } from "./auth/auth.interceptor";
+import { authInterceptorProviders } from "./auth/interceptors/auth.interceptor";
 import { LoginViewComponent } from "./auth/login-view/login-view.component";
+import { NotFoundComponent } from './not-found/not-found.component';
+import { LoginGuard } from "./auth/guards/login.guard";
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'login', component: LoginViewComponent},
-  { path: 'register', component: RegisterComponent},
   { path: 'content', loadChildren: () => import('src/app/content/content.module').then(m => m.ContentModule),
-    canActivate: [AuthGuard] }
+    canActivate: [AuthGuard] },
+
+  { path: '**', component: NotFoundComponent}
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent
+    HomePageComponent,
+    NotFoundComponent
   ],
     imports: [
         BrowserModule,

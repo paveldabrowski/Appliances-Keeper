@@ -1,5 +1,6 @@
 .commission-details {
   width: 40rem;
+  max-height: 90vh;
 }
 
 .commission-details .client-name {

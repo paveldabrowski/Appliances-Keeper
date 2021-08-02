@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of } from "rxjs";
-import { BACKEND_URL } from "../../environments/environment";
-import { LoginCredentials, User } from "./models";
+import { BACKEND_URL } from "../../../environments/environment";
+import { LoginCredentials, User } from "../models";
 import { TokenStorageService } from "./token-storage.service";
 import { Router } from "@angular/router";
 import { tap } from "rxjs/operators";
@@ -39,7 +39,8 @@ export class AuthService {
 
   logout(): void {
     // this.tokenService.logout();
-    this.router.navigate(["/login"]).then(() => this.tokenService.logout());
+    this.tokenService.logout()
+    this.router.navigate(["/login"]);
   }
 
 

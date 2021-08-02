@@ -8,8 +8,8 @@ import {
   UrlTree
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TokenStorageService } from "../token-storage.service";
-import { AuthService } from "../auth.service";
+import { TokenStorageService } from "../service/token-storage.service";
+import { AuthService } from "../service/auth.service";
 import { map } from "rxjs/operators";
 
 @Injectable({

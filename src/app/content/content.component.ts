@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/co
 import { ContentDescriptor } from "./model";
 import { TitleService } from "../title.service";
 import { Observable } from "rxjs";
-import { AuthService } from "../auth/auth.service";
+import { AuthService } from "../auth/service/auth.service";
 
 @Component({
   selector: 'content-component',

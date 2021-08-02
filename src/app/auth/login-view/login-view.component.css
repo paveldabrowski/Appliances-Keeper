@@ -23,6 +23,10 @@
   flex-grow: 1;
 }
 
+.login-view .header {
+  max-height: 130px;
+}
+
 .title {
   max-height: 100px;
 }

@@ -6,10 +6,10 @@ import {
   HttpInterceptor, HttpErrorResponse, HttpStatusCode
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { MessageService } from "../message.service";
+import { MessageService } from "../../message.service";
 import { catchError, tap } from "rxjs/operators";
 import { Router } from "@angular/router";
-import { AuthService } from "./auth.service";
+import { AuthService } from "../service/auth.service";
 
 @Injectable()
 export class UnauthorizedUserInterceptor implements HttpInterceptor {

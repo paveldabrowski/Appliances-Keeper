@@ -6,7 +6,7 @@ import {
   HttpInterceptor, HTTP_INTERCEPTORS
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TokenStorageService } from "./token-storage.service";
+import { TokenStorageService } from "../service/token-storage.service";
 import { UnauthorizedUserInterceptor } from "./unauthorized-user.interceptor";
 
 const TOKEN_HEADER_KEY = 'Authorization';

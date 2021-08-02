@@ -1,0 +1,40 @@
+.not-found {
+  /*background: linear-gradient(rgba(57, 62, 70, 0.51), rgba(0, 0, 0, 0.9), rgba(57, 62, 70, 0.51));*/
+  background: linear-gradient(rgba(57, 62, 70, 0.51), black);
+}
+
+.arrow-div button {
+  padding: 1rem 1.5rem;
+  transition: background-color 0.5s;
+}
+
+.arrow-div button i {
+  font-size: 4rem;
+  color: white;
+  text-shadow: 0 0 5px #fff;
+}
+
+.arrow-div button:hover {
+  background-color: rgba(57, 62, 70, 0.27);
+}
+
+.arrow-div button:focus {
+  box-shadow: 0 0 0 0.25rem white;
+}
+
+.text-div {
+  margin-top: 30vh;
+}
+
+.not-found .text-div h1 {
+  color: white;
+  text-shadow: 1px 1px 2px black, 0 0 25px red, 0 0 5px darkred;
+  font-size: 4rem;
+}
+
+.not-found-image {
+  filter: invert(100%);
+  max-height: calc(100% - var(--footer-height));
+  background: transparent;
+}
+

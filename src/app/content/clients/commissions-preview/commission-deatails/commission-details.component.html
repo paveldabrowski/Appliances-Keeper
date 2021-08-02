@@ -1,4 +1,4 @@
-<div class="commission-details p-0 card container-fluid d-flex flex-column">
+<div class="commission-details p-0 card container-fluid d-flex flex-column overflow-auto">
   <div *ngIf="commission">
     <div class="client-name card-header">
       <p class=" display-6">
@@ -12,6 +12,31 @@
             <span class="input-group-text">Commission number</span>
             <input type="text" class="form-control form-control-lg text-center" disabled [value]="commission.id">
           </div>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <div class="input-group">
+                  <span class="input-group-text">Client</span>
+                  <input type="text" class="form-control form-control-lg text-center" disabled
+                         [value]="client.name + ' ' + client?.lastName">
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="text-center">
+              <p *ngIf="client.nip"><strong>Nip:</strong> {{ client?.nip }}</p>
+              <p *ngIf="client.regon"><strong>Regon:</strong> {{ client?.regon }}</p>
+              <p *ngIf="client.phoneNumber"><strong>Phone number:</strong> {{ client?.phoneNumber }}</p>
+              <p *ngIf="client.email"><strong>Email:</strong> {{ client?.email }}</p>
+              <p *ngIf="client.type"><strong>Type:</strong> {{ client?.type }}</p>
+              <p *ngIf="client.description"><strong>Description:</strong> {{ client?.description }}</p>
+              <p *ngIf="client.street && client.building">
+                <strong>Address:</strong> {{ client?.street }} {{ client?.building }}
+                <span *ngIf="client.apartment">/{{client?.apartment }}</span>
+              </p>
+              <p *ngIf="client.zipCode || client.city">{{ client?.zipCode }} {{ client?.city }}</p>
+            </div>
+          </mat-expansion-panel>
 
 
           <div class="input-group mb-3">

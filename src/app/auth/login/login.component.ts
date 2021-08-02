@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AuthService } from "../auth.service";
-import { TokenStorageService } from "../token-storage.service";
+import { AuthService } from "../service/auth.service";
+import { TokenStorageService } from "../service/token-storage.service";
 import { FormBuilder, FormGroupDirective, Validators } from "@angular/forms";
 import { LoginCredentials, UserRoles } from "../models";
 import { ActivatedRoute, Router } from "@angular/router";
