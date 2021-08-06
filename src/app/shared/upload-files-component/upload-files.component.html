@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-start">
+    <label class="btn btn-default p-0">
+      <input #upload multiple type="file" accept="image/*" (change)="addFiles($event)"/>
+      Files to upload: {{ selectedFiles.length }}
+    </label>
+  </div>
+</div>
+
+<div *ngIf="selectedFiles.length" class="card file-list mt-3">
+  <div class="card-header">List of Files</div>
+  <div class="card-body">
+    <ul class="list-group list-group-flush" *ngFor="let file of selectedFiles">
+      <li class="list-group-item d-flex align-items-center pe-0">
+        <p>{{ file.name }}</p>
+        <button type="button" class="btn ms-auto px-0" (click)="removeFile(file)">
+          <i class="icofont-close"></i>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -3,6 +3,8 @@ export class Model {
   name?: string;
   brand?: Brand;
   applianceType?: ApplianceType;
+  description?: string;
+  photos?: Picture[];
 }
 
 export class Brand {
@@ -20,4 +22,9 @@ export class Appliance {
 export class ApplianceType {
   id?: number;
   name?: string;
+}
+
+export interface Picture {
+  id: number,
+  url: string,
 }

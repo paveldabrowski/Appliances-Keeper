@@ -3,6 +3,8 @@
   font-size: 1.8rem;
   padding: 1.5rem!important;
   text-align: center!important;
+  max-height: 93vh;
+  overflow: auto;
 }
 
 .my-dialog p {

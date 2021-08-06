@@ -8,6 +8,7 @@ import { MatInputModule } from "@angular/material/input";
 import { ReactiveFormsModule } from "@angular/forms";
 import { LoginViewComponent } from './login-view/login-view.component';
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { LoginGuard } from "./guards/login.guard";
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     MatInputModule,
     MatFormFieldModule
   ],
-  providers: [AuthService, TokenStorageService, AuthGuard],
+  providers: [AuthService, TokenStorageService, AuthGuard, LoginGuard],
   exports: []
 })
 export class AuthModule { }

@@ -42,6 +42,7 @@ export class CommissionsViewComponent implements ContentDescriptor, OnInit, OnDe
         this.messageService.notifyError("Error while deleting commission.");
         console.log(error.message)
       }));
+    this.showAddApplianceForm()
   }
 
   getTitle(): string {

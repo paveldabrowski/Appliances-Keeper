@@ -12,6 +12,7 @@ import { switchMap } from "rxjs/operators";
 import { MatDialog } from "@angular/material/dialog";
 import { AddBrandComponent } from "../add-brand/add-brand.component";
 import { AddTypeComponent } from "../add-type/add-type.component";
+import { UploadFilesComponent } from "../../../../shared/upload-files-component/upload-files.component";
 
 @Component({
   selector: 'app-add-model',
@@ -20,6 +21,7 @@ import { AddTypeComponent } from "../add-type/add-type.component";
 })
 export class AddModelComponent implements OnInit, OnDestroy {
   @ViewChild(FormGroupDirective) form?: FormGroupDirective;
+  @ViewChild("modelUpload") modelUpload!: UploadFilesComponent
   brands!: Observable<Brand[]>;
   types!: Observable<ApplianceType[]>;
   brand: Brand | null = null;
@@ -47,7 +49,8 @@ export class AddModelComponent implements OnInit, OnDestroy {
     applianceType: this.formBuilder.group({
       id: null,
       name: [null, [Validators.required]]
-    })
+    }),
+    description: null
   })
 
   constructor(private formBuilder: FormBuilder,
@@ -62,11 +65,31 @@ export class AddModelComponent implements OnInit, OnDestroy {
     this.brands = this.brandsService.findAll();
     this.types = this.typesService.findAll();
     this.subscriptions.add(this.addModelSubject.pipe(
-      switchMap(model => this.modelsService.add(model))
+      switchMap(model => this.modelsService.addModelWithFiles(model, this.modelUpload.selectedFiles))
     ).subscribe(model => {
       this.messageService.notifySuccess(`Model ${ model.name } successful created in brand ${ model.brand?.name }`);
     }, error => this.messageService.notifyError(error.message)));
   }
+
+  // test() {
+  //   this.uploadService.upload(file).subscribe(
+  //     (event: any) => {
+  //       if (event.type === HttpEventType.UploadProgress) {
+  //         this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
+  //       } else if (event instanceof HttpResponse) {
+  //         const msg = 'Uploaded the file successfully: ' + file.name;
+  //         this.message.push(msg);
+  //         this.fileInfos = this.uploadService.getFiles();
+  //       }
+  //     },
+  //     (err: any) => {
+  //       this.progressInfos[idx].value = 0;
+  //       const msg = 'Could not upload the file: ' + file.name;
+  //       this.message.push(msg);
+  //       this.fileInfos = this.uploadService.getFiles();
+  //     });
+  // }
+
 
   onBrandSelect($event: MatOptionSelectionChange, brand: Brand): void {
     if ($event.source.selected) {
@@ -83,6 +106,7 @@ export class AddModelComponent implements OnInit, OnDestroy {
   }
 
   createModel(): void {
+    console.log(this.modelGroup.value as Model)
     this.addModelSubject.next(this.modelGroup.value as Model);
     this.resetForm();
   }
@@ -90,6 +114,7 @@ export class AddModelComponent implements OnInit, OnDestroy {
   resetForm(): void {
     this.form?.resetForm();
     this.disableModelNameControl();
+    this.modelUpload.clearUpload();
   }
 
   disableModelNameControl(): void {

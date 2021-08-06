@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpRequest } from "@angular/common/http";
 import { GetterByParam, Pageable, ServiceAsyncValidator, ServiceKeeper } from "../../model";
 import { Brand, Model } from "../models";
 import { Observable, of } from "rxjs";
 import { BACKEND_URL } from "../../../../environments/environment";
 import { delay } from "rxjs/operators";
+import { Form } from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,29 @@ export class ModelsService implements ServiceKeeper<Model>, GetterByParam<Model>
   add(model: Model) {
     model.name = model.name?.toUpperCase();
     return this.httpClient.post<Model>(`${ BACKEND_URL }/appliances/models`, model);
+  }
+
+  addModelWithFiles(model: Model, files: File[]): Observable<Model> {
+    model.name = model.name?.toUpperCase();
+
+    if (files && files.length) {
+      console.log('Files is add model request.')
+      const formData: FormData = new FormData();
+      formData.append('model', JSON.stringify(model));
+      files.forEach(file => formData.append('file', file));
+
+      const req = new HttpRequest('POST', `${ BACKEND_URL }/appliances/models`, formData, {
+        reportProgress: true,
+        responseType: 'json'
+      });
+
+      return this.httpClient.post(`${ BACKEND_URL }/appliances/models`, formData, {
+        reportProgress: true,
+        responseType: 'json'
+      });
+    }
+
+    return this.httpClient.post(`${ BACKEND_URL }/appliances/models`, model);
   }
 
   findAll(): Observable<Model[]> {

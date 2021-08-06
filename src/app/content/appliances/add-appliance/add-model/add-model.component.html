@@ -18,7 +18,7 @@
             <mat-error *ngIf="modelGroup.controls['brand']?.get('name')?.hasError('required')">Brand is required. <button (click)="showAddBrandComponent()" type="button" class="btn btn-link">>> new <<</button></mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field class="hint-margin-increase" appearance="outline">
             <mat-label>Model name</mat-label>
             <input matInput formControlName="name" type="text">
             <mat-error *ngIf="modelGroup.controls['name']?.hasError('required')">Name must be specified.</mat-error>
@@ -36,10 +36,18 @@
 
           </mat-form-field>
 
+          <mat-form-field class="hint-margin-increase" appearance="outline">
+            <mat-label>Model description</mat-label>
+            <textarea rows="3" placeholder="Model description" matInput formControlName="description"></textarea>
+          </mat-form-field>
+
+          <app-upload-files-component #modelUpload></app-upload-files-component>
+
+
           <button [disabled]="modelGroup.invalid" class="my-custom-button btn btn-dark text-light me-0" type="submit">
             Submit
           </button>
-          <button type="reset" (click)="disableModelNameControl()" class="clear-button my-custom-button btn btn-light me-0 mt-2">Reset</button>
+          <button type="reset" (click)="resetForm()" class="clear-button my-custom-button btn btn-light me-0 mt-2">Reset</button>
           <button type="reset" class="my-custom-button btn btn-outline-secondary me-0 mt-2" mat-dialog-close>Close
           </button>
         </div>

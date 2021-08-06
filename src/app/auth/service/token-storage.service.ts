@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from "../models";
+import { IBM_TOKEN_HEADER } from "../../../environments/environment";
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
@@ -40,4 +41,17 @@ export class TokenStorageService {
     return null;
 
   }
+
+  saveIbmToken(token: string | null): void {
+    localStorage.removeItem(IBM_TOKEN_HEADER);
+    if (token) {
+      localStorage.setItem(IBM_TOKEN_HEADER, token);
+    }
+  }
+
+  public getIbmToken(): string | null {
+    return localStorage.getItem(IBM_TOKEN_HEADER);
+  }
+
+
 }

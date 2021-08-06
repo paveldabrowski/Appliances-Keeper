@@ -1,0 +1,19 @@
+.file-list .card-body p{
+  font-size: 1.2rem;
+  padding: 0;
+}
+
+.file-list .card-body .list-group-item i {
+  font-size: 1.2rem;
+  border-radius: 50%;
+  padding: .5rem;
+  transition: background-color 1s;
+}
+
+.file-list .card-body .list-group-item i:hover {
+  background-color: silver;
+}
+
+/*.file-list .card-body .list-group-item button {*/
+/*  background-color: silver;*/
+/*}*/

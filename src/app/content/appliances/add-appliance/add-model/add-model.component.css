@@ -1,1 +1,7 @@
+mat-form-field.mat-form-field {
+  font-size: 12px;
+}
 
+.my-dialog-form .hint-margin-increase {
+  margin-top: 1rem ;
+}

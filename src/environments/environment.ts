@@ -7,6 +7,7 @@ export const environment = {
 };
 
 export const BACKEND_URL = "http://localhost:8080";
+export const IBM_TOKEN_HEADER = "ibmToken";
 
 /*
  * For easier debugging in development mode, you can import the following file

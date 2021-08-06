@@ -3,8 +3,7 @@ import { AuthService } from "../service/auth.service";
 import { TokenStorageService } from "../service/token-storage.service";
 import { FormBuilder, FormGroupDirective, Validators } from "@angular/forms";
 import { LoginCredentials, UserRoles } from "../models";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Location } from "@angular/common";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
