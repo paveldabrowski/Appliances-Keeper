@@ -13,6 +13,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { AddBrandComponent } from "../add-brand/add-brand.component";
 import { AddTypeComponent } from "../add-type/add-type.component";
 import { UploadFilesComponent } from "../../../../shared/upload-files-component/upload-files.component";
+import { HttpEventType } from "@angular/common/http";
 
 @Component({
   selector: 'app-add-model',
@@ -66,9 +67,22 @@ export class AddModelComponent implements OnInit, OnDestroy {
     this.types = this.typesService.findAll();
     this.subscriptions.add(this.addModelSubject.pipe(
       switchMap(model => this.modelsService.addModelWithFiles(model, this.modelUpload.selectedFiles))
-    ).subscribe(model => {
-      this.messageService.notifySuccess(`Model ${ model.name } successful created in brand ${ model.brand?.name }`);
-    }, error => this.messageService.notifyError(error.message)));
+    ).subscribe(event => {
+      // console.log(event)
+      // this.messageService.notifySuccess(`Model ${ event.name } successful created in brand ${ event.brand?.name }`);
+
+      if (event.type === HttpEventType.Response && event.body) {
+        const model: Model = event.body;
+        this.messageService.notifySuccess(`Model ${ model.name } successful created in brand ${ model.brand?.name }`);
+      }
+
+      if (event.type === HttpEventType.UploadProgress) {
+        // console.log('total to upload: ', event.total, 'loaded: ', event.loaded)
+      }
+    }, error => {
+      this.messageService.notifyError(error.message);
+      console.log(error);
+    }));
   }
 
   // test() {
@@ -106,7 +120,6 @@ export class AddModelComponent implements OnInit, OnDestroy {
   }
 
   createModel(): void {
-    console.log(this.modelGroup.value as Model)
     this.addModelSubject.next(this.modelGroup.value as Model);
     this.resetForm();
   }
