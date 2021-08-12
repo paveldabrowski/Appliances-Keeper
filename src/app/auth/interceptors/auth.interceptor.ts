@@ -9,14 +9,16 @@ import { Observable } from 'rxjs';
 import { TokenStorageService } from "../service/token-storage.service";
 import { UnauthorizedUserInterceptor } from "./unauthorized-user.interceptor";
 import { BACKEND_URL } from "../../../environments/environment";
-import { IbmInterceptor } from "./ibm.interceptor";
+import { IbmTokenReceiver } from "./ibm-token-receiver.interceptor";
 
 const TOKEN_HEADER_KEY = 'Authorization';
+const IBM_URL_ROOT = "cloud-object-storage";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private tokenStorageService: TokenStorageService) {
+  }
 
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -25,17 +27,19 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const url = req.url;
     if (token != null && url.includes(BACKEND_URL)) {
-      authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
-    } else if (url.includes("cloud-object-storage")) {
-
+      authReq = req.clone({headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)});
+    } else if (url.includes(IBM_URL_ROOT)) {
+    //   const ibmToken = this.tokenStorageService.getIbmToken();
+    //   if (ibmToken)
+    //     authReq = req.clone({headers: req.headers.set(TOKEN_HEADER_KEY, ibmToken)});
     }
     return next.handle(authReq);
   }
 }
 
 export const authInterceptorProviders = [
-  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  { provide: HTTP_INTERCEPTORS, useClass: UnauthorizedUserInterceptor, multi: true },
-  { provide: HTTP_INTERCEPTORS, useClass: IbmInterceptor, multi: true }
+  {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+  {provide: HTTP_INTERCEPTORS, useClass: UnauthorizedUserInterceptor, multi: true},
+  {provide: HTTP_INTERCEPTORS, useClass: IbmTokenReceiver, multi: true}
 ];
 

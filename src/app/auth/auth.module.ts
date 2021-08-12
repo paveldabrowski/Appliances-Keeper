@@ -14,7 +14,7 @@ import { LoginGuard } from "./guards/login.guard";
 @NgModule({
   declarations: [
     LoginComponent,
-    LoginViewComponent,
+    LoginViewComponent
   ],
   imports: [
     CommonModule,
@@ -23,6 +23,8 @@ import { LoginGuard } from "./guards/login.guard";
     MatFormFieldModule
   ],
   providers: [AuthService, TokenStorageService, AuthGuard, LoginGuard],
-  exports: []
+  exports: [
+
+  ]
 })
 export class AuthModule { }

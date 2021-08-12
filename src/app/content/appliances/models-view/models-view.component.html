@@ -1,0 +1,3 @@
+<div>
+  <img *ngFor="let image of modelImages | async" [src]="image.url"  [alt]="image.ibmKey"/>
+</div>

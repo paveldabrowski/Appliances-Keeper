@@ -15,22 +15,26 @@ import { MatSelectModule } from "@angular/material/select";
 import { AddBrandComponent } from './add-appliance/add-brand/add-brand.component';
 import { AddTypeComponent } from "./add-appliance/add-type/add-type.component";
 import { SharedModule } from "../../shared/shared.module";
+import { ModelsViewComponent } from './models-view/models-view.component';
+import { AuthModule } from "../../auth/auth.module";
+import { ModelsTableComponent } from './models-view/models-table/models-table.component';
 
 
 @NgModule({
-  declarations: [AddApplianceComponent, AddModelComponent, AddBrandComponent, AddTypeComponent],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatAutocompleteModule,
-    MatInputModule,
-    MatDialogModule,
-    MatSelectModule,
-    SharedModule
+  declarations: [AddApplianceComponent, AddModelComponent, AddBrandComponent, AddTypeComponent, ModelsViewComponent, ModelsTableComponent],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatAutocompleteModule,
+        MatInputModule,
+        MatDialogModule,
+        MatSelectModule,
+        SharedModule,
+        AuthModule
 
 
-  ],
+    ],
   providers: [AppliancesService, BrandsService, ModelsService, TypesService]
 })
 export class AppliancesModule {

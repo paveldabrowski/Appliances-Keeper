@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ClientsComponent } from "./clients/clients.component";
 import { ContentComponent } from './content.component';
 import { RouterModule, Routes } from "@angular/router";
-import { HomePageComponent } from '../home-page/home-page.component';
 import { FormsModule } from "@angular/forms";
 import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from "@angular/material/sort";
@@ -23,9 +22,9 @@ import { ClientsModule } from "./clients/clients.module";
 import { DrawerComponent } from "./drawer/drawer.component";
 import { AuthGuard } from "../auth/guards/auth.guard";
 import { contentErrorInterceptors } from "../error-handling.interceptor";
-import { RoleAdminGuard } from "../auth/guards/role-admin.guard";
 import { RoleUserGuard } from "../auth/guards/role-user.guard";
 import { InitialViewComponent } from './initial-view/initial-view.component';
+import { ModelsViewComponent } from "./appliances/models-view/models-view.component";
 
 const routes: Routes = [
   {
@@ -46,6 +45,11 @@ const routes: Routes = [
       {
         path: 'commissions',
         component: CommissionsViewComponent,
+        canActivate: [RoleUserGuard]
+      },
+      {
+        path: 'library',
+        component: ModelsViewComponent,
         canActivate: [RoleUserGuard]
       }
     ]

@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
-import { IbmInterceptor } from './ibm.interceptor';
+import { IbmTokenReceiver } from './ibm-token-receiver.interceptor';
 
 describe('IbmInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      IbmInterceptor
+      IbmTokenReceiver
       ]
   }));
 
   it('should be created', () => {
-    const interceptor: IbmInterceptor = TestBed.inject(IbmInterceptor);
+    const interceptor: IbmTokenReceiver = TestBed.inject(IbmTokenReceiver);
     expect(interceptor).toBeTruthy();
   });
 });

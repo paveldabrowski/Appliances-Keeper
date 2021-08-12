@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest } from "@angular/common/http";
 import { GetterByParam, Pageable, ServiceAsyncValidator, ServiceKeeper } from "../../model";
-import { Brand, Model } from "../models";
+import { Brand, Model, ModelImage } from "../models";
 import { Observable, of } from "rxjs";
 import { BACKEND_URL } from "../../../../environments/environment";
 import { delay } from "rxjs/operators";
+import { Commission } from "../../commissions/Commission";
 
 @Injectable({
   providedIn: 'root'
@@ -66,7 +67,6 @@ export class ModelsService implements ServiceKeeper<Model>, GetterByParam<Model>
     }
 
     return this.httpClient.request(new HttpRequest('POST', `${ BACKEND_URL }/appliances/models` , model));
-    // return this.httpClient.post( `${ BACKEND_URL }/appliances/models` , model);
   }
 
   findAll(): Observable<Model[]> {
@@ -74,6 +74,17 @@ export class ModelsService implements ServiceKeeper<Model>, GetterByParam<Model>
   }
 
   findSearchedPaginatedSorted(sortBy: string, sortDirection: string, searchTerm: string, page: number, size: number): Observable<Pageable<Model>> {
-    return of();
+    console.log(sortBy, sortDirection, searchTerm, page, size)
+    return this.httpClient.get<Pageable<Model>>(`${ BACKEND_URL }/models`, {
+      params: new HttpParams()
+        .set("sort", `${ sortBy },${ sortDirection }`)
+        .set("page", page.toString())
+        .set("size", size.toString())
+        .set("searchTerm", searchTerm)
+    });
+  }
+
+  getImagesByModelId(id: number): Observable<ModelImage[]> {
+    return this.httpClient.get<ModelImage[]>(`${BACKEND_URL}/appliances/models/${id}/images`);
   }
 }

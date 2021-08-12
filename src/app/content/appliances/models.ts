@@ -4,7 +4,7 @@ export class Model {
   brand?: Brand;
   applianceType?: ApplianceType;
   description?: string;
-  photos?: Picture[];
+  photos?: ModelImage[];
 }
 
 export class Brand {
@@ -24,7 +24,8 @@ export class ApplianceType {
   name?: string;
 }
 
-export interface Picture {
+export interface ModelImage {
   id: number,
+  ibmKey: string,
   url: string,
 }
