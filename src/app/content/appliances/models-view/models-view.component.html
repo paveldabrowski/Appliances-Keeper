@@ -1,3 +1,22 @@
-<div>
-  <img *ngFor="let image of modelImages | async" [src]="image.url"  [alt]="image.ibmKey"/>
+<div class="d-flex main-vertical right-sidebar-toggled">
+  <div class="d-flex w-100 flex-grow-1">
+    <div class="d-flex  w-100 flex-column overflow-auto">
+      <section id="commissions-header">
+        <div class="button-layout mx-4">
+          <button (click)="showAddModelForm()" class="my-custom-button btn btn-dark text-light align-self-center" >
+            <i class="icon icofont-ui-add"></i>Add model
+          </button>
+          <button (click)="deleteModel()" class="my-custom-button btn btn-dark text-light align-self-center" >
+            <i class="icon icofont-ui-delete"></i>Delete model
+          </button>
+
+        </div>
+      </section>
+
+      <section id="commissions-table">
+        <app-models-table (rowSelected)="modelSelected($event)"></app-models-table>
+      </section>
+
+    </div>
+  </div>
 </div>

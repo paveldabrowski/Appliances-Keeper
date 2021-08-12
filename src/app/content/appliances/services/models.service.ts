@@ -58,14 +58,9 @@ export class ModelsService implements ServiceKeeper<Model>, GetterByParam<Model>
       const req = new HttpRequest('POST', `${ BACKEND_URL }/appliances/models/upload`, formData, {
         reportProgress: true,
         responseType: 'json',
-
       });
-
       return this.httpClient.request(req);
-      // return this.httpClient.post<Model>( `${ BACKEND_URL }/appliances/models/upload` , formData);
-
     }
-
     return this.httpClient.request(new HttpRequest('POST', `${ BACKEND_URL }/appliances/models` , model));
   }
 
@@ -73,9 +68,9 @@ export class ModelsService implements ServiceKeeper<Model>, GetterByParam<Model>
     return this.httpClient.get<Model[]>(`${ BACKEND_URL }/appliances/models`);
   }
 
-  findSearchedPaginatedSorted(sortBy: string, sortDirection: string, searchTerm: string, page: number, size: number): Observable<Pageable<Model>> {
-    console.log(sortBy, sortDirection, searchTerm, page, size)
-    return this.httpClient.get<Pageable<Model>>(`${ BACKEND_URL }/models`, {
+  findSearchedPaginatedSorted(sortBy: string = "id", sortDirection: string = "asc", searchTerm: string = "",
+                              page: number = 0, size: number = 5): Observable<Pageable<Model>> {
+    return this.httpClient.get<Pageable<Model>>(`${ BACKEND_URL }/appliances/models`, {
       params: new HttpParams()
         .set("sort", `${ sortBy },${ sortDirection }`)
         .set("page", page.toString())
@@ -86,5 +81,9 @@ export class ModelsService implements ServiceKeeper<Model>, GetterByParam<Model>
 
   getImagesByModelId(id: number): Observable<ModelImage[]> {
     return this.httpClient.get<ModelImage[]>(`${BACKEND_URL}/appliances/models/${id}/images`);
+  }
+
+  deleteModel(model: Model) {
+    return this.httpClient.delete(`${BACKEND_URL}/appliances/models/${model.id}`);
   }
 }

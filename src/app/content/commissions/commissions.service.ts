@@ -32,7 +32,6 @@ export class CommissionsService implements ServiceKeeper<Commission> {
 
   findSearchedPaginatedSorted(sortBy: string = "id", sortDirection: string = "asc", searchTerm: string = "",
                               page: number = 0, size: number = 5): Observable<Pageable<Commission>> {
-    console.log(sortBy, sortDirection, searchTerm, page, size)
     return this.httpClient.get<Pageable<Commission>>(`${ BACKEND_URL }/commissions`, {
       params: new HttpParams()
         .set("sort", `${ sortBy },${ sortDirection }`)

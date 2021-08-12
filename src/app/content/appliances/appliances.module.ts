@@ -6,7 +6,7 @@ import { ModelsService } from "./services/models.service";
 import { TypesService } from "./services/types.service";
 import { AddApplianceComponent } from "./add-appliance/add-appliance.component";
 import { AddModelComponent } from "./add-appliance/add-model/add-model.component";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatInputModule } from "@angular/material/input";
@@ -18,23 +18,34 @@ import { SharedModule } from "../../shared/shared.module";
 import { ModelsViewComponent } from './models-view/models-view.component';
 import { AuthModule } from "../../auth/auth.module";
 import { ModelsTableComponent } from './models-view/models-table/models-table.component';
+import { MatIconModule } from "@angular/material/icon";
+import { MatTableModule } from "@angular/material/table";
+import { MatSortModule } from "@angular/material/sort";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatButtonModule } from "@angular/material/button";
 
 
 @NgModule({
   declarations: [AddApplianceComponent, AddModelComponent, AddBrandComponent, AddTypeComponent, ModelsViewComponent, ModelsTableComponent],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatAutocompleteModule,
-        MatInputModule,
-        MatDialogModule,
-        MatSelectModule,
-        SharedModule,
-        AuthModule
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatDialogModule,
+    MatSelectModule,
+    SharedModule,
+    AuthModule,
+    FormsModule,
+    MatIconModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatButtonModule
 
 
-    ],
+  ],
   providers: [AppliancesService, BrandsService, ModelsService, TypesService]
 })
 export class AppliancesModule {

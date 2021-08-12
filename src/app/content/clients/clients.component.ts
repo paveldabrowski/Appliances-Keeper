@@ -62,8 +62,9 @@ export class ClientsComponent implements ContentDescriptor, AfterViewInit {
       this.clientsService.deleteClient(client).subscribe(() => {
           this.messageService.notifySuccess("Client deleted!");
           this.tableComponent.refreshTable();
-        },
-        () => this.messageService.notifyError("Error while trying to delete client.")
+        },error => {
+        this.messageService.notifyError(`Error while trying to delete client. ${error.error}` );
+        }
       );
     } else {
       this.messageService.notifyWarning("Client is not selected.")

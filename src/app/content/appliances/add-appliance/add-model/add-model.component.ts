@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ApplianceType, Brand, Model } from "../../models";
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from "@angular/forms";
 import { ModelsService } from "../../services/models.service";
@@ -14,6 +14,7 @@ import { AddBrandComponent } from "../add-brand/add-brand.component";
 import { AddTypeComponent } from "../add-type/add-type.component";
 import { UploadFilesComponent } from "../../../../shared/upload-files-component/upload-files.component";
 import { HttpEventType } from "@angular/common/http";
+import { ModelGroup } from "./model-group";
 
 @Component({
   selector: 'app-add-model',
@@ -22,40 +23,16 @@ import { HttpEventType } from "@angular/common/http";
 })
 export class AddModelComponent implements OnInit, OnDestroy {
   @ViewChild(FormGroupDirective) form?: FormGroupDirective;
-  @ViewChild("modelUpload") modelUpload!: UploadFilesComponent
+  @ViewChild('modelUpload') modelUpload!: UploadFilesComponent
   brands!: Observable<Brand[]>;
   types!: Observable<ApplianceType[]>;
   brand: Brand | null = null;
   private addModelSubject: Subject<Model> = new Subject<Model>();
   private subscriptions: Subscription = new Subscription();
+  modelGroup!: FormGroup
+  @Output('modelCreated') modelCreated: EventEmitter<Model> = new EventEmitter<Model>();
 
-  modelGroup: FormGroup = this.formBuilder.group({
-    id: null,
-    name: [
-      {
-        value: null,
-        disabled: true
-      },
-      {
-        validators: [Validators.required],
-        asyncValidators: [ModelNameValidator.createValidator(this.modelsService, this)],
-        updateOn: 'blur',
-      }
-    ],
-    brand: this.formBuilder.group({
-      id: null,
-      name: [null, [Validators.required],]
-
-    }),
-    applianceType: this.formBuilder.group({
-      id: null,
-      name: [null, [Validators.required]]
-    }),
-    description: null
-  })
-
-  constructor(private formBuilder: FormBuilder,
-              private modelsService: ModelsService,
+  constructor(private modelsService: ModelsService,
               private brandsService: BrandsService,
               private typesService: TypesService,
               private messageService: MessageService,
@@ -63,47 +40,23 @@ export class AddModelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.modelGroup = new ModelGroup(this.modelsService, this).modelGroup;
     this.brands = this.brandsService.findAll();
     this.types = this.typesService.findAll();
     this.subscriptions.add(this.addModelSubject.pipe(
       switchMap(model => this.modelsService.addModelWithFiles(model, this.modelUpload.selectedFiles))
     ).subscribe(event => {
-      // console.log(event)
-      // this.messageService.notifySuccess(`Model ${ event.name } successful created in brand ${ event.brand?.name }`);
-
       if (event.type === HttpEventType.Response && event.body) {
         const model: Model = event.body;
         this.messageService.notifySuccess(`Model ${ model.name } successful created in brand ${ model.brand?.name }`);
-      }
-
-      if (event.type === HttpEventType.UploadProgress) {
-        // console.log('total to upload: ', event.total, 'loaded: ', event.loaded)
+        this.modelCreated.emit(model);
       }
     }, error => {
       this.messageService.notifyError(error.message);
+      this.modelCreated.emit(undefined);
       console.log(error);
     }));
   }
-
-  // test() {
-  //   this.uploadService.upload(file).subscribe(
-  //     (event: any) => {
-  //       if (event.type === HttpEventType.UploadProgress) {
-  //         this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
-  //       } else if (event instanceof HttpResponse) {
-  //         const msg = 'Uploaded the file successfully: ' + file.name;
-  //         this.message.push(msg);
-  //         this.fileInfos = this.uploadService.getFiles();
-  //       }
-  //     },
-  //     (err: any) => {
-  //       this.progressInfos[idx].value = 0;
-  //       const msg = 'Could not upload the file: ' + file.name;
-  //       this.message.push(msg);
-  //       this.fileInfos = this.uploadService.getFiles();
-  //     });
-  // }
-
 
   onBrandSelect($event: MatOptionSelectionChange, brand: Brand): void {
     if ($event.source.selected) {
@@ -122,6 +75,7 @@ export class AddModelComponent implements OnInit, OnDestroy {
   createModel(): void {
     this.addModelSubject.next(this.modelGroup.value as Model);
     this.resetForm();
+
   }
 
   resetForm(): void {

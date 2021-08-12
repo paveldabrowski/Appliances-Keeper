@@ -22,7 +22,7 @@ export abstract class TableShapeResolver<T> implements OnInit, OnDestroy, AfterV
   selectedRow: T | null = null;
   subscriptions: Subscription[] = [];
   columns: Array<string>;
-  @Output("rowSelected") rowSelected: EventEmitter<T> = new EventEmitter<T>();
+  @Output("rowSelected") rowSelected: EventEmitter<T | undefined> = new EventEmitter<T | undefined>();
 
   protected constructor(@Inject("serviceKeeper") private serviceKeeper: ServiceKeeper<T>,
                         private messageService: MessageService, columns: Array<string>) {

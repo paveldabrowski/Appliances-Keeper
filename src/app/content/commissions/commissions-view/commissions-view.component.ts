@@ -32,7 +32,6 @@ export class CommissionsViewComponent implements ContentDescriptor, OnInit, OnDe
   }
 
   ngOnInit(): void {
-
     this.subscriptions.add(this.deleteCommissionSubject.pipe(
       switchMap(commission => this.commissionsService.deleteCommission(commission)))
       .subscribe(value => {
@@ -42,7 +41,6 @@ export class CommissionsViewComponent implements ContentDescriptor, OnInit, OnDe
         this.messageService.notifyError("Error while deleting commission.");
         console.log(error.message)
       }));
-    this.showAddApplianceForm()
   }
 
   getTitle(): string {
