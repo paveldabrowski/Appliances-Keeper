@@ -3,11 +3,13 @@ import { ContentDescriptor } from "../../model";
 import { Subject, Subscription } from "rxjs";
 import { Model } from "../models";
 import { ModelsService } from "../services/models.service";
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { AddModelComponent } from "../add-appliance/add-model/add-model.component";
 import { switchMap } from "rxjs/operators";
 import { MessageService } from "../../../message.service";
 import { ModelsTableComponent } from "./models-table/models-table.component";
+import { ConfirmDeletionDialogComponent } from "../../../core/confirm-deletion-dialog/confirm-deletion-dialog.component";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-models-view',
@@ -22,7 +24,8 @@ export class ModelsViewComponent implements OnInit, OnDestroy, ContentDescriptor
   private deleteModelSubject: Subject<Model> = new Subject<Model>();
   private modelCreatedSubject: Subject<Model> = new Subject<Model>();
 
-  constructor(private modelsService: ModelsService, private messageService: MessageService, private dialog: MatDialog) {
+  constructor(private modelsService: ModelsService, private messageService: MessageService, private dialog: MatDialog,
+              private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -65,10 +68,20 @@ export class ModelsViewComponent implements OnInit, OnDestroy, ContentDescriptor
 
   deleteModel() {
     if (this.selectedModel) {
-      this.deleteModelSubject.next(this.selectedModel);
+      const matDialogRef: MatDialogRef<ConfirmDeletionDialogComponent, boolean> = this.dialog.open(
+        ConfirmDeletionDialogComponent, {role: "dialog", disableClose: true, data: {title: "Delete model?"}});
+      matDialogRef.afterClosed().subscribe(confirmed => {
+        if (confirmed)
+          this.deleteModelSubject.next(this.selectedModel);
+      })
     } else {
       this.messageService.notifyInfo("Select model to delete!")
     }
+  }
+
+  previewModel(): void {
+    this.modelsService.setCurrentModel(this.selectedModel);
+    this.router.navigate([`content/library/${this.selectedModel?.id}`])
   }
 
   ngOnDestroy(): void {

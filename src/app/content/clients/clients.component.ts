@@ -8,9 +8,9 @@ import { MessageService } from "../../message.service";
 import { ClientsTableComponent } from "./clients-table/clients-table.component";
 import { EditClientComponent } from "./edit-client/edit-client.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
-import { ConfirmDeletionDialogComponent } from "./confirm-deletion-dialog/confirm-deletion-dialog.component";
 import { CommissionsPreviewComponent } from "./commissions-preview/commissions-preview.component";
 import { Client } from "./Client";
+import { ConfirmDeletionDialogComponent } from "../../core/confirm-deletion-dialog/confirm-deletion-dialog.component";
 
 
 @Component({

@@ -5,7 +5,7 @@ import { ContentComponent } from "../content.component";
 import { ClientFormComponent } from "./client-form/client-form.component";
 import { ClientsTableComponent } from "./clients-table/clients-table.component";
 import { EditClientComponent } from "./edit-client/edit-client.component";
-import { ConfirmDeletionDialogComponent } from "./confirm-deletion-dialog/confirm-deletion-dialog.component";
+import { ConfirmDeletionDialogComponent } from "../../core/confirm-deletion-dialog/confirm-deletion-dialog.component";
 import { CommissionsPreviewComponent } from "./commissions-preview/commissions-preview.component";
 import { CommissionDetailsComponent } from "./commissions-preview/commission-deatails/commission-details.component";
 import { ClientsService } from "./clients.service";
@@ -22,6 +22,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSortModule } from "@angular/material/sort";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { ContentModule } from "../content.module";
+import { CoreModule } from "../../core/core.module";
 
 
 
@@ -31,12 +32,12 @@ import { ContentModule } from "../content.module";
     ClientFormComponent,
     ClientsTableComponent,
     EditClientComponent,
-    ConfirmDeletionDialogComponent,
     CommissionsPreviewComponent,
     CommissionDetailsComponent
   ],
     imports: [
         CommonModule,
+        CoreModule,
         RouterModule,
         FormsModule,
         MatDialogModule,

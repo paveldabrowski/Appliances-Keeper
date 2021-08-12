@@ -76,7 +76,7 @@ export class CommissionsViewComponent implements ContentDescriptor, OnInit, OnDe
     }
   }
 
-  commissionSelected($event: Commission): void {
+  commissionSelected($event: Commission | undefined): void {
     this.selectedCommission = $event;
   }
 

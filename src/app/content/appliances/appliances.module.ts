@@ -23,10 +23,21 @@ import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from "@angular/material/sort";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatButtonModule } from "@angular/material/button";
+import { ModelDetailsComponent } from './models-view/model-details/model-details.component';
+
+
 
 
 @NgModule({
-  declarations: [AddApplianceComponent, AddModelComponent, AddBrandComponent, AddTypeComponent, ModelsViewComponent, ModelsTableComponent],
+  declarations: [
+    AddApplianceComponent,
+    AddModelComponent,
+    AddBrandComponent,
+    AddTypeComponent,
+    ModelsViewComponent,
+    ModelsTableComponent,
+    ModelDetailsComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,

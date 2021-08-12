@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest } from "@angular/common/http";
 import { GetterByParam, Pageable, ServiceAsyncValidator, ServiceKeeper } from "../../model";
 import { Brand, Model, ModelImage } from "../models";
-import { Observable, of } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 import { BACKEND_URL } from "../../../../environments/environment";
 import { delay } from "rxjs/operators";
 import { Commission } from "../../commissions/Commission";
@@ -11,6 +11,8 @@ import { Commission } from "../../commissions/Commission";
   providedIn: 'root'
 })
 export class ModelsService implements ServiceKeeper<Model>, GetterByParam<Model>, ServiceAsyncValidator {
+
+  private _currentModelSubject: BehaviorSubject<Model | undefined> = new BehaviorSubject<Model | undefined>(undefined);
 
   constructor(private httpClient: HttpClient) {
   }
@@ -79,11 +81,19 @@ export class ModelsService implements ServiceKeeper<Model>, GetterByParam<Model>
     });
   }
 
-  getImagesByModelId(id: number): Observable<ModelImage[]> {
-    return this.httpClient.get<ModelImage[]>(`${BACKEND_URL}/appliances/models/${id}/images`);
+  getImagesByModelId(id: number | undefined): Observable<ModelImage[]> {
+    return id ? this.httpClient.get<ModelImage[]>(`${BACKEND_URL}/appliances/models/${id}/images`): of();
   }
 
   deleteModel(model: Model) {
     return this.httpClient.delete(`${BACKEND_URL}/appliances/models/${model.id}`);
+  }
+
+  setCurrentModel(model: Model | undefined) {
+    this._currentModelSubject.next(model);
+  }
+
+  get currentModelSubject(): BehaviorSubject<Model | undefined> {
+    return this._currentModelSubject;
   }
 }
