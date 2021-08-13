@@ -5,19 +5,20 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { ModelsService } from "../services/models.service";
-import { ModelImage } from "../models";
-import { switchMap } from "rxjs/operators";
+import { ModelImage } from "../../models";
+import { switchMap, take } from "rxjs/operators";
+import { ModelsService } from "../../services/models.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModelImagesResolver implements Resolve<ModelImage[]> {
 
-  constructor(private modelService: ModelsService) {
+  constructor(private modelsService: ModelsService) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ModelImage[]> {
-    return this.modelService.currentModelSubject.pipe(switchMap(value => this.modelService.getImagesByModelId(value?.id)));
+    // console.log("resolver")
+    return this.modelsService.currentModelSubject.pipe(switchMap(model => this.modelsService.getImagesByModelId(model?.id)), take(1));
   }
 }

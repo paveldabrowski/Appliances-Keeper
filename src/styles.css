@@ -129,4 +129,10 @@ body::-webkit-scrollbar-thumb {
   margin-right: 0.5rem;
 }
 
+/*.my-custom-button em {*/
+/*  font-size: 1.5rem;*/
+/*  color: white;*/
+/*  margin-right: 0.5rem;*/
+/*}*/
+
 /*.cdk-global-overlay-wrapper, .cdk-overlay-container { z-index: 9999!important; }*/

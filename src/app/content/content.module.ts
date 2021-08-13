@@ -26,7 +26,7 @@ import { RoleUserGuard } from "../auth/guards/role-user.guard";
 import { InitialViewComponent } from './initial-view/initial-view.component';
 import { ModelsViewComponent } from "./appliances/models-view/models-view.component";
 import { ModelDetailsComponent } from "./appliances/models-view/model-details/model-details.component";
-import { ModelImagesResolver } from "./appliances/models-view/model-images.resolver";
+import { ModelImagesResolver } from "./appliances/models-view/model-details/model-images.resolver";
 
 const routes: Routes = [
   {
@@ -57,6 +57,8 @@ const routes: Routes = [
       {
         path: 'library/:id',
         component: ModelDetailsComponent,
+        canActivate: [RoleUserGuard],
+        // resolve: {images: ModelImagesResolver},
       },
     ]
   }

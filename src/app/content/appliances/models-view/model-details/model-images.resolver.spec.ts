@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { ModelImagesResolver } from './model-images.resolver';
 
-describe('ModelResolver', () => {
+describe('ModelImagesResolver', () => {
   let resolver: ModelImagesResolver;
 
   beforeEach(() => {
