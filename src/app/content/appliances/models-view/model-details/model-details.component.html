@@ -6,55 +6,35 @@
           <button (click)="goBack()" class="my-custom-button btn btn-dark text-light align-self-center mb-3">
             <em class="fas fa-arrow-left"></em>
           </button>
-<!--          <button (click)="showAddModelForm()" class="my-custom-button btn btn-dark text-light align-self-center" >-->
-<!--            <i class="icon icofont-ui-add"></i>Add model-->
-<!--          </button>-->
-<!--          <button (click)="deleteModel()" class="my-custom-button btn btn-dark text-light align-self-center" >-->
-<!--            <i class="icon icofont-ui-delete"></i>Delete model-->
-<!--          </button>-->
-<!--          <button (click)="previewModel()" class="my-custom-button btn btn-dark text-light align-self-center" >-->
-<!--            <i class="icon icofont-search-2"></i>Model preview-->
-<!--          </button>-->
+          <!--          <button (click)="showAddModelForm()" class="my-custom-button btn btn-dark text-light align-self-center" >-->
+          <!--            <i class="icon icofont-ui-add"></i>Add model-->
+          <!--          </button>-->
+          <!--          <button (click)="deleteModel()" class="my-custom-button btn btn-dark text-light align-self-center" >-->
+          <!--            <i class="icon icofont-ui-delete"></i>Delete model-->
+          <!--          </button>-->
+          <!--          <button (click)="previewModel()" class="my-custom-button btn btn-dark text-light align-self-center" >-->
+          <!--            <i class="icon icofont-search-2"></i>Model preview-->
+          <!--          </button>-->
 
         </div>
       </section>
-      <section id="model-carousel" class="d-flex justify-content-center">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-indicators">
-<!--            <a [class.active]="i===0" type="button" *ngFor="let image of imagesObservable | async; let i=index" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="i" aria-current="true" aria-label="Slide 1"></a>-->
-            <button *ngFor="let image of imagesObservable | async; let i=index"
-                    [attr.data-bs-slide-to]="i"
-                    type="button"
-                    data-bs-target="#carouselExampleIndicators"
-                    [class.active]="i===0"
-                    [attr.aria-current]="i===0"
-                    [attr.aria-label]="'Slide ' + i">
-            </button>
+      <section id="model-image-slider">
+<!--        <div class="slider-div m-auto">-->
+        <div class="slider-div">
+          <div>
+            <ng-image-slider class="slider" [images]="imagesObject"
+                             [imageSize]="{width: '100%', height: '400px'}"
+                             [autoSlide]="{interval: 2, stopOnHover: false}"
+                             [infinite]="true"
+                             [manageImageRatio]="true"
+                             #nav>
+            </ng-image-slider>
           </div>
-          <div class="carousel-inner">
-            <div [class.active]="i===0" *ngFor="let image of imagesObservable | async; let i=index" class="carousel-item">
-              <img [src]="image.url" class="d-block w-100 image" [alt]="image.ibmKey">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-
         </div>
-
       </section>
 
 
     </div>
   </div>
 </div>
-
-
-
-
 

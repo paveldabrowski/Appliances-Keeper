@@ -25,6 +25,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatButtonModule } from "@angular/material/button";
 import { ModelDetailsComponent } from './models-view/model-details/model-details.component';
 import { ModelImagesResolver } from "./models-view/model-details/model-images.resolver";
+import { NgImageSliderModule } from "ng-image-slider";
 
 
 
@@ -54,7 +55,8 @@ import { ModelImagesResolver } from "./models-view/model-details/model-images.re
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatButtonModule
+    MatButtonModule,
+    NgImageSliderModule
 
 
   ],
