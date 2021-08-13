@@ -18,17 +18,40 @@
 
         </div>
       </section>
-      <section id="model-image-slider">
-<!--        <div class="slider-div m-auto">-->
-        <div class="slider-div">
-          <div>
-            <ng-image-slider class="slider" [images]="imagesObject"
-                             [imageSize]="{width: '100%', height: '400px'}"
-                             [autoSlide]="{interval: 2, stopOnHover: false}"
-                             [infinite]="true"
-                             [manageImageRatio]="true"
-                             #nav>
-            </ng-image-slider>
+      <section id="model-details-card">
+        <div class="container-fluid">
+          <div class="card">
+            <div class="card-header text-center">
+              <p>{{ model?.name }} {{ model?.brand?.name }}</p>
+            </div>
+
+            <!--        <div class="slider-div m-auto">-->
+            <div class="card-body ">
+              <div class="row">
+
+                <div class="col">
+                  <p class="content-title">Description</p>
+                  <p class="text-start" style="margin-top: 15px">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto beatae commodi cum, enim eum laborum molestias nobis numquam officia officiis optio recusandae rem, rerum soluta sunt. Aperiam doloremque enim fuga ipsam labore quas quis similique vero voluptates. Aliquid aperiam debitis earum exercitationem fuga, fugit id illo, incidunt nulla perspiciatis quam qui quia repudiandae, tempora temporibus veniam voluptatum? Architecto at debitis dignissimos ex exercitationem expedita harum libero modi necessitatibus, sequi, sunt tempore ullam voluptatem? Architecto, dolor dolore doloremque eveniet ex illum maiores non quidem! Architecto cupiditate ducimus facilis hic, nisi officiis pariatur repellat ut. Ab ex facilis ipsum mollitia sed! Ipsa.
+
+                  </p>
+                </div>
+
+                <div class="col">
+                  <p class="content-title" style="margin-left: 20px"><strong>Galery </strong></p>
+                  <div class="slider-div">
+                    <ng-image-slider class="slider" [images]="imagesObject"
+                                     [imageSize]="{width: '100%', height: '450px'}"
+                                     [autoSlide]="{interval: 5, stopOnHover: true}"
+                                     [infinite]="true"
+                                     [manageImageRatio]="true"
+                                     #nav>
+                    </ng-image-slider>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
           </div>
         </div>
       </section>

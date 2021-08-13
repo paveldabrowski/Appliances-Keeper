@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ModelsService } from "../../services/models.service";
 import { Observable, Subscription } from "rxjs";
-import { ModelImage } from "../../models";
+import { Model, ModelImage } from "../../models";
 import { ContentDescriptor } from "../../../model";
 import { Location } from "@angular/common";
 import { map } from "rxjs/operators";
@@ -14,11 +14,10 @@ import { map } from "rxjs/operators";
   styleUrls: ['./model-details.component.css']
 })
 export class ModelDetailsComponent implements OnInit, OnDestroy, ContentDescriptor {
-  imagesObservable!: Observable<ModelImage[]>;
   images!: ModelImage[];
   private readonly canGoBack: boolean;
   private subscriptions: Subscription = new Subscription();
-
+  model?: Model | undefined;
   imagesObject: Array<object> = [];
 
   constructor(private activatedRoute: ActivatedRoute, private location: Location, private modelsService: ModelsService,
@@ -27,11 +26,7 @@ export class ModelDetailsComponent implements OnInit, OnDestroy, ContentDescript
   }
 
   ngOnInit(): void {
-    // this.subscriptions.add(this.activatedRoute.data.subscribe(data => {
-    //   console.log(data)
-    //   this.images = data.images as ModelImage[];
-    // }));
-    // this.imagesObservable = this.modelsService.getImagesByModelId(14)
+    this.modelsService.currentModelSubject.subscribe(model => this.model = model)
     this.subscriptions.add(this.modelsService.getImagesByModelId(15)
       .pipe(
         map(images => {
