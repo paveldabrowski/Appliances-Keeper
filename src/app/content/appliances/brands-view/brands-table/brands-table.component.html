@@ -1,0 +1,52 @@
+<div class="models-table pb-4">
+  <div class="search-div d-flex align-items-center mx-4 pt-4">
+    <mat-form-field class="search-form-field">
+      <mat-label>Search</mat-label>
+      <input matInput [(ngModel)]="searchTerm" placeholder="Search for commission" autocomplete="off" #input>
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchTerm" (click)="onSearchClear()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <div class="slogan d-flex align-items-end ms-auto"><h1 class="text-center">Manage brands </h1></div>
+
+  </div>
+
+
+  <div class="mat-elevation-z2 mx-4">
+    <mat-table  [dataSource]="dataSource" mat-table matSort>
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Id
+          <div [class.spinner-border]="dataSource.loading$ | async" class="text-danger ms-2" role="status">
+          </div>
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
+      </ng-container>
+
+      <mat-header-row mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+      <mat-row (click)="selectRow(row)"
+               [ngClass]="selectedRow === row ? 'selected-row' : ''" *matRowDef="let row; columns: columns;"></mat-row>
+
+      <!-- Row shown when mat-header-cellere is no matching data. -->
+      <tr class="mat-row row justify-content-center text-center align-items-center" *matNoDataRow>
+        <td class="" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </mat-table>
+
+    <mat-paginator #paginator
+                   [length]="dataSource.length"
+                   [pageIndex]="0"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 20, 100]">
+    </mat-paginator>
+
+  </div>
+
+
+</div>
