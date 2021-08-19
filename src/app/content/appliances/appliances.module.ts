@@ -28,6 +28,7 @@ import { ModelImagesResolver } from "./models-view/model-details/model-images.re
 import { NgImageSliderModule } from "ng-image-slider";
 import { BrandsViewComponent } from './brands-view/brands-view.component';
 import { RouterModule } from "@angular/router";
+import { BrandsTableComponent } from './brands-view/brands-table/brands-table.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { RouterModule } from "@angular/router";
     ModelsViewComponent,
     ModelsTableComponent,
     ModelDetailsComponent,
-    BrandsViewComponent
+    BrandsViewComponent,
+    BrandsTableComponent
   ],
   imports: [
     CommonModule,

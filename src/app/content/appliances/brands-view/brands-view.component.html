@@ -1,1 +1,25 @@
-<p>brands-view works!</p>
+<div class="d-flex main-vertical right-sidebar-toggled">
+  <div class="d-flex w-100 flex-grow-1">
+    <div class="d-flex  w-100 flex-column overflow-auto">
+      <section id="commissions-header">
+        <div class="button-layout mx-4">
+          <button (click)="showAddBrand()" class="my-custom-button btn btn-dark text-light align-self-center" >
+            <i class="icon icofont-ui-add"></i>Add brand
+          </button>
+          <button (click)="deleteBrand()" class="my-custom-button btn btn-dark text-light align-self-center" >
+            <i class="icon icofont-ui-delete"></i>Delete brand
+          </button>
+          <button routerLink="/content/appliances/library" class="my-custom-button btn btn-dark text-light align-self-center" >
+            <i class="icon icofont-washing-machine"></i> Models Library
+          </button>
+
+        </div>
+      </section>
+
+      <section id="model-table">
+        <app-brands-table (rowSelected)="brandSelected($event)"></app-brands-table>
+      </section>
+
+    </div>
+  </div>
+</div>

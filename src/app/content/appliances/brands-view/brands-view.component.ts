@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContentDescriptor } from "../../model";
+import { Brand } from "../models";
 
 @Component({
   selector: 'app-brands-view',
@@ -17,4 +18,15 @@ export class BrandsViewComponent implements OnInit, ContentDescriptor {
     return "Brands";
   }
 
+  brandSelected($event: Brand | undefined) {
+
+  }
+
+  showAddBrand() {
+
+  }
+
+  deleteBrand() {
+
+  }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { GetterByParam, ServiceAsyncValidator } from "../../model";
-import { Brand } from "../models";
+import { GetterByParam, Pageable, ServiceAsyncValidator, ServiceKeeper } from "../../model";
+import { Brand, Model } from "../models";
 import { Observable, of } from "rxjs";
 import { BACKEND_URL } from "../../../../environments/environment";
 import { HttpClient, HttpParams } from "@angular/common/http";
@@ -9,9 +9,21 @@ import { delay } from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
-export class BrandsService implements GetterByParam<Brand>, ServiceAsyncValidator{
+export class BrandsService implements ServiceKeeper<Brand>, GetterByParam<Brand>, ServiceAsyncValidator {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
+
+  findSearchedPaginatedSorted(sortBy: string = "id", sortDirection: string = "asc", searchTerm: string = "",
+                              page: number = 0, size: number = 5): Observable<Pageable<Brand>> {
+    return this.httpClient.get<Pageable<Brand>>(`${ BACKEND_URL }/appliances/brands`, {
+      params: new HttpParams()
+        .set("sort", `${ sortBy },${ sortDirection }`)
+        .set("page", page.toString())
+        .set("size", size.toString())
+        .set("searchTerm", searchTerm)
+    });
+  }
 
   findAllByParam(field: string, value: string): Observable<Brand[]> {
     return this.httpClient.get<Brand[]>(`${BACKEND_URL}/appliances/brands`,
