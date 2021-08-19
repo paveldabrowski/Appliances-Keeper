@@ -26,33 +26,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { ModelDetailsComponent } from './models-view/model-details/model-details.component';
 import { ModelImagesResolver } from "./models-view/model-details/model-images.resolver";
 import { NgImageSliderModule } from "ng-image-slider";
-import { RouterModule, Routes } from "@angular/router";
 import { BrandsViewComponent } from './brands-view/brands-view.component';
-import { AppliancesViewComponent } from './appliances-view.component';
-import { RoleUserGuard } from "../../auth/guards/role-user.guard";
-
-const routes: Routes = [
-  {
-    path: 'appliances',
-    component: AppliancesViewComponent,
-  },
-  {
-    path: 'library',
-    component: ModelsViewComponent,
-    canActivate: [RoleUserGuard]
-  },
-  {
-    path: 'library/:id',
-    component: ModelDetailsComponent,
-    canActivate: [RoleUserGuard],
-    resolve: {images: ModelImagesResolver},
-  },
-  {
-    path: 'brands',
-    component: BrandsViewComponent,
-    canActivate: [RoleUserGuard]
-  },
-]
+import { RouterModule } from "@angular/router";
 
 
 @NgModule({
@@ -64,8 +39,7 @@ const routes: Routes = [
     ModelsViewComponent,
     ModelsTableComponent,
     ModelDetailsComponent,
-    BrandsViewComponent,
-    AppliancesViewComponent
+    BrandsViewComponent
   ],
   imports: [
     CommonModule,
@@ -84,9 +58,7 @@ const routes: Routes = [
     MatPaginatorModule,
     MatButtonModule,
     NgImageSliderModule,
-    RouterModule.forChild(routes)
-
-
+    RouterModule,
   ],
   providers: [AppliancesService, BrandsService, ModelsService, TypesService, ModelImagesResolver]
 })

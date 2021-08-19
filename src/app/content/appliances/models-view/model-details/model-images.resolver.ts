@@ -18,7 +18,6 @@ export class ModelImagesResolver implements Resolve<ModelImage[]> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ModelImage[]> {
-    // console.log("resolver")
     return this.modelsService.currentModelSubject.pipe(switchMap(model => this.modelsService.getImagesByModelId(model?.id)), take(1));
   }
 }

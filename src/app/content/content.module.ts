@@ -25,6 +25,10 @@ import { contentErrorInterceptors } from "../error-handling.interceptor";
 import { RoleUserGuard } from "../auth/guards/role-user.guard";
 import { InitialViewComponent } from './initial-view/initial-view.component';
 import { AppliancesModule } from "./appliances/appliances.module";
+import { ModelsViewComponent } from "./appliances/models-view/models-view.component";
+import { ModelDetailsComponent } from "./appliances/models-view/model-details/model-details.component";
+import { ModelImagesResolver } from "./appliances/models-view/model-details/model-images.resolver";
+import { BrandsViewComponent } from "./appliances/brands-view/brands-view.component";
 
 const routes: Routes = [
   {
@@ -50,7 +54,25 @@ const routes: Routes = [
       {
         path: 'appliances',
         canActivate: [RoleUserGuard],
-        loadChildren: () => import('src/app/content/appliances/appliances.module').then(m => m.AppliancesModule)
+        // loadChildren: () => import('src/app/content/appliances/appliances.module').then(m => m.AppliancesModule)
+        children: [
+          {
+            path: 'library',
+            component: ModelsViewComponent,
+            canActivate: [RoleUserGuard]
+          },
+          {
+            path: 'library/:id',
+            component: ModelDetailsComponent,
+            canActivate: [RoleUserGuard],
+            resolve: {images: ModelImagesResolver},
+          },
+          {
+            path: 'brands',
+            component: BrandsViewComponent,
+            canActivate: [RoleUserGuard]
+          },
+        ]
       },
     ]
   }
