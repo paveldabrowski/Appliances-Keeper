@@ -26,10 +26,33 @@ import { MatButtonModule } from "@angular/material/button";
 import { ModelDetailsComponent } from './models-view/model-details/model-details.component';
 import { ModelImagesResolver } from "./models-view/model-details/model-images.resolver";
 import { NgImageSliderModule } from "ng-image-slider";
-import { RouterModule } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { BrandsViewComponent } from './brands-view/brands-view.component';
+import { AppliancesViewComponent } from './appliances-view.component';
+import { RoleUserGuard } from "../../auth/guards/role-user.guard";
 
-
+const routes: Routes = [
+  {
+    path: 'appliances',
+    component: AppliancesViewComponent,
+  },
+  {
+    path: 'library',
+    component: ModelsViewComponent,
+    canActivate: [RoleUserGuard]
+  },
+  {
+    path: 'library/:id',
+    component: ModelDetailsComponent,
+    canActivate: [RoleUserGuard],
+    resolve: {images: ModelImagesResolver},
+  },
+  {
+    path: 'brands',
+    component: BrandsViewComponent,
+    canActivate: [RoleUserGuard]
+  },
+]
 
 
 @NgModule({
@@ -41,29 +64,30 @@ import { BrandsViewComponent } from './brands-view/brands-view.component';
     ModelsViewComponent,
     ModelsTableComponent,
     ModelDetailsComponent,
-    BrandsViewComponent
+    BrandsViewComponent,
+    AppliancesViewComponent
   ],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatAutocompleteModule,
-        MatInputModule,
-        MatDialogModule,
-        MatSelectModule,
-        SharedModule,
-        AuthModule,
-        FormsModule,
-        MatIconModule,
-        MatTableModule,
-        MatSortModule,
-        MatPaginatorModule,
-        MatButtonModule,
-        NgImageSliderModule,
-        RouterModule
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatDialogModule,
+    MatSelectModule,
+    SharedModule,
+    AuthModule,
+    FormsModule,
+    MatIconModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    NgImageSliderModule,
+    RouterModule.forChild(routes)
 
 
-    ],
+  ],
   providers: [AppliancesService, BrandsService, ModelsService, TypesService, ModelImagesResolver]
 })
 export class AppliancesModule {
