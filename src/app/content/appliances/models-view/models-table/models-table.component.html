@@ -25,17 +25,17 @@
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Serial number</mat-header-cell>
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
         <mat-cell mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="b.name">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Appliance</mat-header-cell>
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Brand</mat-header-cell>
         <mat-cell mat-cell *matCellDef="let row"> {{ row.brand.name }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="a.name">
-        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Created at</mat-header-cell>
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
         <mat-cell mat-cell *matCellDef="let row"> {{ row.applianceType.name }} </mat-cell>
       </ng-container>
 

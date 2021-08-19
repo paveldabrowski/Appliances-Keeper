@@ -80,8 +80,12 @@ export class ModelsViewComponent implements OnInit, OnDestroy, ContentDescriptor
   }
 
   previewModel(): void {
-    this.modelsService.setCurrentModel(this.selectedModel);
-    this.router.navigate([`content/library/${this.selectedModel?.id}`])
+    if (this.selectedModel) {
+      this.modelsService.setCurrentModel(this.selectedModel);
+      this.router.navigate([`content/appliances/library/${ this.selectedModel?.id }`])
+    } else {
+      this.messageService.notifyInfo("Select model to preview!")
+    }
   }
 
   ngOnDestroy(): void {

@@ -6,6 +6,10 @@
           <button (click)="goBack()" class="my-custom-button btn btn-dark text-light align-self-center mb-3">
             <em class="fas fa-arrow-left"></em>
           </button>
+          <a routerLink="/content/appliances/library" (click)="goBack()" class="my-custom-button btn btn-dark text-light align-self-center mb-3">
+            <em class="icofont-washing-machine"></em>
+            Library
+          </a>
           <!--          <button (click)="showAddModelForm()" class="my-custom-button btn btn-dark text-light align-self-center" >-->
           <!--            <i class="icon icofont-ui-add"></i>Add model-->
           <!--          </button>-->
@@ -19,21 +23,39 @@
         </div>
       </section>
       <section id="model-details-card">
-        <div class="container-fluid">
+        <div class="container-fluid p-4">
           <div class="card">
-            <div class="card-header text-center">
-              <p>{{ model?.name }} {{ model?.brand?.name }}</p>
+            <div class="card-header d-flex align-items-center">
+              <p *ngIf="model">{{ model?.name }} {{ model?.brand?.name }}</p>
+              <p *ngIf="!model">GTX - 1060 SAMSUNG</p>
             </div>
 
             <!--        <div class="slider-div m-auto">-->
             <div class="card-body ">
               <div class="row">
 
-                <div class="col">
-                  <p class="content-title">Description</p>
-                  <p class="text-start" style="margin-top: 15px">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto beatae commodi cum, enim eum laborum molestias nobis numquam officia officiis optio recusandae rem, rerum soluta sunt. Aperiam doloremque enim fuga ipsam labore quas quis similique vero voluptates. Aliquid aperiam debitis earum exercitationem fuga, fugit id illo, incidunt nulla perspiciatis quam qui quia repudiandae, tempora temporibus veniam voluptatum? Architecto at debitis dignissimos ex exercitationem expedita harum libero modi necessitatibus, sequi, sunt tempore ullam voluptatem? Architecto, dolor dolore doloremque eveniet ex illum maiores non quidem! Architecto cupiditate ducimus facilis hic, nisi officiis pariatur repellat ut. Ab ex facilis ipsum mollitia sed! Ipsa.
+                <div class="col d-flex flex-column">
+                  <div>
+                    <p class="content-title mb-4">Specification</p>
+                    <hr>
+                    <img class="w-100" src="/assets/appliance-specs.png" alt="specs">
+                  </div>
 
-                  </p>
+                  <div class="mt-auto pt-4">
+                    <p class="content-title mb-4">Description</p>
+                    <hr>
+                    <p class="" style="margin-top: 15px">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem cumque delectus dolore dolorum
+                      facilis iusto non, nostrum quaerat qui vero. Accusantium, ex excepturi facere minima molestiae
+                      molestias temporibus voluptatum? Deserunt dicta esse harum laboriosam quis quod similique. A ab at
+                      aut beatae cum cumque delectus dignissimos distinctio, ex fugit ipsam, molestiae molestias
+                      necessitatibus nemo nobis odio porro quam rerum sed, sit temporibus vel voluptatibus? Ab
+                      architecto aut, distinctio doloribus ea facere, fugit hic, in laborum magni molestias officiis
+                      quasi quos tempore veritatis. Ab eaque magnam possimus sint. Accusantium aspernatur autem
+                      exercitationem expedita, libero molestias nisi quasi reiciendis sapiente voluptas. Quod!
+                    </p>
+                  </div>
+
                 </div>
 
                 <div class="col">

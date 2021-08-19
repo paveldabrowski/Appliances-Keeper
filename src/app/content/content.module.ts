@@ -27,6 +27,7 @@ import { InitialViewComponent } from './initial-view/initial-view.component';
 import { ModelsViewComponent } from "./appliances/models-view/models-view.component";
 import { ModelDetailsComponent } from "./appliances/models-view/model-details/model-details.component";
 import { ModelImagesResolver } from "./appliances/models-view/model-details/model-images.resolver";
+import { BrandsViewComponent } from "./appliances/brands-view/brands-view.component";
 
 const routes: Routes = [
   {
@@ -50,15 +51,26 @@ const routes: Routes = [
         canActivate: [RoleUserGuard]
       },
       {
-        path: 'library',
-        component: ModelsViewComponent,
-        canActivate: [RoleUserGuard]
-      },
-      {
-        path: 'library/:id',
-        component: ModelDetailsComponent,
+        path: 'appliances',
         canActivate: [RoleUserGuard],
-        // resolve: {images: ModelImagesResolver},
+        children: [
+          {
+            path: 'brands',
+            component: BrandsViewComponent,
+            canActivate: [RoleUserGuard]
+          },
+          {
+            path: 'library',
+            component: ModelsViewComponent,
+            canActivate: [RoleUserGuard]
+          },
+          {
+            path: 'library/:id',
+            component: ModelDetailsComponent,
+            canActivate: [RoleUserGuard],
+            resolve: {images: ModelImagesResolver},
+          },
+        ]
       },
     ]
   }

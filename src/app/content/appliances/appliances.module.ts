@@ -26,6 +26,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { ModelDetailsComponent } from './models-view/model-details/model-details.component';
 import { ModelImagesResolver } from "./models-view/model-details/model-images.resolver";
 import { NgImageSliderModule } from "ng-image-slider";
+import { RouterModule } from "@angular/router";
+import { BrandsViewComponent } from './brands-view/brands-view.component';
 
 
 
@@ -38,28 +40,30 @@ import { NgImageSliderModule } from "ng-image-slider";
     AddTypeComponent,
     ModelsViewComponent,
     ModelsTableComponent,
-    ModelDetailsComponent
+    ModelDetailsComponent,
+    BrandsViewComponent
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatAutocompleteModule,
-    MatInputModule,
-    MatDialogModule,
-    MatSelectModule,
-    SharedModule,
-    AuthModule,
-    FormsModule,
-    MatIconModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    NgImageSliderModule
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatAutocompleteModule,
+        MatInputModule,
+        MatDialogModule,
+        MatSelectModule,
+        SharedModule,
+        AuthModule,
+        FormsModule,
+        MatIconModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatButtonModule,
+        NgImageSliderModule,
+        RouterModule
 
 
-  ],
+    ],
   providers: [AppliancesService, BrandsService, ModelsService, TypesService, ModelImagesResolver]
 })
 export class AppliancesModule {
