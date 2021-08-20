@@ -17,8 +17,14 @@
             <input type="password" formControlName="password" matInput placeholder="Password...">
           </mat-form-field>
 
-          <button [disabled]="loginGroup.invalid" class="my-custom-button btn btn-dark text-light me-0"
-                  type="submit">Sign in
+          <button #submitButton [disabled]="loginGroup.invalid" class="my-custom-button btn btn-dark text-light me-0"
+                  type="submit">
+            <div *ngIf="loading$ | async" class="d-flex justify-content-center align-items-center">
+              <span class="spinner-border spinner-border me-3" role="status" aria-hidden="true"></span>
+              <span>Loading...</span>
+            </div>
+            <span *ngIf="!(loading$ | async)" class="">Sign in</span>
+
           </button>
           <button (click)="resetForm()" type="reset" class="clear-button my-custom-button btn btn-light me-0 mt-2">
             Reset
