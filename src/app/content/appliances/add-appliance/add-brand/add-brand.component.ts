@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, Validators } from "@angular/forms";
 import { BrandNameValidator } from "./BrandNameValidator";
 import { BrandsService } from "../../services/brands.service";
@@ -14,6 +14,7 @@ import { MessageService } from "../../../../message.service";
 })
 export class AddBrandComponent implements OnInit, OnDestroy {
   @ViewChild(FormGroupDirective) form?: FormGroupDirective;
+  @Output("brandCreated") brandCreated: EventEmitter<Brand | undefined> = new EventEmitter<Brand | undefined>()
   brandSubject: Subject<Brand> = new Subject<Brand>();
   subscriptions: Subscription = new Subscription();
   brandGroup: FormGroup = new FormGroup({
@@ -21,12 +22,15 @@ export class AddBrandComponent implements OnInit, OnDestroy {
     name: new FormControl(null, Validators.required, BrandNameValidator.createValidator(this.brandsService))
   });
 
-  constructor(private brandsService: BrandsService, private messageService: MessageService) { }
-
+  constructor(private brandsService: BrandsService, private messageService: MessageService) {
+  }
 
   ngOnInit(): void {
-    this.subscriptions.add(this.brandSubject.pipe(switchMap(brand => this.brandsService.add(brand))).subscribe(brand => {
-      this.messageService.notifySuccess(`Brand ${brand.name} successfully created.`)
+    this.subscriptions.add(this.brandSubject.pipe(
+      switchMap(brand => this.brandsService.add(brand))
+    ).subscribe(brand => {
+      this.messageService.notifySuccess(`Brand ${ brand.name } successfully created.`);
+      this.brandCreated.emit(brand);
     }, error => this.messageService.notifyError(error.message)));
   }
 

@@ -20,7 +20,9 @@
 
         <!-- ID Column -->
         <ng-container matColumnDef="id">
-          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Id
+            <div [class.spinner-border]="loading$ | async" class="text-danger ms-2" role="status"></div>
+          </mat-header-cell>
           <mat-cell mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
         </ng-container>
 

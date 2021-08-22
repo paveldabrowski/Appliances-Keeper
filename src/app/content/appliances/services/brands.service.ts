@@ -60,4 +60,8 @@ export class BrandsService implements ServiceKeeper<Brand>, GetterByParam<Brand>
     } else
       return of(true);
   }
+
+  deleteBrand(brand: Brand) {
+    return this.httpClient.delete(`${BACKEND_URL}/appliances/brands/${brand.id}`)
+  }
 }

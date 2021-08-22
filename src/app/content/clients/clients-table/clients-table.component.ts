@@ -24,11 +24,15 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   clients: Observable<Client[]> = this.refreshToken$.pipe(switchMap(() => this.clientsService.findAll()));
   searchKey: string | undefined;
   selectedClient: Client | null = null;
-  @Output('selectionEvent')selectedEmitter: EventEmitter<Client | null> = new EventEmitter<Client | null>();
+  @Output('selectionEvent') selectedEmitter: EventEmitter<Client | null> = new EventEmitter<Client | null>();
+  private loadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  loading$: Observable<boolean> = this.loadingSubject.asObservable();
 
-  constructor(private clientsService: ClientsService) {}
+  constructor(private clientsService: ClientsService) {
+  }
 
   ngAfterViewInit(): void {
+
     this.buildTable();
   }
 
@@ -49,7 +53,7 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
     }
   }
 
-  selectClient(client : Client): void {
+  selectClient(client: Client): void {
     if (this.selectedClient === client) {
       this.selectedClient = null;
     } else
@@ -57,14 +61,19 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
     this.selectedEmitter.emit(this.selectedClient);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   buildTable(): void {
+    this.loadingSubject.next(true);
     this.subscription = this.clients.subscribe(clients => {
-      this.sort.sort({id: "name", start:"asc", disableClear: false});
+      this.sort.sort({id: "name", start: "asc", disableClear: false});
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
       this.dataSource.data = clients;
+      this.loadingSubject.next(false);
+    }, () => {
+      this.loadingSubject.next(false);
     });
     this.table.dataSource = this.dataSource;
   }
@@ -74,6 +83,7 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   refreshTable() {
+    this.loadingSubject.next(true);
     this.refreshToken$.next(undefined);
   }
 }
