@@ -1,12 +1,11 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ApplianceType, Brand, Model } from "../../models";
-import { FormBuilder, FormGroup, FormGroupDirective, Validators } from "@angular/forms";
+import { FormGroup, FormGroupDirective } from "@angular/forms";
 import { ModelsService } from "../../services/models.service";
 import { BrandsService } from "../../services/brands.service";
 import { Observable, Subject, Subscription } from "rxjs";
 import { MatOptionSelectionChange } from "@angular/material/core";
 import { TypesService } from "../../services/types.service";
-import { ModelNameValidator } from "./ModelNameValidator";
 import { MessageService } from "../../../../message.service";
 import { switchMap } from "rxjs/operators";
 import { MatDialog } from "@angular/material/dialog";

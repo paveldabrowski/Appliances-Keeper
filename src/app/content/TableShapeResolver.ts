@@ -27,10 +27,10 @@ export abstract class TableShapeResolver<T> implements OnInit, OnDestroy, AfterV
   protected constructor(@Inject("serviceKeeper") private serviceKeeper: ServiceKeeper<T>,
                         private messageService: MessageService, columns: Array<string>) {
     this.columns = columns;
+    this.dataSource = this.initTable();
   }
 
   ngOnInit(): void {
-    this.dataSource = this.initTable();
   }
 
   initTable(): ServerSideDataSource<T> {

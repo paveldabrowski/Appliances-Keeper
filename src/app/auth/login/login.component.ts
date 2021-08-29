@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.submitButton.nativeElement.disabled = true;
     this.subscriptions.add(this.authService.login(this.loginGroup.value as LoginCredentials).subscribe(
       user => {
-        console.log(user);
+        // console.log(user);
         this.tokenStorage.saveToken(user.accessToken);
         this.tokenStorage.saveUser(user);
         this.isLoginFailed = false;

@@ -1,0 +1,28 @@
+<div class="d-flex main-vertical right-sidebar-toggled">
+  <div class="d-flex w-100 flex-grow-1">
+    <div class="d-flex  w-100 flex-column overflow-auto">
+      <section id="technicians-header">
+        <div class="button-layout mx-4">
+          <button class="my-custom-button btn btn-dark text-light align-self-center" >
+            <i class="icon icofont-ui-add"></i>Add model
+          </button>
+          <button class="my-custom-button btn btn-dark text-light align-self-center" >
+            <i class="icon icofont-search-2"></i>Model preview
+          </button>
+          <button class="my-custom-button btn btn-dark text-light align-self-center" >
+            <i class="icon icofont-ui-delete"></i>Delete model
+          </button>
+          <button routerLink="/content/appliances/brands" class="my-custom-button btn btn-dark text-light align-self-center" >
+            <i class="icon icofont-brand-adidas"></i>Brands
+          </button>
+
+        </div>
+      </section>
+
+      <section id="technicians-table">
+        <app-technicians-table (rowSelected)="modelSelected($event)"></app-technicians-table>
+      </section>
+
+    </div>
+  </div>
+</div>

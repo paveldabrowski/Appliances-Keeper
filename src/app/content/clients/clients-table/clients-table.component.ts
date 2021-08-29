@@ -4,7 +4,7 @@ import { TABLE_COLUMNS } from "./models";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTable, MatTableDataSource } from "@angular/material/table";
-import { BehaviorSubject, Observable, Subscription } from "rxjs";
+import { BehaviorSubject, Observable, Subject, Subscription } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { Client } from "../Client";
 
@@ -31,8 +31,12 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   constructor(private clientsService: ClientsService) {
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
 
+  }
+
+
+  ngAfterViewInit(): void {
     this.buildTable();
   }
 
@@ -61,8 +65,7 @@ export class ClientsTableComponent implements AfterViewInit, OnInit, OnDestroy {
     this.selectedEmitter.emit(this.selectedClient);
   }
 
-  ngOnInit(): void {
-  }
+
 
   buildTable(): void {
     this.loadingSubject.next(true);

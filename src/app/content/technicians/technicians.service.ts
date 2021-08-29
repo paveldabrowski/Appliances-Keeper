@@ -1,19 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { GetterBySearchTerm } from "../model";
+import { GetterBySearchTerm, Pageable, ServiceKeeper } from "../model";
 import { Hour, Technician, WorkingDay } from "./models";
 import { BACKEND_URL } from "../../../environments/environment";
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
+import { Model } from "../appliances/models";
 
 @Injectable({
   providedIn: 'root'
 })
-export class TechniciansService implements GetterBySearchTerm<Technician> {
+export class TechniciansService implements GetterBySearchTerm<Technician>, ServiceKeeper<Technician> {
 
   Hour = Hour;
 
   constructor(private httpClient: HttpClient) {
+  }
+
+  findAll(): Observable<Technician[]> {
+    return this.httpClient.get<Technician[]>(`${BACKEND_URL}/technicians`);
+  }
+
+  findSearchedPaginatedSorted(sortBy: string = "id", sortDirection: string = "asc", searchTerm: string = "",
+                              page: number = 0, size: number = 5): Observable<Pageable<Technician>> {
+    return this.httpClient.get<Pageable<Technician>>(`${ BACKEND_URL }/technicians`, {
+      params: new HttpParams()
+        .set("sort", `${ sortBy },${ sortDirection }`)
+        .set("page", page.toString())
+        .set("size", size.toString())
+        .set("searchTerm", searchTerm)
+    });
   }
 
   getWorkingDay(technician: Technician, date: Date) {

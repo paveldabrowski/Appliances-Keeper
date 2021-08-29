@@ -29,6 +29,7 @@ import { ModelsViewComponent } from "./appliances/models-view/models-view.compon
 import { ModelDetailsComponent } from "./appliances/models-view/model-details/model-details.component";
 import { ModelImagesResolver } from "./appliances/models-view/model-details/model-images.resolver";
 import { BrandsViewComponent } from "./appliances/brands-view/brands-view.component";
+import { TechniciansViewComponent } from "./technicians/technicians-view/technicians-view.component";
 
 const routes: Routes = [
   {
@@ -49,6 +50,11 @@ const routes: Routes = [
       {
         path: 'commissions',
         component: CommissionsViewComponent,
+        canActivate: [RoleUserGuard]
+      },
+      {
+        path: 'technicians',
+        component: TechniciansViewComponent,
         canActivate: [RoleUserGuard]
       },
       {

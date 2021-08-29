@@ -71,6 +71,4 @@ export class BrandsViewComponent implements OnInit, OnDestroy, ContentDescriptor
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
-
 }
