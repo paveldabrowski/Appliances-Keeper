@@ -23,6 +23,8 @@ export interface WorkingDay {
   date: Date;
   technician: Technician;
   technicianTerms: TechnicianTerm[];
+  technicianId?: number
+  day?: any
 }
 
 export enum Hour {

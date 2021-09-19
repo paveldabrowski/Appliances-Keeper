@@ -2,7 +2,8 @@ import { Observable } from "rxjs";
 
 export interface ContentDescriptor {
 
-  getTitle(): string;
+ getTitle(): string;
+
 }
 
 export interface ServiceKeeper<T> {

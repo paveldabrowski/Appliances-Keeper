@@ -30,6 +30,7 @@ import { ModelDetailsComponent } from "./appliances/models-view/model-details/mo
 import { ModelImagesResolver } from "./appliances/models-view/model-details/model-images.resolver";
 import { BrandsViewComponent } from "./appliances/brands-view/brands-view.component";
 import { TechniciansViewComponent } from "./technicians/technicians-view/technicians-view.component";
+import { TechnicianCalendarComponent } from "./technicians/technician-calendar/technician-calendar.component";
 
 const routes: Routes = [
   {
@@ -55,6 +56,11 @@ const routes: Routes = [
       {
         path: 'technicians',
         component: TechniciansViewComponent,
+        canActivate: [RoleUserGuard]
+      },
+      {
+        path: 'technicians/:id',
+        component: TechnicianCalendarComponent,
         canActivate: [RoleUserGuard]
       },
       {

@@ -4,23 +4,23 @@
       <section id="technicians-header">
         <div class="button-layout mx-4">
           <button class="my-custom-button btn btn-dark text-light align-self-center" >
-            <i class="icon icofont-ui-add"></i>Add model
+            <i class="icon icofont-ui-add"></i>Add technician
           </button>
           <button class="my-custom-button btn btn-dark text-light align-self-center" >
-            <i class="icon icofont-search-2"></i>Model preview
+            <i class="icon icofont-search-2"></i>Technician preview
           </button>
           <button class="my-custom-button btn btn-dark text-light align-self-center" >
-            <i class="icon icofont-ui-delete"></i>Delete model
+            <i class="icon icofont-ui-delete"></i>Delete technician
           </button>
-          <button routerLink="/content/appliances/brands" class="my-custom-button btn btn-dark text-light align-self-center" >
-            <i class="icon icofont-brand-adidas"></i>Brands
+          <button routerLink="/content/technicians/" class="my-custom-button btn btn-dark text-light align-self-center" >
+            <i class="icon icofont-"></i>Technician working days
           </button>
 
         </div>
       </section>
 
       <section id="technicians-table">
-        <app-technicians-table (rowSelected)="modelSelected($event)"></app-technicians-table>
+        <app-technicians-table (rowSelected)="technicianSelected($event)"></app-technicians-table>
       </section>
 
     </div>

@@ -26,7 +26,7 @@ export class TechniciansViewComponent implements OnInit, ContentDescriptor {
     return "Technicians";
   }
 
-  modelSelected(technician: Technician | undefined) {
-
+  technicianSelected(technician: Technician | undefined) {
+    this.selectedTechnician = technician;
   }
 }

@@ -16,7 +16,6 @@ import { LoginViewComponent } from "./auth/login-view/login-view.component";
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginGuard } from "./auth/guards/login.guard";
 import { FileUploadService } from "./file-upload.service";
-import { UploadFilesComponent } from './shared/upload-files-component/upload-files.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
